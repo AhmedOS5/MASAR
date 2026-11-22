@@ -1,0 +1,122 @@
+.parallaxContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background-color: var(--bg-main);
+  overflow: hidden;
+}
+
+/* Parallax Layers */
+.layerGrid {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: translate(calc(var(--mouse-x, 0) * -40px), calc(var(--mouse-y, 0) * -40px));
+  transition: transform 0.15s ease-out;
+}
+
+.layerSphere1 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: translate(calc(var(--mouse-x, 0) * 60px), calc(var(--mouse-y, 0) * 60px));
+  transition: transform 0.15s ease-out;
+}
+
+.layerSphere2 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: translate(calc(var(--mouse-x, 0) * -50px), calc(var(--mouse-y, 0) * -50px));
+  transition: transform 0.15s ease-out;
+}
+
+.layerSphere3 {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform: translate(calc(var(--mouse-x, 0) * 30px), calc(var(--mouse-y, 0) * 30px));
+  transition: transform 0.15s ease-out;
+}
+
+/* Animated Elements */
+.gridOverlay {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200vw;
+  height: 200vh;
+  background-image: 
+    linear-gradient(to right, rgba(2, 105, 96, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(2, 105, 96, 0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: moveGrid 25s linear infinite;
+}
+
+@keyframes moveGrid {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(60px, 60px); }
+}
+
+.gradientSphere1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, rgba(2, 105, 96, 0.15) 0%, rgba(2, 105, 96, 0) 70%);
+  border-radius: 50%;
+  animation: swapColors1 30s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  filter: blur(90px);
+  will-change: transform;
+}
+
+.gradientSphere2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 45vw;
+  height: 45vw;
+  background: radial-gradient(circle, rgba(14, 164, 233, 0.1) 0%, rgba(14, 164, 233, 0) 70%);
+  border-radius: 50%;
+  animation: swapColors2 30s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  filter: blur(90px);
+  will-change: transform;
+}
+
+.gradientSphere3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40vw;
+  height: 40vw;
+  background: radial-gradient(circle, rgba(112, 55, 197, 0.08) 0%, rgba(112, 55, 197, 0) 70%);
+  border-radius: 50%;
+  animation: swapColors3 30s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  filter: blur(100px);
+  will-change: transform;
+}
+
+@keyframes swapColors1 {
+  0% { transform: translate(-10vw, -10vh) scale(1); }
+  33% { transform: translate(50vw, 60vh) scale(1.2); }
+  66% { transform: translate(10vw, 40vh) scale(0.9); }
+  100% { transform: translate(-10vw, -10vh) scale(1); }
+}
+
+@keyframes swapColors2 {
+  0% { transform: translate(50vw, 60vh) scale(1); }
+  33% { transform: translate(10vw, 40vh) scale(1.1); }
+  66% { transform: translate(-10vw, -10vh) scale(0.8); }
+  100% { transform: translate(50vw, 60vh) scale(1); }
+}
+
+@keyframes swapColors3 {
+  0% { transform: translate(10vw, 40vh) scale(1); }
+  33% { transform: translate(-10vw, -10vh) scale(1.2); }
+  66% { transform: translate(50vw, 60vh) scale(0.9); }
+  100% { transform: translate(10vw, 40vh) scale(1); }
+}

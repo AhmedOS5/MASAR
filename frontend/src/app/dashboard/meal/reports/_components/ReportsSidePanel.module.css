@@ -1,0 +1,89 @@
+.sidePanel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  direction: rtl;
+  min-width: 0;
+}
+
+.card {
+  background-color: #ffffff;
+  border: 1px solid var(--ds-line);
+  border-radius: 14px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.headerIcon {
+  color: #2563eb;
+}
+
+.cardTitle {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--ds-ink);
+  margin: 0;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.itemText {
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.panelBtn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: Cairo;
+  transition: filter 0.15s ease;
+}
+
+.panelBtn:hover {
+  filter: brightness(0.97);
+}
+
+.btnBlue {
+  background-color: #eff6ff;
+  color: #2563eb;
+}
+
+.btnAmber {
+  background-color: #fffbeb;
+  color: #b45309;
+}

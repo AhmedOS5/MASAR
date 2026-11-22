@@ -1,0 +1,69 @@
+.animatedSvg {
+  cursor: pointer;
+  overflow: visible; /* Allow pieces to fly in from outside the logo container */
+}
+
+/* Base styles for parts */
+.part {
+  transform-origin: center;
+  fill: var(--accent-primary); /* Dark green for the navbar logo */
+}
+
+/* 8 Parts of the logo scattering and assembling */
+.part1 { animation: assembleNav1 10s infinite cubic-bezier(0.4, 0, 0.2, 1); }
+.part2 { animation: assembleNav2 10s infinite cubic-bezier(0.4, 0, 0.2, 1); }
+.part3 { animation: assembleNav3 10s infinite cubic-bezier(0.4, 0, 0.2, 1); }
+.part4 { animation: assembleNav4 10s infinite cubic-bezier(0.4, 0, 0.2, 1); }
+.part5 { animation: assembleNav5 10s infinite cubic-bezier(0.4, 0, 0.2, 1); }
+.part6 { animation: assembleNav6 10s infinite cubic-bezier(0.4, 0, 0.2, 1); }
+.part7 { animation: assembleNav7 10s infinite cubic-bezier(0.4, 0, 0.2, 1); }
+.part8 { animation: assembleNav8 10s infinite cubic-bezier(0.4, 0, 0.2, 1); }
+
+/* Keyframes for Navbar Logo - Faster and slightly tighter scattering so it flies into the header */
+@keyframes assembleNav1 {
+  0% { transform: translate(-1000px, 500px) rotate(-90deg) scale(0.5); opacity: 0; }
+  15%, 85% { transform: translate(0, 0) rotate(0) scale(1); opacity: 1; }
+  100% { transform: translate(-1000px, 500px) rotate(-90deg) scale(0.5); opacity: 0; }
+}
+
+@keyframes assembleNav2 {
+  0% { transform: translate(1000px, 1000px) rotate(180deg) scale(1.5); opacity: 0; }
+  15%, 85% { transform: translate(0, 0) rotate(0) scale(1); opacity: 1; }
+  100% { transform: translate(1000px, 1000px) rotate(180deg) scale(1.5); opacity: 0; }
+}
+
+@keyframes assembleNav3 {
+  0% { transform: translate(-800px, -800px) rotate(60deg) scale(0.8); opacity: 0; }
+  15%, 85% { transform: translate(0, 0) rotate(0) scale(1); opacity: 1; }
+  100% { transform: translate(-800px, -800px) rotate(60deg) scale(0.8); opacity: 0; }
+}
+
+@keyframes assembleNav4 {
+  0% { transform: translate(1000px, -500px) rotate(-120deg) scale(2); opacity: 0; }
+  15%, 85% { transform: translate(0, 0) rotate(0) scale(1); opacity: 1; }
+  100% { transform: translate(1000px, -500px) rotate(-120deg) scale(2); opacity: 0; }
+}
+
+@keyframes assembleNav5 {
+  0% { transform: translate(0, 1000px) rotate(45deg) scale(0.5); opacity: 0; }
+  15%, 85% { transform: translate(0, 0) rotate(0) scale(1); opacity: 1; }
+  100% { transform: translate(0, 1000px) rotate(45deg) scale(0.5); opacity: 0; }
+}
+
+@keyframes assembleNav6 {
+  0% { transform: translate(1000px, 0) rotate(-45deg) scale(1.2); opacity: 0; }
+  15%, 85% { transform: translate(0, 0) rotate(0) scale(1); opacity: 1; }
+  100% { transform: translate(1000px, 0) rotate(-45deg) scale(1.2); opacity: 0; }
+}
+
+@keyframes assembleNav7 {
+  0% { transform: translate(-1000px, -500px) rotate(135deg) scale(0.6); opacity: 0; }
+  15%, 85% { transform: translate(0, 0) rotate(0) scale(1); opacity: 1; }
+  100% { transform: translate(-1000px, -500px) rotate(135deg) scale(0.6); opacity: 0; }
+}
+
+@keyframes assembleNav8 {
+  0% { transform: translate(500px, -1000px) rotate(-80deg) scale(1.8); opacity: 0; }
+  15%, 85% { transform: translate(0, 0) rotate(0) scale(1); opacity: 1; }
+  100% { transform: translate(500px, -1000px) rotate(-80deg) scale(1.8); opacity: 0; }
+}

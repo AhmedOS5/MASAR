@@ -1,0 +1,76 @@
+.scrollTopBtn {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  z-index: 900;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--accent-primary);
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow:
+    0 0 14px color-mix(in srgb, var(--accent-primary) 70%, transparent),
+    0 0 32px color-mix(in srgb, var(--accent-primary) 40%, transparent);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(16px);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease,
+    visibility 0.3s ease,
+    box-shadow 0.3s ease;
+  animation: glowPulse 2.4s ease-in-out infinite;
+}
+
+.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scrollTopBtn:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 0 20px color-mix(in srgb, var(--accent-primary) 90%, transparent),
+    0 0 44px color-mix(in srgb, var(--accent-primary) 55%, transparent);
+}
+
+.scrollTopBtn:focus-visible {
+  outline: 2px solid var(--text-primary);
+  outline-offset: 3px;
+}
+
+@keyframes glowPulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 14px color-mix(in srgb, var(--accent-primary) 70%, transparent),
+      0 0 32px color-mix(in srgb, var(--accent-primary) 40%, transparent);
+  }
+  50% {
+    box-shadow:
+      0 0 20px color-mix(in srgb, var(--accent-primary) 90%, transparent),
+      0 0 44px color-mix(in srgb, var(--accent-primary) 55%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollTopBtn {
+    animation: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+}
+
+@media (max-width: 600px) {
+  .scrollTopBtn {
+    bottom: 18px;
+    right: 18px;
+    width: 44px;
+    height: 44px;
+  }
+}

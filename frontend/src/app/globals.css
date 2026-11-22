@@ -1,0 +1,194 @@
+/* src/app/globals.css */
+:root {
+  /* Premium Dark Theme (Default) */
+  --bg-main: #040914; /* Deep premium blue-black */
+  --bg-secondary: #0B1221;
+  --bg-tertiary: #131E32;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --accent-primary: #10b981; /* Glowing emerald */
+  --accent-secondary: #38bdf8;
+  --accent-tertiary: #a855f7;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.15);
+  --card-bg: #0B1221;
+  --card-bg-glass: rgba(11, 18, 33, 0.7);
+  --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="light"] {
+  /* Light Theme */
+  --bg-main: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --accent-primary: #026960;
+  --accent-secondary: #0ea5e9;
+  --accent-tertiary: #7037c5;
+  --border-color: rgba(0, 0, 0, 0.05);
+  --border-strong: rgba(0, 0, 0, 0.1);
+  --card-bg: #ffffff;
+  --card-bg-glass: rgba(255, 255, 255, 0.85);
+  --shadow-sm: 0 4px 14px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+:root {
+  /* ---------- MASAR design tokens (dashboard, operator console, shared ui) ----------
+     Deep emerald -> teal brand on crisp slate surfaces. The landing page keeps its own theme variables above. */
+  --brand-900: #0f5132;
+  --brand-800: #0d5e4a;
+  --brand-700: #0f766e;
+  --brand-600: #0d9488;
+  --brand-500: #14b8a6;
+  --brand-200: #99f6e4;
+  --brand-100: #ccfbf1;
+  --brand-50: #f0fdfa;
+  /* Brand colours as FILLS under white text (buttons, header, badges). Same as --brand-* here; they stay dark in dark mode. */
+  --fill-900: #0f5132; --fill-800: #0d5e4a; --fill-700: #0f766e; --fill-600: #0d9488;
+
+  --ds-surface: #f8fafc;
+  --ds-surface-2: #f1f5f9;
+  --ds-card: #ffffff;
+  --ds-line: #e2e8f0;
+  --ds-line-strong: #cbd5e1;
+  --ds-ink: #0f172a;
+  --ds-ink-2: #334155;
+  --ds-muted: #64748b;
+  --ds-subtle: #94a3b8;
+  --ds-ink-3: #475569;
+  --ds-on-brand: #ffffff; /* text/icons on brand-coloured or dark fills */
+  --ds-violet-bg: #f5f3ff; --ds-violet-fg: #6d28d9; --ds-violet-line: #ddd6fe; /* category accent (file types, charts) */
+
+  --ds-success-bg: #ecfdf5; --ds-success-fg: #047857; --ds-success-line: #a7f3d0;
+  --ds-warning-bg: #fffbeb; --ds-warning-fg: #b45309; --ds-warning-line: #fde68a;
+  --ds-danger-bg: #fef2f2;  --ds-danger-fg: #b91c1c;  --ds-danger-line: #fecaca;
+  --ds-info-bg: #f0f9ff;    --ds-info-fg: #0369a1;    --ds-info-line: #bae6fd;
+  --ds-neutral-bg: #f1f5f9; --ds-neutral-fg: #475569; --ds-neutral-line: #e2e8f0;
+
+  --ds-radius-sm: 8px;
+  --ds-radius: 12px;
+  --ds-radius-lg: 16px;
+  --ds-shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --ds-shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --ds-shadow-lg: 0 24px 48px -12px rgba(15, 23, 42, 0.25);
+  --ds-focus: 0 0 0 3px rgba(13, 148, 136, 0.25);
+}
+
+/* ---------- Dark appearance of the workspace and the operator console ----------
+   Set by lib/theme.js (boot script + ThemeToggle). Designed as its own palette, not an inversion of the light one:
+   brand tones are re-balanced for dark surfaces and status colours become translucent tints. */
+html[data-app-theme="dark"] {
+  color-scheme: dark;
+
+  --brand-900: #8fd3c0; /* text / headings on dark */
+  --brand-800: #6cbfa9;
+  --brand-700: #49a58d; /* accent */
+  --brand-600: #2f8c75; /* filled buttons (white text) */
+  --brand-500: #49a58d;
+  --brand-200: #2a4a41;
+  --brand-100: #213a33;
+  --brand-50: #1b2e29;
+  --fill-900: #17463c; --fill-800: #1c5448; --fill-700: #23705f; --fill-600: #2a8370;
+
+  --ds-surface: #101c19;
+  --ds-surface-2: #162521;
+  --ds-card: #1b2a25;
+  --ds-line: #304139;
+  --ds-line-strong: #3e5248;
+  --ds-ink: #f0f5f2;
+  --ds-ink-2: #d3ded8;
+  --ds-ink-3: #b9c8c0;
+  --ds-muted: #a8b9b1;
+  --ds-subtle: #7f9189;
+  --ds-on-brand: #ffffff;
+  --ds-violet-bg: rgba(168, 85, 247, 0.15); --ds-violet-fg: #d8b4fe; --ds-violet-line: rgba(168, 85, 247, 0.35);
+
+  --ds-success-bg: rgba(73, 165, 141, 0.16); --ds-success-fg: #7fd0ba; --ds-success-line: rgba(73, 165, 141, 0.38);
+  --ds-warning-bg: rgba(231, 169, 75, 0.14); --ds-warning-fg: #f0c27a; --ds-warning-line: rgba(231, 169, 75, 0.36);
+  --ds-danger-bg: rgba(239, 68, 68, 0.14);   --ds-danger-fg: #fca5a5;  --ds-danger-line: rgba(239, 68, 68, 0.36);
+  --ds-info-bg: rgba(56, 189, 248, 0.12);    --ds-info-fg: #7dd3fc;    --ds-info-line: rgba(56, 189, 248, 0.32);
+  --ds-neutral-bg: #1f302a; --ds-neutral-fg: #b9c8c0; --ds-neutral-line: #304139;
+
+  --ds-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --ds-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --ds-shadow-lg: 0 24px 48px -12px rgba(0, 0, 0, 0.6);
+  --ds-focus: 0 0 0 3px rgba(73, 165, 141, 0.4);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  /* --font-sans is set by next/font on <body> (app/layout.js). --font-cairo is the old variable name some modules still read. */
+  --font-cairo: var(--font-sans);
+  font-family: var(--font-sans), "Segoe UI", Tahoma, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/* One typeface everywhere. Many CSS modules ask for a family called "Cairo", but next/font serves fonts under a
+   generated name, so buttons, inputs and titles silently fell back to the system font (Arial on Windows). Everything
+   now inherits the page font; only code keeps its monospace. */
+body :not(code, pre, kbd, samp) {
+  font-family: inherit !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* Small */
+@media (max-width: 768px) {
+  .container {
+    width: 100%;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+
+/* Medium */
+@media (min-width: 992px) {
+  .container {
+    width: 80%;
+  }
+}
+
+/* Large */
+@media (min-width: 1200px) {
+  .container {
+    width: 80%;
+  }
+}
+
+/* Motion is decoration here: people who ask for less get none (entrance fades end in their final state at once). */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

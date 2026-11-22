@@ -1,0 +1,37 @@
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 50px;
+  direction: rtl;
+}
+
+.sectionHeader h1 {
+  font-size: 36px;
+  color: var(--text-primary);
+  font-weight: 800;
+  margin-bottom: 16px;
+}
+
+.sectionHeader p {
+  font-size: 16px;
+  color: var(--text-muted);
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.animatedText {
+  background: linear-gradient(270deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary), var(--accent-primary));
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation: gradientText 6s ease infinite;
+  display: inline-block;
+}
+
+@keyframes gradientText {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}

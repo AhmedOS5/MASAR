@@ -1,0 +1,246 @@
+.panelsContainer {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  direction: rtl;
+}
+
+/* تقسيم الأعمدة بدقة لتوافق الحجم البصري */
+.rightColumn {
+  flex: 1.6;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.leftColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.panelCard {
+  background-color: #ffffff;
+  border: 1px solid var(--ds-line);
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.panelTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ds-ink);
+  margin: 0;
+}
+
+.viewAllLink {
+  font-size: 11px;
+  color: var(--brand-700);
+  text-decoration: none;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.panelList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* بنية الصفوف والعناصر */
+.rowItem,
+.rowItemTable,
+.notificationItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
+  background-color: var(--ds-surface);
+  border-radius: 10px;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-width: 0;
+}
+
+.itemMeta {
+  display: flex;
+  flex-direction: column;
+  text-align: right;
+  flex: 1;
+  min-width: 0;
+}
+
+.itemMainText {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ds-ink-2);
+}
+
+.itemSubText {
+  font-size: 11px;
+  color: var(--ds-subtle);
+  margin-top: 2px;
+}
+
+/* الأسعار والبادجات */
+.priceTag {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--ds-ink);
+}
+
+.statusBadge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.badgeWait {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+.badgeSuccess {
+  background-color: var(--brand-100);
+  color: var(--brand-800);
+}
+.badgeProgress {
+  background-color: #e0f2fe;
+  color: #0369a1;
+}
+
+.priorityBadge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+  margin-right: auto;
+  margin-left: 12px;
+}
+
+.prioHigh {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+.prioMedium {
+  background-color: var(--ds-surface-2);
+  color: #475569;
+}
+.prioUrgent {
+  background-color: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fca5a5;
+}
+.prioLow {
+  background-color: var(--ds-surface);
+  color: var(--ds-subtle);
+}
+
+.notifBadgeCount {
+  width: 18px;
+  height: 18px;
+  background-color: var(--brand-900);
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* كرت ذكاء مسار الاصطناعي الأزرق العائم */
+.aiBotCard {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  border-radius: 14px;
+  padding: 20px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.aiHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.aiTitle {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.aiIconCircle {
+  width: 28px;
+  height: 28px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+.aiText {
+  font-size: 11px;
+  color: #93c5fd;
+  margin: 0 0 10px 0;
+  text-align: right;
+}
+
+.aiBtn {
+  background-color: rgba(255, 255, 255, 0.15);
+  border: none;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  text-align: center;
+}
+
+.aiBtn:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+@media (max-width: 992px) {
+  .panelsContainer {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .panelCard {
+    padding: 16px;
+  }
+  
+  .rowItem,
+  .rowItemTable,
+  .notificationItem {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .priorityBadge, .priceTag, .statusBadge {
+    margin: 0;
+    align-self: flex-start;
+  }
+}
+
+.rowItem, .rowItemTable { text-decoration: none; color: inherit; }

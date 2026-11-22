@@ -1,0 +1,154 @@
+.sidePanel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  direction: rtl;
+  min-width: 0;
+}
+
+.card {
+  background-color: #ffffff;
+  border: 1px solid var(--ds-line);
+  border-radius: 14px;
+  padding: 18px 18px 16px;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.headerIcon {
+  color: #f59e0b;
+}
+
+.cardTitle {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--ds-ink);
+  margin: 0;
+}
+
+/* الرؤى السريعة */
+.insightsList {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0 0 16px 0;
+  padding: 0;
+}
+
+.insightItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.insightText {
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+  line-height: 1.5;
+}
+
+/* التحديثات المطلوبة */
+.updatesList {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+.updateItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--ds-surface-2);
+}
+
+.updateItem:last-child {
+  border-bottom: none;
+}
+
+.updateInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.updateCode {
+  font-size: 10.5px;
+  font-weight: 800;
+  color: #2563eb;
+  background-color: #dbeafe;
+  padding: 3px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+
+.updateText {
+  font-size: 12px;
+  font-weight: 600;
+  color: #475569;
+}
+
+.updateLink {
+  background: none;
+  border: none;
+  color: #2563eb;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: Cairo;
+  white-space: nowrap;
+  padding: 2px 4px;
+  border-radius: 6px;
+  transition: background-color 0.15s ease;
+}
+
+.updateLink:hover {
+  background-color: #eff6ff;
+}
+
+/* أزرار الكروت السفلية */
+.panelBtn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: Cairo;
+  transition: filter 0.15s ease;
+}
+
+.panelBtn:hover {
+  filter: brightness(0.97);
+}
+
+.btnBlue {
+  background-color: #eff6ff;
+  color: #2563eb;
+}
+
+.btnAmber {
+  background-color: #fffbeb;
+  color: #b45309;
+}

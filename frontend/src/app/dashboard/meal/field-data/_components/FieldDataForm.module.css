@@ -1,0 +1,246 @@
+.formCard {
+  flex: 2;
+  background-color: #ffffff;
+  border: 1px solid var(--ds-line);
+  border-radius: 14px;
+  padding: 24px;
+  direction: rtl;
+  min-width: 0;
+}
+
+/* الخطوات (Stepper) */
+.stepper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 4px 8px 22px;
+  border-bottom: 1px solid var(--ds-surface-2);
+  margin-bottom: 20px;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+  position: relative;
+}
+
+/* خط الوصل بين الخطوات */
+.step:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  right: -50%;
+  width: 100%;
+  height: 2px;
+  background-color: var(--ds-line);
+  z-index: 0;
+}
+
+.stepCircle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--ds-surface-2);
+  color: var(--ds-subtle);
+  border: 2px solid var(--ds-line);
+  position: relative;
+  z-index: 1;
+}
+
+.stepCircleActive {
+  background-color: var(--brand-700);
+  color: #ffffff;
+  border-color: var(--brand-700);
+}
+
+.stepLabel {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--ds-subtle);
+  text-align: center;
+}
+
+.stepLabelActive {
+  color: var(--brand-800);
+}
+
+/* عنوان القسم */
+.sectionHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.sectionTitleBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionTitle {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ds-ink);
+  margin: 0;
+}
+
+.sectionSubtitle {
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--ds-subtle);
+  margin-top: 4px;
+}
+
+.sectionIconBtn {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid var(--ds-line);
+  background-color: var(--ds-surface);
+  color: var(--ds-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* شبكة الحقول */
+.fieldsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px 18px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.fieldFull {
+  grid-column: 1 / -1;
+}
+
+.fieldLabel {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ds-ink-2);
+}
+
+.required {
+  color: #dc2626;
+  margin-right: 2px;
+}
+
+.input,
+.select,
+.textarea {
+  width: 100%;
+  border: 1px solid var(--ds-line);
+  border-radius: 10px;
+  padding: 11px 12px;
+  font-family: Cairo;
+  font-size: 12.5px;
+  color: var(--ds-ink-2);
+  background-color: #ffffff;
+  outline: none;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: var(--brand-700);
+  box-shadow: 0 0 0 3px rgba(4, 120, 87, 0.1);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--ds-subtle);
+}
+
+.inputReadonly {
+  background-color: var(--ds-surface);
+  color: #475569;
+  font-weight: 600;
+}
+
+.select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: left 12px center;
+  cursor: pointer;
+  color: var(--ds-subtle);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 92px;
+  line-height: 1.6;
+}
+
+/* أزرار أسفل النموذج */
+.formActions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.btnNext,
+.btnDraft {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: Cairo;
+  transition:
+    transform 0.15s ease,
+    filter 0.15s ease;
+}
+
+.btnNext {
+  background-color: var(--brand-700);
+  color: #ffffff;
+  border: none;
+}
+
+.btnNext:hover {
+  filter: brightness(0.95);
+  transform: translateY(-1px);
+}
+
+.btnDraft {
+  background-color: #ffffff;
+  color: #475569;
+  border: 1px solid var(--ds-line);
+}
+
+.btnDraft:hover {
+  background-color: var(--ds-surface);
+}
+
+@media (max-width: 640px) {
+  .fieldsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .stepLabel,
+  .stepLabelActive {
+    font-size: 10px;
+  }
+}

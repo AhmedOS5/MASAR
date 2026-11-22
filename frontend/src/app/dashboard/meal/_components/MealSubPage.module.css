@@ -1,0 +1,112 @@
+.subPageContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  direction: rtl;
+}
+
+.pageHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ds-muted);
+  text-decoration: none;
+  width: fit-content;
+  transition: color 0.2s ease;
+}
+
+.backLink:hover {
+  color: var(--brand-700);
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.iconBox {
+  width: 50px;
+  height: 50px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.greenIcon {
+  background-color: var(--brand-100);
+  color: var(--brand-700);
+}
+.blueIcon {
+  background-color: #dbeafe;
+  color: #2563eb;
+}
+.amberIcon {
+  background-color: #fef3c7;
+  color: #b45309;
+}
+.purpleIcon {
+  background-color: #ede9fe;
+  color: #7c3aed;
+}
+
+.titleBlock {
+  display: flex;
+  flex-direction: column;
+}
+
+.pageTitle {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--ds-ink);
+  margin: 0;
+}
+
+.pageSubtitle {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ds-subtle);
+  margin: 4px 0 0 0;
+}
+
+.placeholderCard {
+  background-color: #ffffff;
+  border: 1px dashed var(--ds-line-strong);
+  border-radius: 16px;
+  padding: 60px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+
+.placeholderIcon {
+  color: var(--ds-subtle);
+}
+
+.placeholderTitle {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--ds-ink-2);
+  margin: 0;
+}
+
+.placeholderText {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--ds-subtle);
+  margin: 0;
+  max-width: 420px;
+}

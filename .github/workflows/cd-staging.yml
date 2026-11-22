@@ -1,0 +1,88 @@
+name: CI/CD Staging
+
+on:
+  push:
+    branches:
+      - staging
+  pull_request:
+    branches:
+      - staging
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    # the Next.js app lives in frontend/ (the API is in backend/, a separate package)
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7.0.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6.4.0
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run lint
+        run: npm run lint
+
+      - name: Build application
+        run: npm run build
+
+  deploy-to-staging:
+    runs-on: ubuntu-latest
+    environment: staging
+    needs: test-and-build
+    if: github.event_name == 'push' # اختياري: للنشر عند الـ Push فقط وليس عند الـ Pull Request
+
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7.0.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6.4.0
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Run unit tests
+        working-directory: frontend
+        run: npm test --if-present
+
+      # The Vercel steps run from the repository root: the project's "Root Directory" setting in Vercel
+      # must be `frontend` (running them from inside frontend/ would make Vercel look for frontend/frontend).
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Pull Vercel environment settings
+        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build project for Vercel
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy to Vercel (staging/preview)
+        id: deploy
+        run: |
+          url=$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})
+          echo "Deployed to: $url"
+          echo "deployment_url=$url" >> "$GITHUB_OUTPUT"
+
+      - name: Print deployment URL
+        run: echo "✅ Staging deployed at ${{ steps.deploy.outputs.deployment_url }}"

@@ -1,0 +1,391 @@
+/* 1. الحاوية الكبرى للقسم بالكامل */
+.hero {
+  width: 100%;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  direction: rtl;
+}
+
+.blurBlob1 {
+  position: absolute;
+  top: -100px;
+  left: -50px;
+  width: 450px;
+  height: 450px;
+  background: radial-gradient(
+    circle,
+    rgba(2, 105, 96, 0.694) 0%,
+    rgba(2, 105, 96, 0) 70%
+  );
+  filter: blur(
+    80px
+  ); /* فلتر البلور العالي لتنعيم الحواف وتحويلها لغيمة لونية */
+  z-index: 1; /* خلف النصوص والصورة */
+  pointer-events: none; /* لمنع القرص من حجب الضغطات عن الأزرار */
+  animation: blobMovement1 20s infinite ease-in-out;
+}
+.blurBlob2 {
+  position: absolute;
+  bottom: -50px;
+  right: -50px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(
+    circle,
+    rgba(14, 164, 233, 0.703) 0%,
+    rgba(14, 165, 233, 0) 70%
+  );
+  filter: blur(90px);
+  z-index: 1;
+  pointer-events: none;
+  animation: blobMovement2 25s infinite ease-in-out;
+}
+.blurBlob3 {
+  position: absolute;
+  top: -100px;
+  right: 0px;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(
+    circle,
+    rgba(14, 168, 119, 0.703) 0%,
+    rgba(14, 165, 233, 0) 70%
+  );
+  filter: blur(90px);
+  z-index: 1;
+  pointer-events: none;
+}
+.blurBlobCenter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* يضمن التوسيط الهندسي الدقيق في السنتر */
+  width: 850px;
+  height: 850px;
+  background: radial-gradient(
+    circle,
+    rgba(112, 55, 197, 0.329) 0%,
+    rgba(4, 120, 87, 0) 70%
+  );
+  filter: blur(
+    100px
+  ); /* بلور أعلى بقليل لزيادة مدى انتشار الغيمة اللونية في المنتصف */
+  z-index: 1;
+  pointer-events: none;
+  animation: blobMovementCenter 18s infinite ease-in-out;
+}
+/* حركة القرص الأول: يتحرك بشكل دائري ناعم ويمتد قليلاً */
+@keyframes blobMovement1 {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(40px, -60px) scale(1.1);
+  }
+  66% {
+    transform: translate(-30px, 40px) scale(0.95);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+/* حركة القرص الثاني: تتحرك عكس الاتجاه لتحدث تداخلاً لونياً ممتازاً */
+@keyframes blobMovement2 {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  50% {
+    transform: translate(-50px, 50px) scale(1.15);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+/* حركة القرص الأوسط: يتمدد وينكمش في مكانه ببطء شديد ليوزع الإضاءة */
+@keyframes blobMovementCenter {
+  0% {
+    transform: translate(-50%, -50%) scale(1); /* الحفاظ على التوسيط الأصلي للـ Center */
+  }
+  50% {
+    transform: translate(-45%, -55%) scale(1.08);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+/* 2. الـ Wrapper المسؤول عن توزيع الشقين الأيمن والأيسر */
+.heroWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 200px; /* مسافة أمان ثابتة بين النصوص والصورة */
+  width: 100%;
+  z-index: 2;
+}
+
+/* 3. الشق الأيمن (النصوص والأزرار) */
+.heroContent {
+  flex: 1; /* يأخذ مساحة مرنة ومتساوية */
+  max-width: 600px; /* يمنع سياق النصوص من التمدد بشكل عريض ومزعج للعين */
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* توحيد المسافات العمودية بين الـ Badge والعناوين والأزرار */
+}
+@media (max-width: 992px) {
+}
+
+.badge {
+  align-self: flex-start;
+  text-align: right;
+  background-color: #e8ebfe; /* لون تركوازي شفاف وناعم جداً */
+  color: var(--text-muted); /* اللون التركوازي الأساسي لمسار */
+  padding: 6px 16px;
+  border-radius: 50px; /* يعطيه شكلاً بيضاوياً دائرياً بالكامل */
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+.bdg {
+  display: flex;
+  align-items: center;
+}
+.bdg p {
+  margin-left: 30px;
+  font-size: 16px;
+}
+.rgbtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.title {
+  font-size: 2.5rem; /* حجم عريض ومناسب جداً لعناوين الـ Hero */
+  line-height: 1.3; /* يعطي مساحة مريحة بين السطور */
+  font-weight: 800;
+  color: var(--text-primary); /* لون كحلي داكن قريب من الأسود لراحة العين */
+}
+.title span {
+  color: var(--accent-primary);
+  position: relative;
+}
+
+.animatedText {
+  background: linear-gradient(270deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary), var(--accent-primary));
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  animation: gradientText 6s ease infinite;
+  display: inline-block;
+}
+
+@keyframes gradientText {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.description {
+  font-size: 1.15rem;
+  line-height: 1.7;
+  color: var(--text-secondary); /* لون رمادي احترافي غير فاقع */
+  font-weight: 500;
+}
+.heroActions {
+  display: flex;
+  align-items: center;
+  gap: 16px; /* مسافة أمان ثابتة بين الزرين */
+  margin-top: 8px;
+}
+.primaryBtn {
+  display: inline-block;
+  text-decoration: none;
+  background-color: var(--accent-primary);
+  color: var(--bg-main);
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-size: 1.05rem;
+  font-weight: 700;
+  text-align: center;
+  transition: all 0.25s ease;
+  box-shadow: var(--shadow-sm); /* ظلال ناعمة بلون الزر تعطي فخامة */
+}
+.primaryBtn:hover {
+  background-color: var(--accent-primary);
+  transform: translateY(-2px); /* تأثير ارتفاع طفيف جداً عند التمرير */
+  box-shadow: 0 6px 20px rgba(2, 105, 96, 0.3);
+}
+/* 4. الشق الأيسر (لوحة التحكم والعنصر البصري) */
+.heroVisual {
+  flex: 1; /* يأخذ مساحة مرنة ومتساوية مع الشق الأيمن */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+@media (max-width: 1200px) {
+  .heroVisual {
+    display: none;
+  }
+}
+.imagePlaceholder {
+  width: 100%;
+  max-width: 550px;
+  height: 400px;
+  background-color: var(--bg-tertiary); /* لون رمادي مؤقت */
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-muted);
+  font-weight: 600;
+  border: 2px dashed var(--text-muted);
+}
+
+/* --- رسم العقد المترابطة بدلاً من الموك أب --- */
+.nodesDiagram {
+  width: 100%;
+  max-width: 500px;
+  height: 500px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.connectionLines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.nodeCenter {
+  position: absolute;
+  z-index: 3;
+  width: 220px;
+  height: 160px;
+  background-color: var(--bg-secondary);
+  border: 2px solid var(--accent-primary);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 20px 40px rgba(2, 105, 96, 0.1);
+  animation: floatCenter 6s ease-in-out infinite;
+}
+
+.centerIconWrapper {
+  width: 60px;
+  height: 60px;
+  background-color: var(--accent-secondary);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.nodeCenter h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.subNode {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  box-shadow: 0 10px 20px var(--border-color);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+}
+
+.subNode:hover {
+  transform: translateY(-5px) scale(1.05);
+}
+
+.subNodeIcon {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Positions and Colors */
+.nodeTopLeft {
+  top: 10%;
+  left: 2%;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  animation: floatSub 7s ease-in-out infinite 0.5s;
+}
+.iconBlue {
+  background-color: var(--bg-tertiary);
+  color: var(--accent-secondary);
+}
+
+.nodeTopRight {
+  top: 15%;
+  right: 2%;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  animation: floatSub 6.5s ease-in-out infinite 1s;
+}
+.iconPurple {
+  background-color: var(--bg-tertiary);
+  color: var(--accent-tertiary);
+}
+
+.nodeBottomLeft {
+  bottom: 18%;
+  left: -2%;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  animation: floatSub 7.5s ease-in-out infinite 1.5s;
+}
+.iconOrange {
+  background-color: var(--bg-tertiary);
+  color: var(--accent-secondary);
+}
+
+.nodeBottomRight {
+  bottom: 22%;
+  right: 2%;
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+  animation: floatSub 6s ease-in-out infinite 2s;
+}
+.iconGreen {
+  background-color: var(--bg-tertiary);
+  color: var(--accent-primary);
+}
+
+@keyframes floatCenter {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes floatSub {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}

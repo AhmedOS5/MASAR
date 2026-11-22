@@ -1,0 +1,258 @@
+/* Projects: list of workspaces and the page of one project. Colours come from the design tokens only. */
+.page {
+  padding: 16px;
+  display: grid;
+  gap: 20px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--ds-ink);
+}
+
+.subtitle {
+  margin: 4px 0 0;
+  color: var(--ds-muted);
+  font-size: 14px;
+}
+
+.headerActions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+}
+
+.card {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  background: var(--ds-card);
+  border: 1px solid var(--ds-line);
+  border-radius: var(--ds-radius);
+  box-shadow: var(--ds-shadow-xs);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover,
+.card:focus-visible {
+  border-color: var(--brand-600);
+  box-shadow: var(--ds-shadow-sm);
+  outline: none;
+}
+
+.cardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.code {
+  font-size: 12px;
+  color: var(--ds-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ds-ink);
+}
+
+.cardDesc {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ds-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.stats {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--ds-ink-3);
+}
+
+.stats b {
+  font-variant-numeric: tabular-nums;
+  color: var(--ds-ink);
+}
+
+.role {
+  font-size: 12px;
+  color: var(--ds-muted);
+}
+
+.meta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: var(--ds-ink-3);
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--ds-line);
+}
+
+.tab {
+  padding: 10px 16px;
+  border: none;
+  background: none;
+  font: inherit;
+  font-weight: 600;
+  color: var(--ds-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.tab:hover {
+  color: var(--ds-ink);
+}
+
+.tabActive {
+  color: var(--brand-700);
+  border-bottom-color: var(--brand-600);
+}
+
+.panel {
+  display: grid;
+  gap: 14px;
+}
+
+.panelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.panelTitle {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ds-ink);
+}
+
+.list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--ds-card);
+  border: 1px solid var(--ds-line);
+  border-radius: var(--ds-radius-sm);
+}
+
+.rowMain {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.rowTitle {
+  font-weight: 600;
+  color: var(--ds-ink);
+}
+
+.rowSub {
+  font-size: 12px;
+  color: var(--ds-muted);
+}
+
+.rowLink {
+  color: inherit;
+  text-decoration: none;
+}
+
+.rowLink:hover .rowTitle {
+  color: var(--brand-700);
+}
+
+.memberPick {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 4px;
+  border-bottom: 1px solid var(--ds-line);
+}
+
+.memberPick label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.note {
+  font-size: 13px;
+  color: var(--ds-muted);
+  margin: 0;
+}
+
+.folderBar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.folderChip {
+  padding: 6px 12px;
+  border: 1px solid var(--ds-line);
+  border-radius: 999px;
+  background: var(--ds-card);
+  font: inherit;
+  font-size: 13px;
+  color: var(--ds-ink-3);
+  cursor: pointer;
+}
+
+.folderChipActive {
+  border-color: var(--brand-600);
+  background: var(--brand-50);
+  color: var(--brand-700);
+}
+
+.inlineForm {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}

@@ -1,0 +1,10 @@
+.landingWrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+}

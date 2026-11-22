@@ -1,0 +1,161 @@
+/* Platform operator console. Tokens: app/globals.css (--brand-*, --ds-*). */
+
+.shell {
+  min-height: 100vh;
+  background: var(--ds-surface);
+  color: var(--ds-ink);
+  direction: rtl;
+  font-family: var(--font-cairo), Tahoma, Arial, sans-serif;
+}
+
+/* ---------- Top bar ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  height: 60px; padding: 0 clamp(16px, 3vw, 32px);
+  background: color-mix(in srgb, var(--ds-card) 85%, transparent);
+  -webkit-backdrop-filter: saturate(180%) blur(8px);
+  backdrop-filter: saturate(180%) blur(8px);
+  border-bottom: 1px solid var(--ds-line);
+}
+.brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.brandMark {
+  width: 30px; height: 30px; border-radius: 9px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, var(--brand-900), var(--brand-600)); color: #fff;
+}
+.brandName { font-size: 17px; font-weight: 800; color: var(--brand-900); }
+.brandTag {
+  font-size: 12px; font-weight: 600; color: var(--ds-muted);
+  padding: 2px 8px; border: 1px solid var(--ds-line); border-radius: 999px; background: #fff;
+}
+.topbarEnd { display: flex; align-items: center; gap: 10px; }
+.userChip { font-size: 13px; font-weight: 600; color: var(--ds-ink-2); }
+.logout {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 12px; border-radius: var(--ds-radius-sm);
+  border: 1px solid var(--ds-line-strong); background: #fff; color: var(--ds-ink-2);
+  font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+}
+.logout:hover { background: var(--ds-danger-bg); border-color: var(--ds-danger-line); color: var(--ds-danger-fg); }
+.logout:focus-visible { outline: none; box-shadow: var(--ds-focus); }
+
+/* ---------- Page ---------- */
+.main {
+  max-width: 1240px; margin: 0 auto;
+  padding: 28px clamp(16px, 3vw, 32px) 48px;
+  display: flex; flex-direction: column; gap: 20px;
+}
+.pageHead { display: flex; flex-direction: column; gap: 6px; }
+.title { margin: 0; font-size: clamp(22px, 2.4vw, 26px); font-weight: 800; letter-spacing: -0.01em; color: var(--ds-ink); }
+.lead { margin: 0; max-width: 760px; color: var(--ds-muted); font-size: 14px; line-height: 1.8; }
+.muted { margin: 0; color: var(--ds-muted); font-size: 13px; }
+.srOnly {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+/* ---------- KPI cards ---------- */
+.kpiGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.kpi {
+  --kpi-fg: var(--brand-700); --kpi-bg: var(--brand-50);
+  display: flex; flex-direction: column; gap: 8px;
+  padding: 16px 18px; background: var(--ds-card);
+  border: 1px solid var(--ds-line); border-radius: var(--ds-radius); box-shadow: var(--ds-shadow-xs);
+}
+.kpi_info { --kpi-fg: var(--ds-info-fg); --kpi-bg: var(--ds-info-bg); }
+.kpi_violet { --kpi-fg: var(--ds-violet-fg); --kpi-bg: var(--ds-violet-bg); }
+.kpi_success { --kpi-fg: var(--ds-success-fg); --kpi-bg: var(--ds-success-bg); }
+.kpi_danger { --kpi-fg: var(--ds-danger-fg); --kpi-bg: var(--ds-danger-bg); }
+.kpiTop { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.kpiLabel { font-size: 13px; font-weight: 600; color: var(--ds-muted); }
+.kpiIcon {
+  width: 32px; height: 32px; border-radius: 9px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--kpi-bg); color: var(--kpi-fg);
+}
+.kpiValue { font-size: 26px; font-weight: 800; line-height: 1.2; color: var(--ds-ink); font-variant-numeric: tabular-nums; }
+.kpi_success .kpiValue, .kpi_danger .kpiValue { font-size: 18px; color: var(--kpi-fg); }
+.kpiSub { font-size: 12px; color: var(--ds-muted); }
+
+/* ---------- Panels ---------- */
+.panel {
+  display: flex; flex-direction: column; gap: 14px;
+  padding: 18px; background: var(--ds-card);
+  border: 1px solid var(--ds-line); border-radius: var(--ds-radius-lg); box-shadow: var(--ds-shadow-xs);
+}
+.panelHead { display: flex; flex-direction: column; gap: 4px; }
+.panelTitle { display: flex; align-items: center; gap: 8px; margin: 0; font-size: 16px; font-weight: 700; color: var(--ds-ink); }
+.panelTitle svg { color: var(--brand-700); }
+.panelHint { margin: 0; font-size: 13px; color: var(--ds-muted); }
+.panelHint code { background: var(--ds-surface-2); padding: 1px 6px; border-radius: 4px; font-size: 12px; }
+
+.rowActions { display: flex; align-items: center; justify-content: flex-end; gap: 6px; white-space: nowrap; }
+.tableFoot { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.tableCount { font-size: 13px; color: var(--ds-muted); font-variant-numeric: tabular-nums; }
+
+/* ---------- CLI commands ---------- */
+.commands { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 10px; }
+.commands li {
+  display: flex; flex-direction: column; gap: 6px; padding: 10px 12px;
+  background: var(--ds-surface); border: 1px solid var(--ds-line); border-radius: var(--ds-radius-sm);
+}
+.cmdLabel { font-size: 12px; font-weight: 600; color: var(--ds-ink-2); }
+.cmd {
+  display: block; padding: 8px 10px; border-radius: 6px;
+  background: var(--ds-ink); color: var(--ds-line); font-size: 12.5px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  text-align: left; overflow-x: auto; white-space: nowrap;
+}
+
+/* ---------- Review modal ---------- */
+.review { display: flex; flex-direction: column; gap: 18px; }
+.reviewHead { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.reviewName { margin: 0 0 2px; font-size: 18px; font-weight: 800; color: var(--ds-ink); }
+.reasonBox {
+  padding: 10px 14px; border-radius: var(--ds-radius-sm); font-size: 13px; line-height: 1.7;
+  background: var(--ds-danger-bg); border: 1px solid var(--ds-danger-line); color: var(--ds-danger-fg);
+}
+.miniStats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.miniStats > div {
+  display: flex; flex-direction: column; gap: 2px; padding: 10px 12px;
+  background: var(--ds-surface); border: 1px solid var(--ds-line); border-radius: var(--ds-radius-sm);
+}
+.miniLabel { font-size: 12px; color: var(--ds-muted); }
+.miniValue { font-size: 18px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.reviewSection { display: flex; flex-direction: column; gap: 10px; }
+.sectionTitle {
+  margin: 0; padding-bottom: 6px; border-bottom: 1px solid var(--ds-line);
+  font-size: 13px; font-weight: 700; color: var(--ds-ink-2);
+}
+.dl { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 18px; }
+.dlRow { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.dlRow dt { font-size: 12px; color: var(--ds-muted); }
+.dlRow dd { margin: 0; font-size: 14px; color: var(--ds-ink); overflow-wrap: anywhere; }
+.docs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.docs li {
+  display: flex; align-items: center; gap: 10px; padding: 8px 10px;
+  border: 1px solid var(--ds-line); border-radius: var(--ds-radius-sm);
+}
+.docs li > svg { color: var(--brand-700); flex-shrink: 0; }
+.docName { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; }
+.account {
+  display: flex; flex-direction: column; gap: 12px; align-items: flex-start;
+  padding: 14px; border: 1px solid var(--ds-line); border-radius: var(--ds-radius); background: var(--ds-surface);
+}
+.accountHead { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; width: 100%; }
+.account .dl { width: 100%; }
+.securityNote {
+  display: flex; align-items: flex-start; gap: 6px; margin: 0;
+  font-size: 12px; line-height: 1.7; color: var(--ds-muted);
+}
+.securityNote svg { flex-shrink: 0; margin-top: 3px; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) { .kpiGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) {
+  .kpiGrid, .dl { grid-template-columns: 1fr; }
+  .miniStats { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .brandTag, .userChip { display: none; }
+  .commands { grid-template-columns: 1fr; }
+}

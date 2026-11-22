@@ -1,0 +1,44 @@
+.group {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  background: var(--ds-surface-2);
+  border: 1px solid var(--ds-line);
+  border-radius: var(--ds-radius-sm);
+}
+
+.option {
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ds-muted);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.option:hover {
+  color: var(--ds-ink);
+}
+
+.option:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-focus);
+}
+
+.active {
+  background: var(--ds-card);
+  color: var(--brand-700);
+  box-shadow: var(--ds-shadow-xs);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .option {
+    transition: none;
+  }
+}

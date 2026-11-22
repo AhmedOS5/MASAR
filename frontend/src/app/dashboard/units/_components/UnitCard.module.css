@@ -1,0 +1,156 @@
+.cardContainer {
+  background: #ffffff;
+  border: 1px solid var(--ds-line);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: right;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+.cardContainer:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+}
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.badges {
+  display: flex;
+  gap: 6px;
+}
+.badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+.badgeType {
+  background: var(--ds-surface-2);
+  color: #475569;
+}
+.iconBox {
+  width: 38px;
+  height: 38px;
+  background: var(--ds-surface);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brand-900);
+}
+.unitTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ds-ink);
+  margin: 0;
+}
+.unitDesc {
+  font-size: 11px;
+  color: var(--ds-muted);
+  line-height: 1.6;
+  margin: 0;
+  min-height: 35px;
+}
+.metaRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--ds-surface-2);
+  padding-bottom: 12px;
+}
+.numbers {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--ds-muted);
+}
+.numItem b {
+  color: var(--ds-ink);
+}
+
+/* الـ Custom Toggle Switch الأخضر */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--ds-line-strong);
+  transition: 0.3s;
+  border-radius: 20px;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+input:checked + .slider {
+  background-color: var(--brand-900);
+}
+input:checked + .slider:before {
+  transform: translateX(16px);
+}
+/* التذييل */
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: var(--ds-muted);
+}
+.managerInfo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.actions {
+  display: flex;
+  gap: 8px;
+}
+.btnPrimary,
+.btnSecondary {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-family: Cairo;
+  text-decoration: none;
+}
+.btnPrimary {
+  background: var(--brand-900);
+  color: #ffffff;
+}
+.btnSecondary {
+  background: var(--ds-surface-2);
+  color: #475569;
+  border: 1px solid var(--ds-line);
+}

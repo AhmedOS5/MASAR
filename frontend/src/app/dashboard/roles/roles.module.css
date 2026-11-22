@@ -1,0 +1,182 @@
+.pageContainer {
+  padding: 16px;
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.headerWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(20px);
+  padding: 24px 32px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+}
+
+.titleGroup {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.headerIcon {
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, #1e40af 0%, var(--brand-800) 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 8px 24px rgba(30, 64, 175, 0.2);
+}
+
+.pageTitle {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--ds-ink);
+  font-family: Cairo, sans-serif;
+}
+
+.pageSubtitle {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--ds-muted);
+}
+
+.actionBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: Cairo, sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  background: linear-gradient(135deg, var(--brand-500) 0%, var(--brand-600) 100%);
+  color: white;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+}
+
+.actionBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+}
+
+/* Roles Layout */
+.rolesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.roleCard {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  padding: 24px;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+}
+
+.roleCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+  border-color: rgba(30, 64, 175, 0.1);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.roleInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.roleTitle {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ds-ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.usersCount {
+  font-size: 12px;
+  color: var(--ds-muted);
+  margin-top: 4px;
+}
+
+.editIcon {
+  color: var(--ds-subtle);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.editIcon:hover {
+  color: #2563eb;
+}
+
+.permissionsSection {
+  flex: 1;
+}
+
+.permissionsTitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: #475569;
+  margin-bottom: 12px;
+}
+
+.permissionsTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.permTag {
+  background: var(--ds-surface-2);
+  color: var(--ds-ink-2);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--ds-line);
+}
+
+/* System admin tag */
+.sysAdminTag {
+  background: rgba(37, 99, 235, 0.1);
+  color: #2563eb;
+  border-color: rgba(37, 99, 235, 0.2);
+}
+
+@media (max-width: 768px) {
+  .headerWrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+  }
+}

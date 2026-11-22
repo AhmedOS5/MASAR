@@ -1,0 +1,68 @@
+.tabsBar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 28px;
+  width: 100%;
+  direction: rtl;
+  border-bottom: 1px solid var(--ds-line);
+  padding: 0 4px;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+}
+.tabsBar::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.tab,
+.tabActive {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 14px 2px;
+  font-size: 13.5px;
+  font-family: Cairo;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.tab {
+  color: var(--ds-muted);
+  font-weight: 600;
+}
+
+.tab:hover {
+  color: var(--ds-ink);
+}
+
+.tabActive {
+  color: var(--brand-800);
+  font-weight: 800;
+}
+
+/* المؤشر السفلي للتبويب النشط */
+.tabActive::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: -1px;
+  height: 2.5px;
+  border-radius: 3px 3px 0 0;
+  background-color: var(--brand-700);
+}
+
+@media (max-width: 640px) {
+  .tabsBar {
+    gap: 8px;
+  }
+
+  .tab,
+  .tabActive {
+    font-size: 11px;
+  }
+}

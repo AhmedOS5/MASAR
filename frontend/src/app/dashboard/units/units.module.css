@@ -1,0 +1,75 @@
+.dashboardWrapper {
+  background-color: var(--ds-surface);
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: stretch;
+  position: relative;
+}
+.mainContainer {
+  flex: 1;
+  margin-right: 260px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+  box-sizing: border-box;
+}
+.pageHeader {
+  text-align: right;
+}
+.pageTitle {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--ds-ink);
+  margin: 0 0 4px 0;
+}
+.pageSubtitle {
+  font-size: 13px;
+  color: var(--ds-muted);
+  margin: 0;
+}
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+/* ✨ أنيميشن الدخول الانسيابي الجميل المريح للنفس */
+.fadeInAnimation {
+  animation: kmFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@keyframes kmFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1200px) {
+  .cardsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 992px) {
+  .dashboardWrapper {
+    flex-direction: column;
+  }
+
+  .mainContainer {
+    margin-right: 0;
+    padding: 20px;
+  }
+}
+@media (max-width: 640px) {
+  .mainContainer {
+    padding: 16px 14px 20px;
+  }
+}

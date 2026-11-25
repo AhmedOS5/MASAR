@@ -1,18 +1,23 @@
+/* Weekly activity chart + active units. Tokens only; one data colour (brand), neutral tracks. */
 .activityContainer {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); /* RTL: units on the right, the wide chart on the left */
   gap: 16px;
   width: 100%;
-  direction: rtl;
 }
 
-/* كرت الرسم البياني عريض */
-.chartCard {
-  flex: 1.6;
-  background-color: var(--ds-card);
+.chartCard,
+.unitsCard {
+  background: var(--ds-card);
   border: 1px solid var(--ds-line);
-  border-radius: 14px;
-  padding: 24px;
-  position: relative;
+  border-radius: var(--ds-radius);
+  padding: 20px;
+  min-width: 0;
+}
+
+.unitsCard {
+  display: flex;
+  flex-direction: column;
 }
 
 .chartHeader,
@@ -20,12 +25,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 16px;
 }
 
 .cardTitle {
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 15px;
+  font-weight: 600;
   color: var(--ds-ink);
   margin: 0;
 }
@@ -35,36 +41,30 @@
   gap: 16px;
   font-size: 12px;
   color: var(--ds-muted);
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .legendItem {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
-.dotBtn {
-  width: 8px;
-  height: 3px;
-  background-color: var(--fill-600);
-  border-radius: 2px;
+.dotTasks,
+.dotRequests {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
 }
-.dotTask {
-  width: 8px;
-  height: 3px;
-  background-color: #0d9488;
-  border-radius: 2px;
-}
+.dotTasks { background-color: var(--fill-600); }
+.dotRequests { background-color: var(--ds-info-fg); }
 
-/* بنية أعمدة الـ Chart المتجاوبة */
+/* chart: axis labels beside a stretched stacked-area SVG; day labels underneath */
 .chartBody {
   display: flex;
-  height: 200px;
-  position: relative;
-  margin-top: 10px;
-  position: relative;
-  top: 50px;
+  gap: 8px;
+  height: 232px;
+  margin-top: 8px;
 }
 
 .yAxisLines {
@@ -72,81 +72,95 @@
   flex-direction: column;
   justify-content: space-between;
   color: var(--ds-subtle);
-  font-size: 11px;
-  width: 34px;
-  text-align: right;
-  border-left: 1px dashed var(--ds-line);
-  padding-left: 8px;
+  font-size: 12px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  min-width: 28px;
+  height: 200px; /* the SVG's height: tick i sits on grid line i */
 }
 
-.barsWrapper {
+.plot {
   flex: 1;
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-end;
-  padding: 0 16px;
   min-width: 0;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.barColumn {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  height: 100%;
-  justify-content: flex-end;
-  width: 32px;
-  min-width: 32px;
-  font-family: Cairo;
 }
 
-.barContainer {
-  background-color: var(--ds-surface-2);
-  width: 16px;
-  height: 85%;
-  border-radius: 4px;
-  display: flex;
-  align-items: flex-end;
-  min-width: 16px;
-}
-
-.mainBar {
-  background-color: var(--fill-600);
+.chartSvg {
   width: 100%;
-  border-radius: 4px;
-  transition: height 0.3s ease;
+  height: 200px;
+  display: block;
+  overflow: visible;
+}
+
+.gridLine {
+  stroke: var(--ds-line);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+  vector-effect: non-scaling-stroke;
+}
+
+.areaTasks { fill: var(--fill-600); fill-opacity: 0.28; }
+.areaRequests { fill: var(--ds-info-fg); fill-opacity: 0.2; }
+
+.lineTasks,
+.lineTotal {
+  fill: none;
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.lineTasks { stroke: var(--fill-600); }
+.lineTotal { stroke: var(--ds-info-fg); }
+
+.areaTasks,
+.areaRequests,
+.lineTasks,
+.lineTotal {
+  animation: chartIn 300ms ease-out both;
+}
+
+@keyframes chartIn {
+  from { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .areaTasks, .areaRequests, .lineTasks, .lineTotal { animation: none; }
+}
+
+.dayLabels {
+  display: flex;
+  margin-top: 8px;
 }
 
 .barLabel {
-  font-size: 11px;
+  flex: 1;
+  text-align: center;
+  font-size: 12px;
   color: var(--ds-muted);
+  font-weight: 500;
+  line-height: 20px;
+  white-space: nowrap;
+  min-width: 0;
+}
+
+/* active units */
+.headerLink {
+  font-size: 13px;
+  color: var(--brand-700);
+  text-decoration: none;
   font-weight: 600;
 }
 
-/* كرت الوحدات المفعّلة جانبي */
-.unitsCard {
-  flex: 1;
-  background-color: var(--ds-card);
-  border: 1px solid var(--ds-line);
-  border-radius: 14px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-}
-
-.headerLink {
-  font-size: 11px;
-  color: var(--brand-600);
-  text-decoration: none;
-  font-weight: 700;
+.headerLink:hover {
+  text-decoration: underline;
 }
 
 .unitsList {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
   flex: 1;
 }
 
@@ -154,75 +168,63 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 12px;
+  padding: 8px 12px;
   background-color: var(--ds-surface);
-  border-radius: 10px;
+  border-radius: var(--ds-radius-sm);
 }
 
 .unitIcon {
   width: 32px;
   height: 32px;
-  border-radius: 8px;
+  flex-shrink: 0;
+  border-radius: var(--ds-radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.blueIcon {
-  background-color: var(--ds-info-bg);
-  color: var(--ds-info-fg);
-}
-.greenIcon {
-  background-color: var(--brand-100);
-  color: var(--brand-600);
-}
-.purpleIcon {
-  background-color: var(--ds-violet-bg);
-  color: var(--ds-violet-fg);
+  background: var(--brand-50);
+  color: var(--brand-700);
 }
 
 .unitName {
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 500;
   color: var(--ds-ink-2);
   flex: 1;
-  text-align: right;
   min-width: 0;
   overflow-wrap: anywhere;
 }
 
 .statusDot {
-  width: 6px;
-  height: 6px;
-  background-color: #22c55e;
+  width: 8px;
+  height: 8px;
+  background-color: var(--ds-success-fg);
   border-radius: 50%;
 }
 
 .addUnitBtn {
-  background: none;
   border: 1px dashed var(--ds-line-strong);
-  border-radius: 10px;
-  padding: 12px;
+  border-radius: var(--ds-radius-sm);
+  min-height: 40px;
+  padding: 8px 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   color: var(--brand-700);
-  font-size: 12px;
-  font-weight: 700;
-  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
   margin-top: 16px;
-  transition: background-color 0.2s;
-  font-family: Cairo;
+  text-decoration: none;
+  transition: background-color 150ms ease;
 }
 
 .addUnitBtn:hover {
-  background-color: var(--ds-success-bg);
+  background-color: var(--brand-50);
 }
 
 @media (max-width: 992px) {
   .activityContainer {
-    flex-direction: column;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -231,27 +233,8 @@
   .unitsCard {
     padding: 16px;
   }
-  
-  .barsWrapper {
-    padding: 0 4px;
-    gap: 8px;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  
-  .barsWrapper::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .barColumn {
-    width: 24px;
-    min-width: 24px;
-  }
-  
-  .barContainer {
-    width: 12px;
-    min-width: 12px;
+  .barLabel {
+    font-size: 11px;
   }
 }
 
@@ -259,8 +242,5 @@
   .chartHeader {
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
   }
 }
-
-.addUnitBtn { text-decoration: none; }

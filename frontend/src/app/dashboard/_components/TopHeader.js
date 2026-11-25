@@ -12,7 +12,7 @@ import Logo from "../../_components/Navbar/Logo";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import Breadcrumbs from "./Breadcrumbs";
 
-export default function TopHeader({ onMenuClick }) {
+export default function TopHeader({ onMenuClick, collapsed = false }) {
   const router = useRouter();
   const [isNotifOpen, setIsNotifOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -47,13 +47,13 @@ export default function TopHeader({ onMenuClick }) {
   };
 
   return (
-    <header className={styles.headerContainer}>
+    <header className={`${styles.headerContainer} ${collapsed ? styles.headerCollapsed : ""}`}>
       <div className={styles.rightSection}>
         <button className={styles.mobileMenuBtn} onClick={onMenuClick} aria-label="القائمة">
           <Menu size={24} />
         </button>
         <div className={styles.logoWrapper}>
-          <Logo width={260} height={75} />
+          <Logo width={130} height={130} />
         </div>
       </div>
 
@@ -74,7 +74,9 @@ export default function TopHeader({ onMenuClick }) {
           <Search size={18} className={styles.searchIcon} />
         </form>
 
-        <ThemeToggle />
+        <div className={styles.themeSlot}>
+          <ThemeToggle />
+        </div>
 
         <div className={styles.notificationWrapper} ref={notifRef}>
           <button

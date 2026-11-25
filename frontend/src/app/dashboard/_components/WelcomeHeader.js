@@ -8,26 +8,25 @@ import usePermissions from "@/hooks/usePermissions";
 import TodayDate from "@/components/ui/TodayDate";
 import styles from "./WelcomeHeader.module.css";
 
+/** Compact page header of the dashboard: greeting + organization + today's date, and the create actions the user may use. */
 export default function WelcomeHeader() {
   const { userName, organizationName } = useSession();
   const { can } = usePermissions();
 
   return (
-    <div className={styles.bannerContainer}>
-      {/* جهة اليمين: الترحيب والبيانات */}
-      <div className={styles.rightSection}>
-        <h1 className={styles.welcomeText}>
+    <header className={styles.header}>
+      <div className={styles.intro}>
+        <h1 className={styles.title}>
           أهلاً{userName ? "، " : ""}
-          <span className={styles.userName}>{userName}</span> 👋
+          <span className={styles.userName}>{userName}</span>
         </h1>
-        <p className={styles.subDetails}>
+        <p className={styles.meta}>
           {organizationName ? `${organizationName} • ` : ""}
           <TodayDate options={{ weekday: "long", day: "numeric", month: "long", year: "numeric" }} />
         </p>
       </div>
 
-      {/* جهة اليسار: أزرار الإجراءات السريعة */}
-      <div className={styles.leftSection}>
+      <div className={styles.actions}>
         {can("requests.create") && (
           <Link href="/dashboard/requests?new=1" className={styles.primaryBtn}>
             <Plus size={16} />
@@ -41,6 +40,6 @@ export default function WelcomeHeader() {
           </Link>
         )}
       </div>
-    </div>
+    </header>
   );
 }

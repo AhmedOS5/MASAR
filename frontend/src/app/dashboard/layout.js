@@ -44,7 +44,7 @@ export default function DashboardLayout({ children }) {
 
   return (
     <NotificationsProvider>
-      <TopHeader onMenuClick={() => setIsSidebarOpen(true)} />
+      <TopHeader onMenuClick={() => setIsSidebarOpen(true)} collapsed={collapsed} />
       <div className={styles.dashboardWrapper}>
         <Sidebar
           isOpen={isSidebarOpen}

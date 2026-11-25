@@ -1,89 +1,30 @@
+/* App sidebar: full-height dark teal rail with the logo on top. Right edge (RTL). Tokens: --ds-side-*. */
 .sidebarContainer {
   width: 280px;
-  background-color: var(--ds-card);
-  border-left: 1px solid var(--ds-line);
-  transition: width 0.2s ease, padding 0.2s ease;
-  height: calc(100vh - 70px);
+  background-color: var(--ds-side-bg);
+  color: var(--ds-side-ink);
+  transition: width 200ms ease, padding 200ms ease;
+  height: 100vh;
   display: flex;
   flex-direction: column;
-  padding: 24px 16px;
+  padding: 0 16px 16px;
   position: fixed;
   right: 0;
-  top: 70px;
+  top: 0;
   direction: rtl;
-  z-index: 100;
+  z-index: 210;
 }
 
-.logoSection {
+.brand {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
-  gap: 8px;
-  padding: 0 8px 24px 0;
-  border-bottom: 1px solid var(--ds-surface-2);
-}
-
-.logoText {
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--brand-900);
-  text-align: center;
-  margin: auto;
-  position: absolute;
-  top: -40px;
-}
-
-.userCard {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background-color: var(--ds-surface);
-  padding: 12px;
-  border-radius: 10px;
-  margin: 16px 0;
-}
-
-.avatar {
-  width: 36px;
-  height: 36px;
-  background-color: var(--brand-100);
-  color: var(--brand-900);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 14px;
-}
-
-.userInfo {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.userName {
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--ds-ink);
-}
-
-.userOrg {
-  font-size: 11px;
-  color: var(--ds-muted);
-  margin-top: 2px;
-}
-
-.statusDot {
-  width: 18px;
-  height: 18px;
-  background-color: var(--ds-line);
-  color: var(--ds-muted);
-  border-radius: 50%;
-  font-size: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  height: 70px;
+  flex-shrink: 0;
+  padding-inline: 4px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--ds-side-line);
+  filter: brightness(0) invert(1); /* the logo is a single-colour mark: white on the teal rail */
+  pointer-events: none; /* the mark sits in a larger square viewBox that overflows the 70px strip invisibly */
 }
 
 .navigation {
@@ -92,48 +33,56 @@
   gap: 4px;
   flex: 1;
   overflow-y: auto;
+  padding-top: 8px;
 }
 
 .sectionHeader {
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--ds-subtle);
-  margin: 16px 8px 6px 0;
-  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ds-side-muted);
+  margin: 16px 12px 4px 12px;
 }
 
-/* تنسيق الروابط لتقبل النقرات بالكامل عبر وسم Link المترجم لـ a */
 .navLink,
 .navLinkActive {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 12px;
-  border-radius: 8px;
+  min-height: 40px;
+  padding: 8px 12px;
+  border-radius: var(--ds-radius-sm);
   cursor: pointer;
-  transition: all 0.2s ease;
-  font-size: 13px;
-  font-weight: 600;
+  transition: background-color 150ms ease, color 150ms ease;
+  font-size: 14px;
+  font-weight: 500;
   text-decoration: none;
   width: 100%;
   box-sizing: border-box;
 }
 
 .navLink {
-  color: var(--ds-muted);
+  color: var(--ds-side-ink);
 }
 
 .navLink:hover {
-  background-color: var(--ds-surface-2);
-  color: var(--ds-ink);
+  background-color: var(--ds-side-hover);
 }
 
 .navLinkActive {
-  background-color: var(--brand-100);
-  color: var(--brand-900);
+  background-color: var(--ds-side-active);
+  color: var(--ds-side-active-ink);
+  font-weight: 600;
 }
 
-/* صف مجموعة الوحدات: الرابط + زر التوسيع */
+.navLink:focus-visible,
+.navLinkActive:focus-visible,
+.chevronBtn:focus-visible,
+.collapseBtn:focus-visible,
+.logoutButton:focus-visible {
+  outline: 2px solid var(--ds-side-active-ink);
+  outline-offset: 1px;
+}
+
 .navGroupRow {
   display: flex;
   align-items: center;
@@ -148,116 +97,78 @@
 .chevronBtn {
   background: none;
   border: none;
-  color: var(--ds-subtle);
+  color: var(--ds-side-muted);
   cursor: pointer;
-  padding: 6px;
+  padding: 8px;
   border-radius: 6px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: background-color 150ms ease, color 150ms ease;
 }
 
 .chevronBtn:hover {
-  background-color: var(--ds-surface-2);
-  color: var(--ds-ink);
+  background-color: var(--ds-side-hover);
+  color: var(--ds-side-ink);
 }
 
-/* القائمة الفرعية لشاشات الوحدات */
 .subMenu {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  margin-right: 18px;
-  padding-right: 12px;
-  border-right: 1px solid var(--ds-line);
+  margin-inline-start: 18px;
+  padding-inline-start: 12px;
+  border-inline-start: 1px solid var(--ds-side-line);
 }
 
 .subLink,
-.subLinkActive {
+.subLinkActive,
+.subLinkDisabled {
   display: block;
-  padding: 7px 10px;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
   text-decoration: none;
-  transition: all 0.2s ease;
 }
 
 .subLink {
-  color: var(--ds-muted);
+  color: var(--ds-side-muted);
 }
 
 .subLink:hover {
-  background-color: var(--ds-surface-2);
-  color: var(--ds-ink);
+  background-color: var(--ds-side-hover);
+  color: var(--ds-side-ink);
 }
 
 .subLinkActive {
-  background-color: var(--brand-100);
-  color: var(--brand-900);
-  font-weight: 700;
+  background-color: var(--ds-side-active);
+  color: var(--ds-side-active-ink);
+  font-weight: 600;
 }
 
 .subLinkDisabled {
-  display: block;
-  padding: 7px 10px;
-  border-radius: 8px;
-  font-size: 12px;
-  font-weight: 600;
-  text-decoration: none;
-  color: var(--ds-subtle);
+  color: var(--ds-side-muted);
+  opacity: 0.6;
   cursor: not-allowed;
-  background-color: var(--ds-surface);
-  opacity: 0.7;
-}
-
-.subLinkDisabled:hover {
-  background-color: var(--ds-surface);
 }
 
 .notificationBadge {
-  background-color: var(--fill-900);
-  color: var(--ds-on-brand);
-  font-size: 11px;
+  background-color: var(--ds-side-active-ink);
+  color: var(--ds-side-bg);
+  font-size: 12px;
   font-weight: 700;
-  padding: 2px 6px;
+  min-width: 20px;
+  text-align: center;
+  padding: 0 6px;
   border-radius: 10px;
-  margin-right: auto;
+  margin-inline-start: auto;
 }
 
 .footerSection {
-  border-top: 1px solid var(--ds-surface-2);
+  border-top: 1px solid var(--ds-side-line);
   padding-top: 12px;
   margin-top: auto;
-}
-
-.logoutButton {
-  background: none;
-  border: none;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  padding: 10px 12px;
-  color: var(--ds-on-brand);
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  border-radius: 8px;
-  transition: background-color 0.2s;
-  background-color: #ce432b;
-  font-family: Cairo;
-}
-
-.logoutButton:hover {
-  background-color: #e66b6b;
-  font-family: Cairo;
-}
-
-.collapseBtn:focus-visible {
-  outline: none;
-  box-shadow: var(--ds-focus);
 }
 
 .collapseBtn {
@@ -265,36 +176,64 @@
   align-items: center;
   gap: 12px;
   width: 100%;
-  padding: 10px 12px;
+  min-height: 40px;
+  padding: 8px 12px;
   margin-bottom: 4px;
   background: none;
   border: none;
-  border-radius: 8px;
-  color: var(--ds-muted);
+  border-radius: var(--ds-radius-sm);
+  color: var(--ds-side-muted);
   font-family: inherit;
-  font-size: 13px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition: background-color 150ms ease, color 150ms ease;
 }
 
 .collapseBtn:hover {
-  background-color: var(--ds-surface-2);
-  color: var(--ds-ink);
+  background-color: var(--ds-side-hover);
+  color: var(--ds-side-ink);
+}
+
+/* Sign-out is quiet until hovered, then it shows its danger meaning. */
+.logoutButton {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 40px;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  color: var(--ds-side-muted);
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: var(--ds-radius-sm);
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.logoutButton:hover {
+  background-color: rgba(248, 113, 113, 0.16);
+  color: #fca5a5;
 }
 
 /* ---------- Collapsed icon rail (desktop only; below 993px the sidebar is the mobile drawer) ---------- */
 @media (min-width: 993px) {
   .collapsed {
     width: 76px;
-    padding: 24px 12px;
+    padding: 0 12px 16px;
+  }
+  .collapsed .brand {
+    visibility: hidden; /* keeps the 70px strip aligned with the header */
   }
 
   .collapsed .sectionHeader {
     height: 1px;
     margin: 10px 8px;
     overflow: hidden;
-    background: var(--ds-line);
+    background: var(--ds-side-line);
     color: transparent;
     font-size: 0;
   }
@@ -323,7 +262,7 @@
   /* The label stays in the accessibility tree and becomes a tooltip on hover / keyboard focus. */
   .collapsed .linkText {
     position: absolute;
-    right: calc(100% + 10px);
+    right: calc(100% + 10px); /* physical on purpose: the tooltip opens towards the content (left of the right-hand rail) */
     top: 50%;
     transform: translateY(-50%);
     padding: 6px 10px;
@@ -382,10 +321,8 @@
     right: -300px;
     width: 280px;
     height: 100vh;
-    border-left: 1px solid var(--ds-line);
-    border-bottom: none;
-    padding: 24px 16px;
-    box-shadow: -10px 0 25px rgba(0, 0, 0, 0.1);
+    padding: 0 16px 16px;
+    box-shadow: -10px 0 25px rgba(0, 0, 0, 0.2);
     z-index: 300;
     transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
@@ -402,20 +339,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--ds-surface-2);
+    background: var(--ds-side-hover);
     border: none;
-    color: var(--ds-muted);
+    color: var(--ds-side-ink);
     border-radius: 8px;
     padding: 4px;
     cursor: pointer;
     position: absolute;
-    top: 10px;
+    top: 14px;
     left: 12px;
     z-index: 10;
   }
 
   .navigation {
-    margin-top: 24px;
     max-height: none;
     overflow: auto;
   }
@@ -424,7 +360,7 @@
 @media (max-width: 640px) {
   .sidebarContainer {
     width: 260px;
-    padding: 20px 14px;
+    padding: 0 14px 16px;
   }
 
   .navLink,

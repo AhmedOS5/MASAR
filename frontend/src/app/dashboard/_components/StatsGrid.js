@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Users, ClipboardList, Activity, Bell } from "lucide-react";
+import { Users, ClipboardList, Activity, Bell, TrendingUp, TrendingDown, Minus } from "lucide-react";
 import useDashboardSummary from "@/hooks/useDashboardSummary";
 import { ErrorBanner, Skeleton } from "@/components/ui/QueryState";
 import styles from "./StatsGrid.module.css";
@@ -27,16 +27,21 @@ export const AnimatedCounter = ({ endValue, duration = 1200 }) => {
   return <>{count}</>;
 };
 
-// Card chrome only (titles/icons). Every number and trend text comes from the API.
+// Card chrome only (titles/icons). Every number and trend text comes from the API. All icons share one neutral style:
+// colour is reserved for meaning (the trend), never decoration.
 const CARDS = [
-  { key: "active_users", title: "المستخدمون النشطون", icon: Users, iconClass: "greenIcon" },
-  { key: "open_tasks", title: "المهام المفتوحة", icon: ClipboardList, iconClass: "blueIcon" },
-  { key: "running_operations", title: "العمليات الجارية", icon: Activity, iconClass: "purpleIcon" },
-  { key: "important_alerts", title: "التنبيهات المهمة", icon: Bell, iconClass: "orangeIcon" },
+  { key: "active_users", title: "المستخدمون النشطون", icon: Users },
+  { key: "open_tasks", title: "المهام المفتوحة", icon: ClipboardList },
+  { key: "running_operations", title: "العمليات الجارية", icon: Activity },
+  { key: "important_alerts", title: "التنبيهات المهمة", icon: Bell },
 ];
 
-const trendClass = (trend) =>
-  trend === "up" ? styles.trendUp : trend === "down" ? styles.trendDown : styles.neutralText;
+// The arrow carries the direction too, so the trend is never conveyed by colour alone.
+const TREND = {
+  up: { cls: styles.trendUp, Icon: TrendingUp },
+  down: { cls: styles.trendDown, Icon: TrendingDown },
+};
+const NEUTRAL_TREND = { cls: styles.trendNeutral, Icon: Minus };
 
 export default function StatsGrid() {
   const query = useDashboardSummary();
@@ -48,27 +53,25 @@ export default function StatsGrid() {
 
   return (
     <div className={styles.gridContainer}>
-      {CARDS.map(({ key, title, icon: Icon, iconClass }) => {
+      {CARDS.map(({ key, title, icon: Icon }) => {
         const stat = stats[key] || {};
+        const trend = TREND[stat.trend] ?? NEUTRAL_TREND;
         return (
           <div key={key} className={styles.statCard}>
             <div className={styles.cardHeader}>
-              <div className={`${styles.iconBox} ${styles[iconClass]}`}>
-                <Icon size={20} />
-              </div>
-              <div className={styles.titleInfo}>
-                <span className={styles.cardTitle}>{title}</span>
-                <h2 className={styles.cardValue}>
-                  <AnimatedCounter endValue={stat.value} />
-                </h2>
-              </div>
+              <span className={styles.cardTitle}>{title}</span>
+              <span className={styles.iconBox} aria-hidden="true">
+                <Icon size={18} />
+              </span>
             </div>
+            <h2 className={styles.cardValue}>
+              <AnimatedCounter endValue={stat.value} />
+            </h2>
             {stat.trend_text && (
-              <div className={styles.cardFooter}>
-                <span className={`${styles.trendTag} ${trendClass(stat.trend)}`}>
-                  {stat.trend_text}
-                </span>
-              </div>
+              <span className={`${styles.trendTag} ${trend.cls}`}>
+                <trend.Icon size={14} aria-hidden="true" />
+                {stat.trend_text}
+              </span>
             )}
           </div>
         );

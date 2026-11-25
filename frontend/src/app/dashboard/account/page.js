@@ -10,7 +10,7 @@ import useSession from "@/hooks/useSession";
 import { changePassword } from "@/services/auth.service";
 import { useToast } from "@/components/Toast/ToastProvider";
 import dashboardStyles from "../dashboard.module.css";
-import styles from "../projects/projects.module.css";
+import styles from "./account.module.css";
 
 const EMPTY = { currentPassword: "", password: "", passwordConfirmation: "" };
 
@@ -93,7 +93,7 @@ export default function AccountPage() {
 
   return (
     <main className={`${dashboardStyles.mainContainer} ${styles.page}`}>
-      <div>
+      <div className={styles.header}>
         <h1 className={styles.title}>
           <UserCircle size={22} aria-hidden="true" /> حسابي
         </h1>

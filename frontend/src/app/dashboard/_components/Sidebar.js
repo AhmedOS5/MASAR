@@ -27,6 +27,7 @@ import styles from "./Sidebar.module.css";
 import { useNotifications } from "../_context/NotificationsContext";
 import useLogout from "@/hooks/useLogout";
 import usePermissions from "@/hooks/usePermissions";
+import Logo from "../../_components/Navbar/Logo";
 
 /** `collapsed` (desktop only) shrinks the sidebar to an icon rail; labels then appear as tooltips (Sidebar.module.css). */
 export default function Sidebar({ isOpen, onClose, collapsed = false, onToggleCollapse }) {
@@ -54,6 +55,10 @@ export default function Sidebar({ isOpen, onClose, collapsed = false, onToggleCo
         <button className={styles.closeBtn} onClick={onClose}>
           <X size={20} />
         </button>
+
+        <div className={styles.brand}>
+          <Logo width={190} height={190} />
+        </div>
 
         {/* قوائم الملاحة الروابط المباشرة */}
         <nav className={styles.navigation}>

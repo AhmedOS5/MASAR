@@ -1,130 +1,93 @@
-.bannerContainer {
-  background: linear-gradient(135deg, var(--fill-900) 0%, var(--fill-700) 45%, #185498 100%);
-  border-radius: 24px;
-  padding: 32px;
+/* Dashboard page header: flat and compact (no banner). Tokens only, logical properties only. */
+.header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  color: var(--ds-on-brand);
-  direction: rtl;
-  box-shadow: 0 18px 40px rgba(6, 78, 59, 0.16);
-  position: relative;
-  overflow: hidden;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
   min-width: 0;
 }
 
-.bannerContainer::after {
-  content: "";
-  position: absolute;
-  inset: auto -30px -40px auto;
-  width: 180px;
-  height: 180px;
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: 50%;
-}
-
-.rightSection {
+.intro {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  position: relative;
-  z-index: 1;
+  gap: 4px;
+  min-width: 0;
 }
 
-.welcomeText {
-  font-size: clamp(22px, 2.2vw, 28px);
-  font-weight: 800;
+.title {
   margin: 0;
+  font-size: clamp(20px, 1.8vw, 24px);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--ds-ink);
 }
 
 .userName {
-  color: #6ee7b7;
+  color: var(--brand-700);
 }
 
-.subDetails {
-  font-size: 13px;
-  color: var(--brand-100);
+.meta {
   margin: 0;
-  opacity: 0.95;
+  font-size: 13px;
+  color: var(--ds-muted);
 }
 
-.leftSection {
+.actions {
   display: flex;
-  gap: 12px;
-  position: relative;
-  z-index: 1;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .primaryBtn,
 .secondaryBtn {
-  display: flex;
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  padding: 10px 16px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 700;
-  font-family: Cairo, sans-serif;
+  min-height: 40px;
+  padding-inline: 16px;
+  border-radius: var(--ds-radius-sm);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
   cursor: pointer;
-  transition: all 0.2s ease;
-  border: none;
+  border: 1px solid transparent;
+  transition: background-color 150ms ease, border-color 150ms ease, color 150ms ease;
 }
 
 .primaryBtn {
-  background: rgba(255, 255, 255, 0.16);
+  background: var(--fill-700);
   color: var(--ds-on-brand);
 }
 
 .primaryBtn:hover {
-  background: rgba(255, 255, 255, 0.24);
+  background: var(--fill-900);
 }
 
 .secondaryBtn {
-  background: rgba(255, 255, 255, 0.1);
-  color: var(--ds-on-brand);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: var(--ds-card);
+  color: var(--ds-ink-2);
+  border-color: var(--ds-line-strong);
 }
 
 .secondaryBtn:hover {
-  background: rgba(255, 255, 255, 0.16);
+  background: var(--ds-surface-2);
 }
 
-@media (max-width: 768px) {
-  .bannerContainer {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-    padding: 24px;
-  }
+.primaryBtn:focus-visible,
+.secondaryBtn:focus-visible {
+  outline: none;
+  box-shadow: var(--ds-focus);
+}
 
-  .welcomeText {
-    font-size: 20px;
-  }
-
-  .leftSection {
+@media (max-width: 640px) {
+  .actions {
     width: 100%;
-    flex-direction: column;
-    gap: 10px;
   }
-
   .primaryBtn,
   .secondaryBtn {
-    width: 100%;
-    justify-content: center;
-    padding: 12px;
+    flex: 1;
+    min-height: 44px; /* touch target */
   }
 }
-
-@media (max-width: 480px) {
-  .bannerContainer {
-    padding: 20px 16px;
-  }
-  
-  .bannerContainer::after {
-    width: 120px;
-    height: 120px;
-    inset: auto -20px -30px auto;
-  }
-}
-
-.primaryBtn, .secondaryBtn { text-decoration: none; }

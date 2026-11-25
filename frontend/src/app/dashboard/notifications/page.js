@@ -5,8 +5,17 @@ import { BellOff } from "lucide-react";
 import NotificationsHeader from "./_components/NotificationsHeader";
 import NotificationItem from "./_components/NotificationItem";
 import styles from "./notifications.module.css";
+import ui from "@/components/ui/ui.module.css";
+import dashboardStyles from "../dashboard.module.css";
 import { useNotifications } from "../_context/NotificationsContext";
 import { ErrorBanner, Skeleton } from "@/components/ui/QueryState";
+
+const FILTERS = [
+  { key: "all", label: "الكل" },
+  { key: "unread", label: "غير مقروء" },
+  { key: "alerts", label: "تحذيرات" },
+  { key: "tasks", label: "مهام" },
+];
 
 export default function NotificationsPage() {
   const { notifications, unreadCount, handleMarkAllRead, handleRead, isLoading, isError, error, refetch } = useNotifications();
@@ -20,38 +29,25 @@ export default function NotificationsPage() {
   });
 
   return (
-    <div className={styles.pageContainer}>
+    <main className={dashboardStyles.mainContainer}>
       <NotificationsHeader 
         unreadCount={unreadCount} 
         onMarkAllRead={handleMarkAllRead} 
       />
 
       <div className={styles.contentLayout}>
-        <div className={styles.filtersRow}>
-          <button 
-            className={`${styles.filterChip} ${activeFilter === "all" ? styles.filterChipActive : ""}`}
-            onClick={() => setActiveFilter("all")}
-          >
-            الكل
-          </button>
-          <button 
-            className={`${styles.filterChip} ${activeFilter === "unread" ? styles.filterChipActive : ""}`}
-            onClick={() => setActiveFilter("unread")}
-          >
-            غير مقروء
-          </button>
-          <button 
-            className={`${styles.filterChip} ${activeFilter === "alerts" ? styles.filterChipActive : ""}`}
-            onClick={() => setActiveFilter("alerts")}
-          >
-            تحذيرات
-          </button>
-          <button 
-            className={`${styles.filterChip} ${activeFilter === "tasks" ? styles.filterChipActive : ""}`}
-            onClick={() => setActiveFilter("tasks")}
-          >
-            مهام
-          </button>
+        <div className={ui.segmented} role="group" aria-label="تصفية الإشعارات">
+          {FILTERS.map((f) => (
+            <button
+              key={f.key}
+              type="button"
+              className={`${ui.segment} ${activeFilter === f.key ? ui.segmentActive : ""}`}
+              aria-pressed={activeFilter === f.key}
+              onClick={() => setActiveFilter(f.key)}
+            >
+              {f.label}
+            </button>
+          ))}
         </div>
 
         <div className={styles.notificationsList}>
@@ -78,6 +74,6 @@ export default function NotificationsPage() {
           )}
         </div>
       </div>
-    </div>
+    </main>
   );
 }

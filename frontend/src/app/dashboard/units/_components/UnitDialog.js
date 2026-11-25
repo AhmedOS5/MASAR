@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Modal from "@/components/ui/Modal";
+import ui from "@/components/ui/ui.module.css";
 import { FormActions } from "@/components/ui/Form";
 import { updateUnit } from "@/services/workspace.service";
 import { UNIT_STATUS, UNIT_TIER } from "@/lib/labels";
@@ -35,12 +36,12 @@ export default function UnitDialog({ unit, mode, onClose }) {
 
   return (
     <Modal open onClose={onClose} title={unit.title}>
-      <p style={{ margin: "0 0 14px", lineHeight: 1.7, color: "#475569" }}>{unit.description}</p>
-      <dl style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "8px 16px", margin: 0 }}>
+      <p className={ui.bodyText}>{unit.description}</p>
+      <dl className={ui.descList}>
         {fields.map(([k, v]) => (
           <React.Fragment key={k}>
-            <dt style={{ color: "#64748b" }}>{k}</dt>
-            <dd style={{ margin: 0, fontWeight: 600 }}>{v}</dd>
+            <dt>{k}</dt>
+            <dd>{v}</dd>
           </React.Fragment>
         ))}
       </dl>

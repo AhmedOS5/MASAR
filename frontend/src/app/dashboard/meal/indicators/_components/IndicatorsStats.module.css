@@ -9,14 +9,13 @@
 .statCard {
   background-color: var(--ds-card);
   border: 1px solid var(--ds-line);
-  border-radius: 16px;
+  border-radius: var(--ds-radius);
   padding: 18px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   gap: 2px;
-  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.04);
 }
 
 .iconRow {

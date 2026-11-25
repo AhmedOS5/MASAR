@@ -2,42 +2,36 @@
 
 import React from "react";
 import { Plus, History, Save } from "lucide-react";
-import styles from "./FieldDataHeader.module.css";
+import PageHeader from "@/components/ui/PageHeader";
+import ui from "@/components/ui/ui.module.css";
 
 export default function FieldDataHeader({ form, onShowRecords, canEdit = true }) {
   return (
-    <div className={styles.headerRow}>
-      <div className={styles.titleSide}>
-        <div className={styles.titleLine}>
-          <h2 className={styles.pageTitle}>إدخال البيانات الميدانية</h2>
-          <span className={styles.titleBadge}>إدخال البيانات الميدانية</span>
-        </div>
-        <p className={styles.subtitle}>
-          سجّل الأنشطة الميدانية وربطها بالمؤشرات والمستفيدين لدعم التقارير.
-        </p>
-        <p className={styles.subtitleMuted}>
-          تُستخدم هذه البيانات لتحديث تقدم المؤشرات وإثبات تنفيذ الأنشطة.
-        </p>
-      </div>
-
-      <div className={styles.actionsSide}>
-        {canEdit && (
-          <button type="button" className={styles.btnOutline} disabled={form.saving} onClick={form.saveDraft}>
-            <Save size={15} />
-            <span>{form.saving ? "جاري الحفظ..." : "حفظ كمسودة"}</span>
+    <PageHeader
+      title="إدخال البيانات الميدانية"
+      subtitle="سجّل الأنشطة الميدانية وربطها بالمؤشرات والمستفيدين لدعم التقارير. تُستخدم هذه البيانات لتحديث تقدم المؤشرات وإثبات تنفيذ الأنشطة."
+      secondary={
+        <>
+          {canEdit && (
+            <button type="button" className={ui.secondaryBtn} disabled={form.saving} onClick={form.saveDraft}>
+              <Save size={15} aria-hidden="true" />
+              <span>{form.saving ? "جاري الحفظ..." : "حفظ كمسودة"}</span>
+            </button>
+          )}
+          <button type="button" className={ui.secondaryBtn} onClick={onShowRecords}>
+            <History size={15} aria-hidden="true" />
+            <span>عرض السجلات السابقة</span>
           </button>
-        )}
-        <button type="button" className={styles.btnOutline} onClick={onShowRecords}>
-          <History size={15} />
-          <span>عرض السجلات السابقة</span>
-        </button>
-        {canEdit && (
-          <button type="button" className={styles.btnPrimary} onClick={form.reset}>
-            <Plus size={16} />
+        </>
+      }
+      primary={
+        canEdit && (
+          <button type="button" className={ui.primaryBtn} onClick={form.reset}>
+            <Plus size={16} aria-hidden="true" />
             <span>تسجيل نشاط جديد</span>
           </button>
-        )}
-      </div>
-    </div>
+        )
+      }
+    />
   );
 }

@@ -12,12 +12,12 @@ export default function NotificationItem({ notification, onRead }) {
   const getTypeStyles = () => {
     switch (type) {
       case "alert":
-        return { icon: <AlertTriangle size={24} />, className: styles.typeAlert };
+        return { icon: <AlertTriangle size={20} />, className: styles.typeAlert };
       case "task":
-        return { icon: <CheckCircle size={24} />, className: styles.typeTask };
+        return { icon: <CheckCircle size={20} />, className: styles.typeTask };
       case "system":
       default:
-        return { icon: <Info size={24} />, className: styles.typeSystem };
+        return { icon: <Info size={20} />, className: styles.typeSystem };
     }
   };
 
@@ -41,7 +41,7 @@ export default function NotificationItem({ notification, onRead }) {
         <div className={styles.cardHeader}>
           <h4 className={styles.cardTitle}>{title}</h4>
           <span className={styles.cardTime}>
-            <Clock size={12} style={{ display: "inline", marginLeft: "4px", verticalAlign: "middle" }} />
+            <Clock size={12} aria-hidden="true" />
             {time}
           </span>
         </div>

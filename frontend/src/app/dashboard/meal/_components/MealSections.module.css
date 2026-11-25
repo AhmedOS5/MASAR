@@ -22,28 +22,25 @@
 .sectionCard {
   background-color: var(--ds-card);
   border: 1px solid var(--ds-line);
-  border-radius: 16px;
+  border-radius: var(--ds-radius);
   padding: 22px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   gap: 8px;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease;
 }
 
 .sectionCard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 28px rgba(15, 23, 42, 0.08);
 }
 
 .iconBox {
   width: 48px;
   height: 48px;
-  border-radius: 14px;
+  border-radius: var(--ds-radius);
   display: flex;
   align-items: center;
   justify-content: center;

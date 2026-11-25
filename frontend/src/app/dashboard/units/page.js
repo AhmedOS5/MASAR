@@ -8,6 +8,8 @@ import UnitCard from "./_components/UnitCard";
 import UnitDialog from "./_components/UnitDialog";
 import { UNIT_FILTERS } from "./_components/unitFilters";
 import QueryState from "@/components/ui/QueryState";
+import PageHeader from "@/components/ui/PageHeader";
+import { Grid } from "lucide-react";
 import { listUnits } from "@/services/workspace.service";
 import styles from "./units.module.css";
 import dashStyles from "../dashboard.module.css";
@@ -30,12 +32,11 @@ export default function UnitsPage() {
 
   return (
     <main className={`${dashStyles.mainContainer} ${dashStyles.fadeInAnimation}`}>
-      <div className={styles.pageHeader}>
-        <h2 className={styles.pageTitle}>الوحدات</h2>
-        <p className={styles.pageSubtitle}>
-          اختر الوحدات المناسبة لاحتياجات مؤسستك وفعلها حسب طبيعة العمل والصلاحيات المطلوبة.
-        </p>
-      </div>
+      <PageHeader
+        icon={Grid}
+        title="الوحدات"
+        subtitle="اختر الوحدات المناسبة لاحتياجات مؤسستك وفعلها حسب طبيعة العمل والصلاحيات المطلوبة."
+      />
 
       <QueryState query={query} isEmpty={(d) => d.length === 0} emptyText="لا توجد وحدات متاحة.">
         {(units) => (
@@ -44,7 +45,7 @@ export default function UnitsPage() {
             <UnitsFilter filter={filter} onFilter={setFilter} search={search} onSearch={setSearch} />
 
             {visible.length === 0 ? (
-              <p style={{ color: "#64748b", textAlign: "center", padding: 24 }}>لا توجد وحدات مطابقة.</p>
+              <p className={styles.noMatch}>لا توجد وحدات مطابقة.</p>
             ) : (
               <div className={styles.cardsGrid}>
                 {visible.map((unit) => (

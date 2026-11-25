@@ -11,12 +11,15 @@ import { useWorkProjects } from "@/features/projects/ProjectField";
 import { uploadReport } from "@/services/projects.service";
 import { getReportsSummary, listReports, reportDownloadUrl } from "@/services/workspace.service";
 import { formatNumber } from "@/lib/format";
+import PageHeader from "@/components/ui/PageHeader";
+import ui from "@/components/ui/ui.module.css";
 import styles from "./reports.module.css";
+import dashboardStyles from "../dashboard.module.css";
 
 const STATS = [
-  { key: "total_reports", label: "إجمالي التقارير المصدرة", icon: FileText, color: "#2563eb", bg: "rgba(37,99,235,0.1)" },
-  { key: "monthly_progress", label: "معدل الإنجاز الشهري", icon: TrendingUp, color: "#10b981", bg: "rgba(16,185,129,0.1)", signed: true, suffix: "%" },
-  { key: "active_sections", label: "أقسام نشطة بالتحليل", icon: PieChart, color: "#8b5cf6", bg: "rgba(139,92,246,0.1)" },
+  { key: "total_reports", label: "إجمالي التقارير المصدرة", icon: FileText, tone: "info" },
+  { key: "monthly_progress", label: "معدل الإنجاز الشهري", icon: TrendingUp, tone: "success", signed: true, suffix: "%" },
+  { key: "active_sections", label: "أقسام نشطة بالتحليل", icon: PieChart, tone: "neutral" },
 ];
 
 function formatStat(def, value) {
@@ -53,25 +56,24 @@ export default function ReportsPage() {
   });
 
   return (
-    <div className={styles.pageContainer}>
-      <div className={styles.headerWrapper}>
-        <div className={styles.titleGroup}>
-          <div className={styles.headerIcon}>
-            <BarChart3 size={24} />
-          </div>
-          <div>
-            <h1 className={styles.pageTitle}>التقارير والإحصائيات</h1>
-            <p className={styles.pageSubtitle}>استعراض وتحليل أداء المؤسسة الشامل</p>
-          </div>
-        </div>
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-          {can("reports.manage") && (
-            <>
+    <main className={dashboardStyles.mainContainer}>
+      <PageHeader
+        icon={BarChart3}
+        title="التقارير والإحصائيات"
+        subtitle="استعراض وتحليل أداء المؤسسة الشامل"
+        secondary={
+          <button type="button" className={ui.secondaryBtn} aria-expanded={showFilter} onClick={() => setShowFilter((s) => !s)}>
+            <Filter size={16} aria-hidden="true" /> تصفية التقارير
+          </button>
+        }
+        primary={
+          can("reports.manage") && (
+            <div className={ui.inlineForm}>
               <select
                 aria-label="مشروع التقرير"
                 value={projectId}
                 onChange={(e) => setProjectId(e.target.value)}
-                style={{ padding: "10px 12px", borderRadius: 8, border: "1px solid #cbd5e1", fontFamily: "inherit" }}
+                className={ui.control}
               >
                 <option value="">اختر المشروع</option>
                 {(projects.data ?? []).map((p) => (
@@ -80,12 +82,12 @@ export default function ReportsPage() {
               </select>
               <button
                 type="button"
-                className={styles.actionBtn}
+                className={ui.primaryBtn}
                 disabled={addReport.isPending || !projectId}
                 title={projectId ? undefined : "اختر المشروع أولاً: كل تقرير يتبع مشروعاً"}
                 onClick={() => fileRef.current?.click()}
               >
-                <UploadCloud size={18} />
+                <UploadCloud size={16} aria-hidden="true" />
                 {addReport.isPending ? "جاري الرفع..." : "رفع تقرير"}
               </button>
               <input
@@ -99,31 +101,21 @@ export default function ReportsPage() {
                   e.target.value = "";
                 }}
               />
-            </>
-          )}
-          <button type="button" className={styles.actionBtn} aria-expanded={showFilter} onClick={() => setShowFilter((s) => !s)}>
-            <Filter size={18} />
-            تصفية التقارير
-          </button>
-        </div>
-      </div>
-
-      {showFilter && (
-        <div style={{ marginBottom: 16 }}>
-          <select
-            aria-label="نوع التقرير"
-            value={type}
-            onChange={(e) => setType(e.target.value)}
-            style={{ padding: "10px 12px", borderRadius: 8, border: "1px solid #cbd5e1", fontFamily: "inherit" }}
-          >
-            <option value="all">كل الأنواع</option>
-            {list("report_types").map((o) => {
-              const opt = typeof o === "object" ? o : { value: o, label: o };
-              return <option key={opt.value} value={opt.value}>{opt.label}</option>;
-            })}
-          </select>
-        </div>
-      )}
+            </div>
+          )
+        }
+        toolbar={
+          showFilter && (
+            <select aria-label="نوع التقرير" value={type} onChange={(e) => setType(e.target.value)} className={ui.control}>
+              <option value="all">كل الأنواع</option>
+              {list("report_types").map((o) => {
+                const opt = typeof o === "object" ? o : { value: o, label: o };
+                return <option key={opt.value} value={opt.value}>{opt.label}</option>;
+              })}
+            </select>
+          )
+        }
+      />
 
       <QueryState query={summary} rows={2} block>
         {(data) => (
@@ -132,11 +124,11 @@ export default function ReportsPage() {
               const Icon = def.icon;
               return (
                 <div key={def.key} className={styles.statCard}>
-                  <div className={styles.statIcon} style={{ color: def.color, background: def.bg }}>
-                    <Icon size={28} />
+                  <div className={`${styles.statIcon} ${styles[`tone_${def.tone}`]}`}>
+                    <Icon size={22} aria-hidden="true" />
                   </div>
                   <div className={styles.statInfo}>
-                    <h3 className={styles.statValue}>{formatStat(def, data?.[def.key])}</h3>
+                    <p className={styles.statValue}><bdi>{formatStat(def, data?.[def.key])}</bdi></p>
                     <p className={styles.statLabel}>{def.label}</p>
                   </div>
                 </div>
@@ -163,8 +155,8 @@ export default function ReportsPage() {
                     </p>
                   </div>
                 </div>
-                <a className={styles.downloadBtn} href={reportDownloadUrl(report.id)} download>
-                  <Download size={16} />
+                <a className={`${ui.secondaryBtn} ${styles.downloadBtn}`} href={reportDownloadUrl(report.id)} download>
+                  <Download size={16} aria-hidden="true" />
                   تحميل PDF
                 </a>
               </div>
@@ -172,6 +164,6 @@ export default function ReportsPage() {
           }
         </QueryState>
       </div>
-    </div>
+    </main>
   );
 }

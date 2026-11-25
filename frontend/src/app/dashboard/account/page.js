@@ -10,6 +10,7 @@ import useSession from "@/hooks/useSession";
 import { changePassword } from "@/services/auth.service";
 import { useToast } from "@/components/Toast/ToastProvider";
 import dashboardStyles from "../dashboard.module.css";
+import PageHeader from "@/components/ui/PageHeader";
 import styles from "./account.module.css";
 
 const EMPTY = { currentPassword: "", password: "", passwordConfirmation: "" };
@@ -93,15 +94,16 @@ export default function AccountPage() {
 
   return (
     <main className={`${dashboardStyles.mainContainer} ${styles.page}`}>
-      <div className={styles.header}>
-        <h1 className={styles.title}>
-          <UserCircle size={22} aria-hidden="true" /> حسابي
-        </h1>
-        <p className={styles.subtitle}>
-          {user?.name ? `${user.name}${user.email ? ` — ${user.email}` : ""}` : "بيانات حسابك وأمانه"}
-          {organizationName ? ` · ${organizationName}` : ""}
-        </p>
-      </div>
+      <PageHeader
+        icon={UserCircle}
+        title="حسابي"
+        subtitle={
+          <>
+            {user?.name ? `${user.name}${user.email ? ` — ${user.email}` : ""}` : "بيانات حسابك وأمانه"}
+            {organizationName ? ` · ${organizationName}` : ""}
+          </>
+        }
+      />
       <PasswordForm />
     </main>
   );

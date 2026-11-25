@@ -2,37 +2,37 @@
 
 import React from "react";
 import { Plus, Download, LayoutTemplate } from "lucide-react";
+import PageHeader from "@/components/ui/PageHeader";
+import ui from "@/components/ui/ui.module.css";
 import { mealReportsExportUrl } from "@/services/meal.service";
 import usePermissions from "@/hooks/usePermissions";
-import styles from "./ReportsHeader.module.css";
 
 export default function ReportsHeader({ onTemplates, onCreate }) {
   const { can } = usePermissions();
   return (
-    <div className={styles.headerRow}>
-      <div className={styles.titleSide}>
-        <h2 className={styles.pageTitle}>التقارير</h2>
-        <p className={styles.subtitle}>
-          أنشئ وراجع تقارير المتابعة والتقييم والمساءلة والتعلّم بناءً على بيانات المشاريع.
-        </p>
-      </div>
-
-      <div className={styles.actionsSide}>
-        <button type="button" className={styles.btnOutline} onClick={onTemplates}>
-          <LayoutTemplate size={15} />
-          <span>قوالب التقارير</span>
-        </button>
-        <a className={styles.btnOutline} href={mealReportsExportUrl} download style={{ textDecoration: "none" }}>
-          <Download size={15} />
-          <span>تصدير القائمة</span>
-        </a>
-        {can("meal.manage") && (
-          <button type="button" className={styles.btnPrimary} onClick={onCreate}>
-            <Plus size={16} />
+    <PageHeader
+      title="التقارير"
+      subtitle="أنشئ وراجع تقارير المتابعة والتقييم والمساءلة والتعلّم بناءً على بيانات المشاريع."
+      secondary={
+        <>
+          <button type="button" className={ui.secondaryBtn} onClick={onTemplates}>
+            <LayoutTemplate size={15} aria-hidden="true" />
+            <span>قوالب التقارير</span>
+          </button>
+          <a className={ui.secondaryBtn} href={mealReportsExportUrl} download>
+            <Download size={15} aria-hidden="true" />
+            <span>تصدير القائمة</span>
+          </a>
+        </>
+      }
+      primary={
+        can("meal.manage") && (
+          <button type="button" className={ui.primaryBtn} onClick={onCreate}>
+            <Plus size={16} aria-hidden="true" />
             <span>إنشاء تقرير</span>
           </button>
-        )}
-      </div>
-    </div>
+        )
+      }
+    />
   );
 }

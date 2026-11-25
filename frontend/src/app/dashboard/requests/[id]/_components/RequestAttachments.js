@@ -51,14 +51,11 @@ export function RequestAttachments({ request }) {
                 <span className={styles.fileName}>{file.name}</span>
                 <span className={styles.fileSize}>{formatBytes(file.size)}</span>
               </div>
-              <div
-                className={styles.fileIconWrapper}
-                style={{ backgroundColor: kind === "xls" ? "#ecfdf5" : "#fef2f2" }}
-              >
+              <div className={`${styles.fileIconWrapper} ${kind === "xls" ? styles.fileIconXls : styles.fileIconDoc}`}>
                 {kind === "xls" ? (
-                  <FileSpreadsheet size={18} color="#059669" />
+                  <FileSpreadsheet size={18} />
                 ) : (
-                  <FileText size={18} color="#dc2626" />
+                  <FileText size={18} />
                 )}
               </div>
             </div>

@@ -23,7 +23,7 @@ function Field({ label, required, error, full, children }) {
       </label>
       {React.cloneElement(children, { id, "aria-invalid": error ? true : undefined })}
       {error && (
-        <span role="alert" style={{ color: "#b91c1c", fontSize: 12 }}>
+        <span role="alert" className={styles.fieldError}>
           {error}
         </span>
       )}
@@ -170,7 +170,7 @@ export default function FieldDataForm({ form }) {
                 {form.files.map((f, i) => (
                   <li key={`${f.name}-${i}`}>
                     {f.name} ({formatBytes(f.size)}){" "}
-                    <button type="button" onClick={() => form.removeFile(i)} style={{ border: "none", background: "none", color: "#dc2626", cursor: "pointer" }}>
+                    <button type="button" className={styles.linkDanger} onClick={() => form.removeFile(i)}>
                       إزالة
                     </button>
                   </li>

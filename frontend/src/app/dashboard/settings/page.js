@@ -6,6 +6,7 @@ import { Lock, Settings } from "lucide-react";
 import { EmptyState } from "@/components/ui/QueryState";
 import QueryState from "@/components/ui/QueryState";
 import ui from "@/components/ui/ui.module.css";
+import PageHeader from "@/components/ui/PageHeader";
 import useOptions from "@/hooks/useOptions";
 import usePermissions from "@/hooks/usePermissions";
 import { updateOptionList } from "@/services/workspace.service";
@@ -82,12 +83,11 @@ export default function SettingsPage() {
 
   return (
     <main className={`${dashboardStyles.mainContainer} ${styles.page}`}>
-      <div>
-        <h1 className={styles.title}>
-          <Settings size={22} aria-hidden="true" /> إعدادات القوائم
-        </h1>
-        <p className={styles.subtitle}>عدّل القيم التي تظهر في القوائم المنسدلة لنماذج المنظمة.</p>
-      </div>
+      <PageHeader
+        icon={Settings}
+        title="إعدادات القوائم"
+        subtitle="عدّل القيم التي تظهر في القوائم المنسدلة لنماذج المنظمة."
+      />
 
       {!can("settings.manage") ? (
         <EmptyState icon={Lock}>إدارة القوائم متاحة لمدير النظام فقط.</EmptyState>

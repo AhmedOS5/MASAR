@@ -69,15 +69,30 @@ export const ACTIVITY_STATUS = {
 export const ACTIVITY_TYPE_STYLE = { complaint: "typeRed", visit: "typeTeal", activity: "typeBlue" };
 
 export const UNIT_STATUS = {
-  active: { label: "مفعّلة", color: "#16a34a" },
-  inactive: { label: "غير مفعّلة", color: "#94a3b8" },
-  in_development: { label: "قيد التطوير", color: "#f59e0b" },
-  setup_required: { label: "تحتاج إلى إعداد", color: "#f59e0b" },
+  active: { label: "مفعّلة", color: "#16a34a", tone: "success" },
+  inactive: { label: "غير مفعّلة", color: "#94a3b8", tone: "neutral" },
+  in_development: { label: "قيد التطوير", color: "#f59e0b", tone: "warning" },
+  setup_required: { label: "تحتاج إلى إعداد", color: "#f59e0b", tone: "warning" },
 };
 
 export const UNIT_TIER = { core: "أساسية", optional: "اختيارية" };
 
 export const NOTIFICATION_TYPES = ["system", "task", "alert"];
+
+// Legacy status/priority tone names -> the shared badge variants in components/ui/ui.module.css (badge_<variant>).
+export const BADGE_TONE = {
+  draft: "neutral",
+  wait: "warning",
+  success: "success",
+  progress: "info",
+  done: "success",
+  reject: "danger",
+  urgent: "danger",
+  high: "warning",
+  medium: "info",
+  low: "neutral",
+};
+export const badgeTone = (tone) => BADGE_TONE[tone] ?? "neutral";
 
 export const pick = (map, key, fallback) =>
   map[key] ?? fallback ?? { label: key ?? "—", tone: "draft", cls: "" };

@@ -4,18 +4,13 @@ import React from "react";
 import { Search } from "lucide-react";
 import useOptions from "@/hooks/useOptions";
 import { PRIORITY, TASK_STATUS } from "@/lib/labels";
-import styles from "../tasks.module.css";
+import ui from "@/components/ui/ui.module.css";
 
 const asOption = (o) => (typeof o === "object" ? o : { value: o, label: o });
 
 function FilterSelect({ label, value, onChange, options }) {
   return (
-    <select
-      className={styles.filterSelect}
-      aria-label={label}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-    >
+    <select className={ui.control} aria-label={label} value={value} onChange={(e) => onChange(e.target.value)}>
       <option value="all">{label}: الكل</option>
       {options.map((o) => {
         const opt = asOption(o);
@@ -32,7 +27,18 @@ function FilterSelect({ label, value, onChange, options }) {
 export function TaskFilters({ filters, onChange }) {
   const { list } = useOptions();
   return (
-    <div className={styles.filtersCard}>
+    <div className={ui.filterBar}>
+      <label className={ui.searchBox}>
+        <Search size={16} aria-hidden="true" />
+        <input
+          type="search"
+          placeholder="البحث عن مهمة..."
+          aria-label="البحث عن مهمة"
+          className={ui.input}
+          value={filters.search}
+          onChange={(e) => onChange({ search: e.target.value })}
+        />
+      </label>
       <FilterSelect label="المسؤول" value={filters.assignee_id} onChange={(v) => onChange({ assignee_id: v })} options={list("employees")} />
       <FilterSelect label="القسم" value={filters.department} onChange={(v) => onChange({ department: v })} options={list("departments")} />
       <FilterSelect
@@ -47,18 +53,6 @@ export function TaskFilters({ filters, onChange }) {
         onChange={(v) => onChange({ status: v })}
         options={Object.entries(TASK_STATUS).map(([value, { label }]) => ({ value, label }))}
       />
-
-      <div className={styles.searchWrapper}>
-        <Search size={16} className={styles.searchIcon} />
-        <input
-          type="search"
-          placeholder="البحث عن مهمة..."
-          aria-label="البحث عن مهمة"
-          className={styles.searchInput}
-          value={filters.search}
-          onChange={(e) => onChange({ search: e.target.value })}
-        />
-      </div>
     </div>
   );
 }

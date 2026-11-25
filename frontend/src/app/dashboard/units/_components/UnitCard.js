@@ -9,6 +9,7 @@ import { UnitIcon } from "@/lib/icons";
 import { UNIT_STATUS, UNIT_TIER } from "@/lib/labels";
 import { useToast } from "@/components/Toast/ToastProvider";
 import usePermissions from "@/hooks/usePermissions";
+import ui from "@/components/ui/ui.module.css";
 import styles from "./UnitCard.module.css";
 
 export default function UnitCard({ unit, onOpen }) {
@@ -34,7 +35,7 @@ export default function UnitCard({ unit, onOpen }) {
       <div className={styles.cardHeader}>
         <div className={styles.badges}>
           <span className={`${styles.badge} ${styles.badgeType}`}>{UNIT_TIER[tier] ?? tier}</span>
-          <span className={styles.badge} style={{ backgroundColor: st.color, color: "#ffffff" }}>
+          <span className={`${ui.badge} ${ui[`badge_${st.tone ?? "neutral"}`]}`}>
             {st.label}
           </span>
         </div>

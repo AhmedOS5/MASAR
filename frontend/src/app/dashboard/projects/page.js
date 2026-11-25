@@ -3,8 +3,9 @@
 import React, { Suspense, useState } from "react";
 import Link from "next/link";
 import { useQuery } from "@tanstack/react-query";
-import { Briefcase, Plus } from "lucide-react";
+import { Briefcase, Plus, Search } from "lucide-react";
 import QueryState from "@/components/ui/QueryState";
+import PageHeader from "@/components/ui/PageHeader";
 import ui from "@/components/ui/ui.module.css";
 import ProjectFormModal from "@/features/projects/ProjectFormModal";
 import usePermissions from "@/hooks/usePermissions";
@@ -27,34 +28,39 @@ function ProjectsContent() {
 
   return (
     <main className={`${dashboardStyles.mainContainer} ${styles.page}`}>
-      <div className={styles.header}>
-        <div>
-          <h1 className={styles.title}>المشاريع</h1>
-          <p className={styles.subtitle}>لكل مشروع مساحة عمل خاصة: فريقه وطلباته ومهامه ومستفيدوه وملفاته وتقاريره.</p>
-        </div>
-        {can("projects.manage") && (
-          <button type="button" className={ui.primaryBtn} onClick={() => setCreateOpen(true)}>
-            <Plus size={16} aria-hidden="true" /> مشروع جديد
-          </button>
-        )}
-      </div>
-
-      <div className={ui.toolbar}>
-        <input
-          className={ui.input}
-          type="search"
-          aria-label="بحث في المشاريع"
-          placeholder="ابحث باسم المشروع أو رمزه"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-        <select className={ui.select} aria-label="حالة المشروع" value={status} onChange={(e) => setStatus(e.target.value)}>
-          <option value="all">كل الحالات</option>
-          {Object.entries(PROJECT_STATUS).map(([k, { label }]) => (
-            <option key={k} value={k}>{label}</option>
-          ))}
-        </select>
-      </div>
+      <PageHeader
+        icon={Briefcase}
+        title="المشاريع"
+        subtitle="لكل مشروع مساحة عمل خاصة: فريقه وطلباته ومهامه ومستفيدوه وملفاته وتقاريره."
+        primary={
+          can("projects.manage") && (
+            <button type="button" className={ui.primaryBtn} onClick={() => setCreateOpen(true)}>
+              <Plus size={16} aria-hidden="true" /> مشروع جديد
+            </button>
+          )
+        }
+        toolbar={
+          <>
+            <label className={ui.searchBox}>
+              <Search size={16} aria-hidden="true" />
+              <input
+                className={ui.input}
+                type="search"
+                aria-label="بحث في المشاريع"
+                placeholder="ابحث باسم المشروع أو رمزه"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </label>
+            <select className={ui.control} aria-label="حالة المشروع" value={status} onChange={(e) => setStatus(e.target.value)}>
+              <option value="all">كل الحالات</option>
+              {Object.entries(PROJECT_STATUS).map(([k, { label }]) => (
+                <option key={k} value={k}>{label}</option>
+              ))}
+            </select>
+          </>
+        }
+      />
 
       <QueryState
         query={query}

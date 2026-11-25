@@ -1,179 +1,43 @@
-.filterWrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  width: 100%;
-  direction: rtl;
-}
-
-.headerRow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.pageTitle {
-  font-size: 20px;
-  font-weight: 800;
-  color: var(--ds-ink);
-  margin: 0;
-}
-
-.createBtn {
-  background-color: var(--fill-900);
-  color: var(--ds-on-brand);
-  border: none;
-  border-radius: 8px;
-  padding: 8px 16px;
-  font-size: 13px;
-  font-family: 'Cairo', sans-serif;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-}
-
-.createBtn:hover {
-  opacity: 0.9;
-}
-
+/* Requests: status tabs with counts (the header and filter bar are shared ui primitives). */
 .tabsRow {
   display: flex;
-  gap: 8px;
+  gap: 4px;
   overflow-x: auto;
-  padding-bottom: 4px;
-  /* إخفاء شريط التمرير الافتراضي للمظهر الجمالي */
   scrollbar-width: none;
+  border-bottom: 1px solid var(--ds-line);
 }
-
-.tabsRow::-webkit-scrollbar {
-  display: none;
-}
+.tabsRow::-webkit-scrollbar { display: none; }
 
 .tabBtn {
-  background: var(--ds-card);
-  border: 1px solid var(--ds-line);
-  border-radius: 8px;
-  padding: 6px 14px;
-  font-size: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  padding: 10px 14px;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  background: none;
+  font-family: inherit;
+  font-size: 13px;
   font-weight: 600;
   color: var(--ds-muted);
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.2s ease;
-  white-space: nowrap;
 }
-
-.tabBtn:hover {
-  background-color: var(--ds-surface);
-  color: var(--ds-ink);
-}
-
-.activeTab {
-  background: var(--fill-900);
-  color: var(--ds-on-brand);
-  border-color: var(--brand-900);
-}
-
-.activeTab:hover {
-  background: var(--fill-900);
-  color: var(--ds-on-brand);
-}
+.tabBtn:hover { color: var(--ds-ink); }
+.tabBtn:focus-visible { outline: none; box-shadow: var(--ds-focus); border-radius: var(--ds-radius-sm); }
+.activeTab { color: var(--brand-700); border-bottom-color: var(--brand-600); }
 
 .badgeCount {
+  min-width: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
   background: var(--ds-surface-2);
-  color: var(--ds-muted);
-  font-size: 10px;
+  color: var(--ds-ink-3);
+  font-size: 11px;
   font-weight: 700;
-  padding: 1px 6px;
-  border-radius: 6px;
+  line-height: 20px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
 }
-
-.activeTab .badgeCount {
-  background: rgba(255, 255, 255, 0.2);
-  color: var(--ds-on-brand);
-}
-
-.searchRow {
-  display: flex;
-  gap: 12px;
-  width: 100%;
-}
-
-.searchContainer {
-  position: relative;
-  flex: 1;
-}
-
-.searchIcon {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--ds-subtle);
-  pointer-events: none;
-}
-
-.searchInput {
-  width: 100%;
-  border: 1px solid var(--ds-line-strong);
-  border-radius: 8px;
-  padding: 8px 36px 8px 12px;
-  font-size: 13px;
-  text-align: right;
-  outline: none;
-  background: var(--ds-card);
-  color: var(--ds-ink-2);
-  transition: border-color 0.2s ease;
-}
-
-.searchInput:focus {
-  border-color: var(--brand-900);
-}
-
-.dropdownWrapper {
-  position: relative;
-  width: 140px;
-}
-
-.dropdownIcon {
-  position: absolute;
-  left: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--ds-muted);
-  pointer-events: none;
-}
-
-.prioritySelect {
-  width: 100%;
-  border: 1px solid var(--ds-line-strong);
-  border-radius: 8px;
-  padding: 8px 12px 8px 32px;
-  font-size: 13px;
-  color: var(--ds-ink-2);
-  font-weight: 600;
-  background: var(--ds-card);
-  appearance: none;
-  text-align: right;
-  outline: none;
-  cursor: pointer;
-  transition: border-color 0.2s ease;
-}
-
-.prioritySelect:focus {
-  border-color: var(--brand-900);
-}
-
-@media (max-width: 768px) {
-  .searchRow {
-    flex-direction: column;
-  }
-  .dropdownWrapper {
-    width: 100%;
-  }
-}
+.activeTab .badgeCount { background: var(--brand-50); color: var(--brand-700); }

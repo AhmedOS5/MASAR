@@ -3,7 +3,9 @@
 import React, { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
-import { Plus } from "lucide-react";
+import { CheckSquare, Plus } from "lucide-react";
+import PageHeader from "@/components/ui/PageHeader";
+import ui from "@/components/ui/ui.module.css";
 import { TaskFilters } from "./_components/TaskFilters";
 import { TasksTable } from "./_components/TasksTable";
 import TaskFormModal from "@/features/tasks/TaskFormModal";
@@ -44,24 +46,19 @@ function TasksContent() {
 
   return (
     <main className={`${dashboardStyles.mainContainer} ${styles.tasksContainer} ${styles.fadeInAnimation}`}>
-      <div className={styles.tasksHeader}>
-        <div className={styles.headerLeft}>
-          {can("tasks.create") && (
-            <button type="button" className={styles.addTaskBtn} onClick={() => setCreateOpen(true)}>
-              <Plus size={16} />
-              <span>إضافة مهمة جديدة</span>
+      <PageHeader
+        icon={CheckSquare}
+        title="المهام"
+        subtitle="إدارة ومتابعة المهام المسندة لفريق العمل في MASAR"
+        badge={total != null && <span className={styles.countBadge}>{total} مهمة</span>}
+        primary={
+          can("tasks.create") && (
+            <button type="button" className={ui.primaryBtn} onClick={() => setCreateOpen(true)}>
+              <Plus size={16} aria-hidden="true" /> <span>إضافة مهمة جديدة</span>
             </button>
-          )}
-        </div>
-
-        <div className={styles.headerRight}>
-          <div className={styles.titleRow}>
-            {total != null && <span className={styles.countBadge}>{total} مهمة</span>}
-            <h1 className={styles.mainTitle}>المهام</h1>
-          </div>
-          <p className={styles.subTitle}>إدارة ومتابعة المهام المسندة لفريق العمل في MASAR</p>
-        </div>
-      </div>
+          )
+        }
+      />
 
       <TaskFilters filters={filters} onChange={change} />
       <TasksTable query={query} page={page} onPageChange={setPage} />

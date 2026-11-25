@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Modal from "@/components/ui/Modal";
+import ui from "@/components/ui/ui.module.css";
 import QueryState from "@/components/ui/QueryState";
 import { Field, FormActions, Select, Input } from "@/components/ui/Form";
 import useOptions from "@/hooks/useOptions";
@@ -80,17 +81,14 @@ export function TemplatesDialog({ open, onClose, onUse }) {
     <Modal open={open} onClose={onClose} title="قوالب التقارير">
       <QueryState query={query} isEmpty={(d) => d.length === 0} emptyText="لا توجد قوالب متاحة.">
         {(templates) => (
-          <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "grid", gap: 10 }}>
+          <ul className={ui.plainList}>
             {templates.map((t) => (
-              <li
-                key={t.id}
-                style={{ border: "1px solid #e2e8f0", borderRadius: 10, padding: 12, display: "flex", justifyContent: "space-between", gap: 12, alignItems: "center" }}
-              >
+              <li key={t.id} className={ui.listCard}>
                 <div>
                   <strong>{t.name}</strong>
-                  {t.description && <p style={{ margin: "4px 0 0", color: "#64748b", fontSize: 13 }}>{t.description}</p>}
+                  {t.description && <p className={ui.mutedText}>{t.description}</p>}
                 </div>
-                <button type="button" onClick={() => onUse(t)} style={{ padding: "6px 14px", borderRadius: 8, border: "1px solid #2563eb", background: "#fff", color: "#2563eb", cursor: "pointer", fontFamily: "inherit" }}>
+                <button type="button" className={ui.secondaryBtn} onClick={() => onUse(t)}>
                   استخدام
                 </button>
               </li>

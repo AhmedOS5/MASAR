@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ArrowRight, Pencil, Users } from "lucide-react";
 import QueryState from "@/components/ui/QueryState";
 import ui from "@/components/ui/ui.module.css";
+import PageHeader from "@/components/ui/PageHeader";
 import ProjectFormModal from "@/features/projects/ProjectFormModal";
 import TeamModal from "@/features/projects/TeamModal";
 import ProjectWork from "@/features/projects/ProjectWork";
@@ -36,7 +37,7 @@ export default function ProjectPage() {
 
   return (
     <main className={`${dashboardStyles.mainContainer} ${styles.page}`}>
-      <Link href="/dashboard/projects" className={ui.ghostBtn} style={{ justifySelf: "start" }}>
+      <Link href="/dashboard/projects" className={`${ui.ghostBtn} ${styles.backLink}`}>
         <ArrowRight size={14} aria-hidden="true" /> كل المشاريع
       </Link>
 
@@ -45,29 +46,33 @@ export default function ProjectPage() {
           const st = PROJECT_STATUS[project.status] ?? { label: project.status, tone: "neutral" };
           return (
             <>
-              <div className={styles.header}>
-                <div>
-                  <span className={styles.code}>{project.code}</span>
-                  <h1 className={styles.title}>{project.name}</h1>
-                  {project.description && <p className={styles.subtitle}>{project.description}</p>}
-                  <div className={styles.meta} style={{ marginTop: 8 }}>
-                    <span className={`${ui.badge} ${ui[`badge_${st.tone}`]}`}>{st.label}</span>
+              <PageHeader
+                title={project.name}
+                subtitle={project.description}
+                badge={<span className={`${ui.badge} ${ui[`badge_${st.tone}`]}`}>{st.label}</span>}
+                meta={
+                  <>
+                    <span className={styles.code}>{project.code}</span>
                     {project.start_date && <span>من {formatDate(project.start_date)}</span>}
                     {project.end_date && <span>إلى {formatDate(project.end_date)}</span>}
                     {project.my_role && <span>دورك: {PROJECT_ROLE[project.my_role] ?? project.my_role}</span>}
-                  </div>
-                </div>
-                {can("projects.manage") && (
-                  <div className={styles.headerActions}>
+                  </>
+                }
+                secondary={
+                  can("projects.manage") && (
                     <button type="button" className={ui.secondaryBtn} onClick={() => setModal("edit")}>
                       <Pencil size={14} aria-hidden="true" /> تعديل المشروع
                     </button>
+                  )
+                }
+                primary={
+                  can("projects.manage") && (
                     <button type="button" className={ui.primaryBtn} onClick={() => setModal("team")}>
                       <Users size={14} aria-hidden="true" /> تعديل الفريق
                     </button>
-                  </div>
-                )}
-              </div>
+                  )
+                }
+              />
 
               <div className={styles.tabs} role="tablist" aria-label="أقسام المشروع">
                 {tabs.map((t) => (

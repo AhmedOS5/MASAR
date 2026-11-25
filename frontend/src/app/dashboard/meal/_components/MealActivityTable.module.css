@@ -1,7 +1,7 @@
 .tableCard {
   background-color: var(--ds-card);
   border: 1px solid var(--ds-line);
-  border-radius: 14px;
+  border-radius: var(--ds-radius);
   padding: 24px;
   direction: rtl;
   width: 100%;

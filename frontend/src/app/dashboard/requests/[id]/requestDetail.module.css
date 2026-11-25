@@ -75,7 +75,6 @@
   border: 1px solid var(--ds-line);
   border-radius: 12px;
   padding: 24px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
   width: 100%;
   box-sizing: border-box;
 }
@@ -101,7 +100,7 @@
   font-size: 11px;
   font-weight: 700;
   padding: 4px 12px;
-  border-radius: 20px;
+  border-radius: var(--ds-radius);
 }
 
 .status_wait {
@@ -504,3 +503,6 @@
 .prio_low { background: var(--ds-surface-2); color: var(--ds-muted); }
 
 .downloadLink { text-decoration: none; }
+
+.fileIconXls { background: var(--ds-success-bg); color: var(--ds-success-fg); }
+.fileIconDoc { background: var(--ds-info-bg); color: var(--ds-info-fg); }

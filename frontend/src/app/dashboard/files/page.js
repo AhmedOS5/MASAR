@@ -3,14 +3,17 @@
 import React, { useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FolderOpen, FolderPlus, UploadCloud, Folder, FileText, Download } from "lucide-react";
-import ProjectField, { useWorkProjects } from "@/features/projects/ProjectField";
+import { useWorkProjects } from "@/features/projects/ProjectField";
 import { createFolder } from "@/services/projects.service";
 import QueryState from "@/components/ui/QueryState";
+import PageHeader from "@/components/ui/PageHeader";
+import ui from "@/components/ui/ui.module.css";
 import { fileDownloadUrl, listFiles, listFolders, uploadFile } from "@/services/workspace.service";
 import { fileKind, formatBytes, formatDate } from "@/lib/format";
 import { useToast } from "@/components/Toast/ToastProvider";
 import usePermissions from "@/hooks/usePermissions";
 import styles from "./files.module.css";
+import dashboardStyles from "../dashboard.module.css";
 
 const ICON_CLASS = { pdf: styles.iconPdf, xls: styles.iconXls, doc: styles.iconDoc };
 
@@ -58,38 +61,34 @@ export default function FilesPage() {
   };
 
   return (
-    <div className={styles.pageContainer}>
-      <div className={styles.headerWrapper}>
-        <div className={styles.titleGroup}>
-          <div className={styles.headerIcon}>
-            <FolderOpen size={24} />
-          </div>
-          <div>
-            <h1 className={styles.pageTitle}>مدير الملفات</h1>
-            <p className={styles.pageSubtitle}>إدارة المستندات والمرفقات الخاصة بمساحة العمل</p>
-          </div>
-        </div>
-        {can("files.upload") && (
-          <>
-            <button
-              type="button"
-              className={styles.actionBtn}
-              disabled={upload.isPending || !folderId}
-              title={folderId ? undefined : "اختر مجلداً أولاً: كل ملف يُرفع داخل مجلد تابع لمشروع"}
-              onClick={() => fileRef.current?.click()}
-            >
-              <UploadCloud size={18} />
-              {upload.isPending ? "جاري الرفع..." : folderId ? "رفع ملف جديد" : "اختر مجلداً لرفع ملف"}
-            </button>
-            <input ref={fileRef} type="file" hidden onChange={onPick} />
-          </>
-        )}
-      </div>
+    <main className={dashboardStyles.mainContainer}>
+      <PageHeader
+        icon={FolderOpen}
+        title="مدير الملفات"
+        subtitle="إدارة المستندات والمرفقات الخاصة بمساحة العمل"
+        primary={
+          can("files.upload") && (
+            <>
+              <button
+                type="button"
+                className={ui.primaryBtn}
+                disabled={upload.isPending || !folderId}
+                title={folderId ? undefined : "اختر مجلداً أولاً: كل ملف يُرفع داخل مجلد تابع لمشروع"}
+                onClick={() => fileRef.current?.click()}
+              >
+                <UploadCloud size={16} aria-hidden="true" />
+                {upload.isPending ? "جاري الرفع..." : folderId ? "رفع ملف جديد" : "اختر مجلداً لرفع ملف"}
+              </button>
+              <input ref={fileRef} type="file" hidden onChange={onPick} />
+            </>
+          )
+        }
+      />
 
       <h2 className={styles.sectionTitle}>المجلدات الرئيسية</h2>
       {can("files.upload") && (
         <form
-          style={{ display: "flex", gap: 8, flexWrap: "wrap", margin: "0 0 14px" }}
+          className={ui.inlineForm}
           onSubmit={(e) => {
             e.preventDefault();
             if (newFolder.trim() && folderProject) addFolder.mutate({ name: newFolder.trim(), project_id: folderProject });
@@ -99,7 +98,7 @@ export default function FilesPage() {
             aria-label="مشروع المجلد"
             value={folderProject}
             onChange={(e) => setFolderProject(e.target.value)}
-            style={{ padding: "8px 12px", borderRadius: 8, border: "1px solid var(--ds-line-strong)", font: "inherit" }}
+            className={ui.control}
           >
             <option value="">اختر المشروع</option>
             {(projects.data ?? []).map((p) => (
@@ -111,9 +110,9 @@ export default function FilesPage() {
             placeholder="اسم مجلد جديد"
             value={newFolder}
             onChange={(e) => setNewFolder(e.target.value)}
-            style={{ padding: "8px 12px", borderRadius: 8, border: "1px solid var(--ds-line-strong)", font: "inherit" }}
+            className={ui.control}
           />
-          <button type="submit" className={styles.actionBtn} disabled={addFolder.isPending || !newFolder.trim() || !folderProject}>
+          <button type="submit" className={ui.secondaryBtn} disabled={addFolder.isPending || !newFolder.trim() || !folderProject}>
             <FolderPlus size={16} />
             إنشاء مجلد
           </button>
@@ -127,13 +126,7 @@ export default function FilesPage() {
                 key={folder.id}
                 type="button"
                 aria-pressed={folderId === folder.id}
-                className={styles.folderCard}
-                style={{
-                  font: "inherit",
-                  textAlign: "inherit",
-                  cursor: "pointer",
-                  outline: folderId === folder.id ? "2px solid #2563eb" : undefined,
-                }}
+                className={`${styles.folderCard} ${folderId === folder.id ? styles.folderActive : ""}`}
                 onClick={() => setFolderId(folderId === folder.id ? null : folder.id)}
               >
                 <div className={styles.folderIconWrapper}>
@@ -181,6 +174,6 @@ export default function FilesPage() {
           </div>
         )}
       </QueryState>
-    </div>
+    </main>
   );
 }

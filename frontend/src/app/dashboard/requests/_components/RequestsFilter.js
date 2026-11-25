@@ -1,7 +1,9 @@
 "use client";
 
 import React from "react";
-import { Plus, Search, ChevronDown } from "lucide-react";
+import { FileText, Plus, Search } from "lucide-react";
+import PageHeader from "@/components/ui/PageHeader";
+import ui from "@/components/ui/ui.module.css";
 import { REQUEST_STATUS, PRIORITY } from "@/lib/labels";
 import usePermissions from "@/hooks/usePermissions";
 import styles from "./RequestsFilter.module.css";
@@ -12,16 +14,19 @@ const TAB_ORDER = ["draft", "rejected", "completed", "in_progress", "approved", 
 export default function RequestsFilter({ filters, onChange, counts = {}, onCreate }) {
   const { can } = usePermissions();
   return (
-    <div className={styles.filterWrapper}>
-      <div className={styles.headerRow}>
-        {can("requests.create") && (
-          <button type="button" className={styles.createBtn} onClick={onCreate}>
-            <Plus size={16} />
-            <span>إنشاء طلب</span>
-          </button>
-        )}
-        <h2 className={styles.pageTitle}>الطلبات</h2>
-      </div>
+    <>
+      <PageHeader
+        icon={FileText}
+        title="الطلبات"
+        subtitle="تابع طلبات العمل وحالاتها وأولوياتها."
+        primary={
+          can("requests.create") && (
+            <button type="button" className={ui.primaryBtn} onClick={onCreate}>
+              <Plus size={16} aria-hidden="true" /> <span>إنشاء طلب</span>
+            </button>
+          )
+        }
+      />
 
       <div className={styles.tabsRow} role="tablist" aria-label="حالة الطلب">
         {[...TAB_ORDER, "all"].map((code) => {
@@ -43,34 +48,25 @@ export default function RequestsFilter({ filters, onChange, counts = {}, onCreat
         })}
       </div>
 
-      <div className={styles.searchRow}>
-        <div className={styles.dropdownWrapper}>
-          <ChevronDown size={16} className={styles.dropdownIcon} />
-          <select
-            className={styles.prioritySelect}
-            aria-label="الأولوية"
-            value={filters.priority}
-            onChange={(e) => onChange({ priority: e.target.value })}
-          >
-            <option value="all">كل الأولويات</option>
-            {Object.entries(PRIORITY).map(([code, { label }]) => (
-              <option key={code} value={code}>{label}</option>
-            ))}
-          </select>
-        </div>
-
-        <div className={styles.searchContainer}>
-          <Search size={16} className={styles.searchIcon} />
+      <div className={ui.filterBar}>
+        <label className={ui.searchBox}>
+          <Search size={16} aria-hidden="true" />
           <input
             type="search"
             placeholder="بحث في الطلبات..."
             aria-label="بحث في الطلبات"
-            className={styles.searchInput}
+            className={ui.input}
             value={filters.search}
             onChange={(e) => onChange({ search: e.target.value })}
           />
-        </div>
+        </label>
+        <select className={ui.control} aria-label="الأولوية" value={filters.priority} onChange={(e) => onChange({ priority: e.target.value })}>
+          <option value="all">كل الأولويات</option>
+          {Object.entries(PRIORITY).map(([code, { label }]) => (
+            <option key={code} value={code}>{label}</option>
+          ))}
+        </select>
       </div>
-    </div>
+    </>
   );
 }

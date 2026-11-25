@@ -4,10 +4,13 @@ import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { ShieldCheck, Plus, Edit3, Settings } from "lucide-react";
 import QueryState from "@/components/ui/QueryState";
+import PageHeader from "@/components/ui/PageHeader";
+import ui from "@/components/ui/ui.module.css";
 import RoleFormModal from "@/features/people/RoleFormModal";
 import { listPermissions, listRoles } from "@/services/people.service";
 import usePermissions from "@/hooks/usePermissions";
 import styles from "./roles.module.css";
+import dashboardStyles from "../dashboard.module.css";
 
 export default function RolesPage() {
   const { can } = usePermissions();
@@ -18,24 +21,19 @@ export default function RolesPage() {
   const labelOf = Object.fromEntries((permissions.data ?? []).map((p) => [p.key, p.label]));
 
   return (
-    <div className={styles.pageContainer}>
-      <div className={styles.headerWrapper}>
-        <div className={styles.titleGroup}>
-          <div className={styles.headerIcon}>
-            <ShieldCheck size={24} />
-          </div>
-          <div>
-            <h1 className={styles.pageTitle}>الأدوار والصلاحيات</h1>
-            <p className={styles.pageSubtitle}>إدارة مستويات الوصول وصلاحيات النظام للمستخدمين</p>
-          </div>
-        </div>
-        {can("roles.manage") && (
-          <button type="button" className={styles.actionBtn} onClick={() => setFormState({})}>
-            <Plus size={18} />
-            إنشاء دور جديد
-          </button>
-        )}
-      </div>
+    <main className={dashboardStyles.mainContainer}>
+      <PageHeader
+        icon={ShieldCheck}
+        title="الأدوار والصلاحيات"
+        subtitle="إدارة مستويات الوصول وصلاحيات النظام للمستخدمين"
+        primary={
+          can("roles.manage") && (
+            <button type="button" className={ui.primaryBtn} onClick={() => setFormState({})}>
+              <Plus size={16} aria-hidden="true" /> إنشاء دور جديد
+            </button>
+          )
+        }
+      />
 
       <QueryState query={query} isEmpty={(d) => d.length === 0} emptyIcon={ShieldCheck} emptyText="لا توجد أدوار معرّفة بعد.">
         {(roles) => (
@@ -46,7 +44,7 @@ export default function RolesPage() {
                   <div className={styles.roleInfo}>
                     <h3 className={styles.roleTitle}>
                       {role.title}
-                      {role.is_system_admin && <Settings size={16} color="#2563eb" />}
+                      {role.is_system_admin && <Settings size={16} className={styles.adminIcon} aria-hidden="true" />}
                     </h3>
                     <span className={styles.usersCount}>مخصص لـ {role.users_count ?? 0} مستخدم</span>
                   </div>
@@ -54,10 +52,10 @@ export default function RolesPage() {
                     <button
                       type="button"
                       aria-label={`تعديل ${role.title}`}
+                      className={styles.editBtn}
                       onClick={() => setFormState({ role })}
-                      style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
                     >
-                      <Edit3 size={18} className={styles.editIcon} />
+                      <Edit3 size={16} aria-hidden="true" />
                     </button>
                   )}
                 </div>
@@ -86,6 +84,6 @@ export default function RolesPage() {
       </QueryState>
 
       {formState && <RoleFormModal open role={formState.role} onClose={() => setFormState(null)} />}
-    </div>
+    </main>
   );
 }

@@ -1,36 +1,10 @@
 /* Projects: list of workspaces and the page of one project. Colours come from the design tokens only. */
 .page {
-  padding: 16px;
-  display: grid;
-  gap: 20px;
-}
-
-.header {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
+  flex-direction: column;
 }
 
-.title {
-  margin: 0;
-  font-size: 24px;
-  font-weight: 800;
-  color: var(--ds-ink);
-}
-
-.subtitle {
-  margin: 4px 0 0;
-  color: var(--ds-muted);
-  font-size: 14px;
-}
-
-.headerActions {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
+.backLink { align-self: flex-start; }
 
 .grid {
   display: grid;
@@ -45,7 +19,6 @@
   background: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: var(--ds-radius);
-  box-shadow: var(--ds-shadow-xs);
   color: inherit;
   text-decoration: none;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
@@ -256,3 +229,5 @@
   align-items: center;
   flex-wrap: wrap;
 }
+
+.headerActions { display: flex; gap: 8px; flex-wrap: wrap; }

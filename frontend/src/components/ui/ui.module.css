@@ -92,6 +92,16 @@
 .input:focus, .select:focus, .textarea:focus { outline: none; border-color: var(--brand-600); box-shadow: var(--ds-focus); }
 .input[aria-invalid="true"], .select[aria-invalid="true"], .textarea[aria-invalid="true"] { border-color: var(--ds-danger-fg); }
 .textarea { min-height: 90px; resize: vertical; }
+/* Compact inline control (filter / toolbar selects and inputs): same look, natural width. */
+.control {
+  width: auto; min-width: 140px; max-width: 100%; height: 38px; padding: 0 12px;
+  border: 1px solid var(--ds-line-strong); border-radius: var(--ds-radius-sm);
+  font-family: inherit; font-size: 14px; background: var(--ds-card); color: var(--ds-ink);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.control:focus { outline: none; border-color: var(--brand-600); box-shadow: var(--ds-focus); }
+.control:disabled { opacity: 0.6; cursor: not-allowed; }
+.inlineForm { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 .fieldError { color: var(--ds-danger-fg); font-size: 12px; }
 .actions { display: flex; gap: 10px; justify-content: flex-start; flex-wrap: wrap; margin-top: 18px; }
 
@@ -99,7 +109,7 @@
 .primaryBtn, .secondaryBtn, .dangerBtn, .ghostBtn, .successBtn {
   display: inline-flex; align-items: center; justify-content: center; gap: 6px;
   padding: 9px 16px; border-radius: var(--ds-radius-sm); border: 1px solid transparent; cursor: pointer;
-  font-family: inherit; font-size: 14px; font-weight: 600; line-height: 1.4; white-space: nowrap;
+  font-family: inherit; font-size: 14px; font-weight: 600; line-height: 1.4; white-space: nowrap; text-decoration: none;
   transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 }
 .primaryBtn:focus-visible, .secondaryBtn:focus-visible, .dangerBtn:focus-visible, .ghostBtn:focus-visible, .successBtn:focus-visible {
@@ -139,12 +149,12 @@
 
 /* ---------- Data tables ---------- */
 .tableWrap {
-  width: 100%; overflow-x: auto;
+  position: relative; width: 100%; overflow-x: auto;
   background: var(--ds-card); border: 1px solid var(--ds-line); border-radius: var(--ds-radius);
 }
 .table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 14px; color: var(--ds-ink); }
 .table th {
-  text-align: right; font-size: 12px; font-weight: 600; color: var(--ds-muted);
+  text-align: start; font-size: 12px; font-weight: 600; color: var(--ds-muted);
   background: var(--ds-surface); padding: 10px 14px; border-bottom: 1px solid var(--ds-line); white-space: nowrap;
 }
 .table td { padding: 12px 14px; border-bottom: 1px solid var(--ds-line); vertical-align: middle; }
@@ -153,6 +163,28 @@
 .num { font-variant-numeric: tabular-nums; }
 .cellMain { font-weight: 600; color: var(--ds-ink); }
 .cellSub { display: block; font-size: 12px; color: var(--ds-muted); margin-top: 2px; }
+
+/* Table card: the table plus its summary line and pager footer, as one bordered surface. */
+.tableCard { background: var(--ds-card); border: 1px solid var(--ds-line); border-radius: var(--ds-radius); overflow: hidden; }
+.tableCard .tableWrap { border: none; border-radius: 0; }
+.tableSummary { padding: 10px 14px; font-size: 12px; color: var(--ds-muted); border-bottom: 1px solid var(--ds-line); }
+.tableFooter {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  padding: 10px 14px; border-top: 1px solid var(--ds-line); font-size: 12px; color: var(--ds-muted);
+}
+.tableLink { color: var(--ds-ink); font-weight: 600; text-decoration: none; }
+.tableLink:hover { color: var(--brand-700); text-decoration: underline; }
+.tableLink:focus-visible { outline: none; box-shadow: var(--ds-focus); border-radius: 4px; }
+.mono { font-variant-numeric: tabular-nums; color: var(--ds-muted); white-space: nowrap; }
+.avatarSm {
+  width: 28px; height: 28px; flex-shrink: 0; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--brand-50); color: var(--brand-700); font-size: 12px; font-weight: 700;
+}
+.inlineCell { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+
+/* Filter bar: a row of compact controls above a table. */
+.filterBar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 
 /* ---------- Toolbar: search + segmented filter ---------- */
 .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
@@ -172,6 +204,20 @@
 .segment:focus-visible { outline: none; box-shadow: var(--ds-focus); }
 .segmentActive { background: var(--ds-card); color: var(--ds-ink); box-shadow: var(--ds-shadow-sm); }
 .segmentCount { font-variant-numeric: tabular-nums; font-size: 12px; color: var(--ds-subtle); }
+
+/* ---------- Small content helpers (dialog bodies) ---------- */
+.bodyText { margin: 0 0 14px; line-height: 1.7; color: var(--ds-ink-3); }
+.mutedText { margin: 4px 0 0; color: var(--ds-muted); font-size: 13px; }
+.descList { display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; margin: 0; }
+.descList dt { color: var(--ds-muted); }
+.descList dd { margin: 0; font-weight: 600; color: var(--ds-ink); }
+.plainList { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.listCard {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  border: 1px solid var(--ds-line); border-radius: var(--ds-radius-sm); padding: 12px; background: var(--ds-card);
+}
+.linkDanger { border: none; background: none; color: var(--ds-danger-fg); cursor: pointer; font: inherit; }
+.linkDanger:hover { text-decoration: underline; }
 
 /* ---------- Row menu ---------- */
 .menuWrap { position: relative; display: inline-block; }

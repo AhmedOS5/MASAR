@@ -16,20 +16,7 @@
   min-width: 0;
   box-sizing: border-box;
 }
-.pageHeader {
-  text-align: right;
-}
-.pageTitle {
-  font-size: 22px;
-  font-weight: 800;
-  color: var(--ds-ink);
-  margin: 0 0 4px 0;
-}
-.pageSubtitle {
-  font-size: 13px;
-  color: var(--ds-muted);
-  margin: 0;
-}
+.noMatch { color: var(--ds-muted); text-align: center; padding: 24px; }
 .cardsGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

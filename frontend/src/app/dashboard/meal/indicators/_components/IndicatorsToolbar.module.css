@@ -7,7 +7,7 @@
   direction: rtl;
   background-color: var(--ds-card);
   border: 1px solid var(--ds-line);
-  border-radius: 14px;
+  border-radius: var(--ds-radius);
   padding: 12px 16px;
 }
 

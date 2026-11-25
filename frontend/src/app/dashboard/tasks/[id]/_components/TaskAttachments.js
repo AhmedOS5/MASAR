@@ -37,14 +37,11 @@ export function TaskAttachments({ task }) {
               <div className={styles.fileDetails}>
                 <span className={styles.fileName}>{file.name}</span>
               </div>
-              <div
-                className={styles.fileIconWrapper}
-                style={{ backgroundColor: kind === "xls" ? "#ecfdf5" : "#eff6ff" }}
-              >
+              <div className={`${styles.fileIconWrapper} ${kind === "xls" ? styles.fileIconXls : styles.fileIconDoc}`}>
                 {kind === "xls" ? (
-                  <FileSpreadsheet size={16} color="#059669" />
+                  <FileSpreadsheet size={16} />
                 ) : (
-                  <FileText size={16} color="#2563eb" />
+                  <FileText size={16} />
                 )}
               </div>
             </a>

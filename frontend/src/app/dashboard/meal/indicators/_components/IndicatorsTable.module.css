@@ -2,7 +2,7 @@
   flex: 2.2;
   background-color: var(--ds-card);
   border: 1px solid var(--ds-line);
-  border-radius: 14px;
+  border-radius: var(--ds-radius);
   padding: 22px 24px;
   direction: rtl;
   min-width: 0;

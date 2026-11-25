@@ -1,307 +1,75 @@
-.pageContainer {
-  padding: 16px;
-  animation: fadeIn 0.6s ease-out forwards;
-}
+/* Notifications: filter, list of flat cards with a type icon and an unread marker. Tokens only. */
+.contentLayout { display: flex; flex-direction: column; gap: 14px; }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+.notificationsList { display: flex; flex-direction: column; gap: 8px; }
 
-/* Header */
-.headerWrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 32px;
-  background: color-mix(in srgb, var(--ds-card) 70%, transparent);
-  backdrop-filter: blur(20px);
-  padding: 24px 32px;
-  border-radius: 24px;
-  border: 1px solid color-mix(in srgb, var(--ds-card) 80%, transparent);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
-}
-
-.titleGroup {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.headerIcon {
-  width: 48px;
-  height: 48px;
-  background: linear-gradient(135deg, var(--fill-900) 0%, var(--fill-800) 100%);
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  box-shadow: 0 8px 24px rgba(15, 81, 50, 0.2);
-}
-
-.pageTitle {
-  margin: 0;
-  font-size: 24px;
-  font-weight: 800;
-  color: var(--ds-ink);
-  font-family: Cairo, sans-serif;
-}
-
-.pageSubtitle {
-  margin: 4px 0 0;
-  font-size: 14px;
-  color: var(--ds-muted);
-}
-
-.headerActions {
-  display: flex;
-  gap: 12px;
-}
-
-.actionBtn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 600;
-  font-family: Cairo, sans-serif;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: none;
-}
-
-.markReadBtn {
-  background: var(--ds-surface-2);
-  color: var(--ds-ink-3);
-}
-
-.markReadBtn:hover {
-  background: var(--ds-line);
-  color: var(--ds-ink);
-}
-
-/* List & Filters */
-.contentLayout {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.filtersRow {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 8px;
-}
-
-.filterChip {
-  padding: 8px 20px;
-  border-radius: 30px;
-  font-size: 14px;
-  font-weight: 600;
-  font-family: Cairo, sans-serif;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  border: 1px solid transparent;
-  background: var(--ds-card);
-  color: var(--ds-muted);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-}
-
-.filterChip:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
-}
-
-.filterChipActive {
-  background: linear-gradient(135deg, var(--brand-500) 0%, var(--fill-600) 100%);
-  color: white;
-  box-shadow: 0 6px 20px rgba(13, 148, 136, 0.3);
-}
-
-.notificationsList {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-/* Notification Item */
 .notificationCard {
-  background: color-mix(in srgb, var(--ds-card) 80%, transparent);
-  backdrop-filter: blur(12px);
-  border: 1px solid color-mix(in srgb, var(--ds-card) 90%, transparent);
-  border-radius: 20px;
-  padding: 20px 24px;
-  display: flex;
-  gap: 20px;
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.03);
   position: relative;
-  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 16px;
+  background: var(--ds-card);
+  border: 1px solid var(--ds-line);
+  border-radius: var(--ds-radius);
   cursor: pointer;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
 }
+.notificationCard:hover { border-color: var(--ds-line-strong); background: var(--ds-surface); }
+.notificationCard:focus-visible { outline: none; box-shadow: var(--ds-focus); }
 
-.notificationCard:hover {
-  transform: translateY(-4px) scale(1.01);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
-  border-color: rgba(15, 81, 50, 0.1);
-}
-
-/* Unread indicator */
 .unreadDot {
   position: absolute;
-  top: 24px;
-  right: 24px;
-  width: 10px;
-  height: 10px;
+  top: 16px;
+  inset-inline-end: 14px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
-  background: var(--ds-danger-fg);
-  box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
-  animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
-  70% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+  background: var(--brand-600);
 }
 
 .iconWrapper {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-  display: flex;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: var(--ds-radius-sm);
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  position: relative;
-  z-index: 1;
 }
+.typeSystem { background: var(--ds-info-bg); color: var(--ds-info-fg); }
+.typeAlert { background: var(--ds-warning-bg); color: var(--ds-warning-fg); }
+.typeTask { background: var(--ds-success-bg); color: var(--ds-success-fg); }
 
-/* Colors for different types */
-.typeSystem {
-  background: rgba(13, 148, 136, 0.1);
-  color: var(--brand-600);
-}
-.typeAlert {
-  background: rgba(239, 68, 68, 0.1);
-  color: var(--ds-danger-fg);
-}
-.typeTask {
-  background: rgba(13, 148, 136, 0.1);
-  color: var(--brand-500);
-}
-
-.contentWrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-.cardHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-}
-
-.cardTitle {
-  margin: 0;
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--ds-ink);
-}
-
-.cardTime {
-  font-size: 13px;
-  color: var(--ds-subtle);
-  white-space: nowrap;
-}
-
-.cardMessage {
-  margin: 0;
-  font-size: 14px;
-  color: var(--ds-ink-3);
-  line-height: 1.6;
-}
-
-.cardAction {
-  margin-top: 12px;
-}
-
+.contentWrapper { flex: 1; min-width: 0; padding-inline-end: 16px; }
+.cardHeader { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.cardTitle { margin: 0; font-size: 14px; font-weight: 600; color: var(--ds-ink); }
+.cardTime { display: inline-flex; align-items: center; gap: 4px; font-size: 12px; color: var(--ds-subtle); }
+.cardMessage { margin: 4px 0 0; font-size: 13px; line-height: 1.6; color: var(--ds-muted); }
+.cardAction { margin-top: 10px; }
 .cardBtn {
-  background: none;
+  display: inline-flex;
+  padding: 5px 12px;
   border: 1px solid var(--ds-line-strong);
+  border-radius: var(--ds-radius-sm);
+  background: var(--ds-card);
   color: var(--ds-ink-2);
-  padding: 6px 16px;
-  border-radius: 8px;
   font-size: 13px;
   font-weight: 600;
-  font-family: Cairo, sans-serif;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  text-decoration: none;
 }
+.cardBtn:hover { background: var(--ds-surface-2); }
 
-.cardBtn:hover {
-  background: var(--ds-surface);
-  border-color: var(--ds-subtle);
-}
-
-/* Empty State */
-.emptyState {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 80px 20px;
-  text-align: center;
-  background: color-mix(in srgb, var(--ds-card) 50%, transparent);
-  border-radius: 24px;
-  border: 1px dashed var(--ds-line-strong);
-}
-
+.emptyState { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 48px 16px; text-align: center; }
 .emptyIcon {
-  width: 80px;
-  height: 80px;
-  background: var(--ds-surface-2);
-  border-radius: 50%;
-  display: flex;
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--ds-subtle);
-  margin-bottom: 24px;
+  background: var(--brand-50);
+  color: var(--brand-700);
 }
-
-.emptyTitle {
-  margin: 0 0 8px;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--ds-ink);
-}
-
-.emptyText {
-  margin: 0;
-  color: var(--ds-muted);
-}
-
-@media (max-width: 768px) {
-  .headerWrapper {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .filtersRow {
-    flex-wrap: wrap;
-  }
-  
-  .notificationCard {
-    flex-direction: column;
-    gap: 12px;
-  }
-}
-
-.cardBtn { text-decoration: none; display: inline-block; }
+.emptyTitle { margin: 4px 0 0; font-size: 16px; font-weight: 700; color: var(--ds-ink); }
+.emptyText { margin: 0; max-width: 380px; font-size: 13px; line-height: 1.7; color: var(--ds-muted); }

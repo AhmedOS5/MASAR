@@ -1,107 +1,45 @@
+/* MEAL KPI cards: icon + value + title (+ trend). Flat, tokens only. */
 .gridContainer {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
+  gap: 12px;
   width: 100%;
-  direction: rtl;
 }
 
 .statCard {
-  background: linear-gradient(180deg, var(--ds-card) 0%, var(--ds-card) 100%);
+  background: var(--ds-card);
   border: 1px solid var(--ds-line);
-  border-radius: 18px;
-  padding: 20px;
+  border-radius: var(--ds-radius);
+  padding: 16px;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 14px;
-  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
-}
-
-.cardHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
 }
 
 .iconBox {
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: var(--ds-radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
 }
+.blueIcon { background: var(--ds-info-bg); color: var(--ds-info-fg); }
+.greenIcon { background: var(--ds-success-bg); color: var(--ds-success-fg); }
+.redIcon { background: var(--ds-danger-bg); color: var(--ds-danger-fg); }
+.orangeIcon { background: var(--ds-warning-bg); color: var(--ds-warning-fg); }
+.skyIcon { background: var(--ds-info-bg); color: var(--ds-info-fg); }
+.tealIcon { background: var(--brand-50); color: var(--brand-700); }
 
-.blueIcon {
-  background: linear-gradient(135deg, var(--ds-info-bg) 0%, var(--brand-100) 100%);
-  color: var(--brand-600);
-}
-.greenIcon {
-  background: linear-gradient(135deg, var(--brand-100) 0%, var(--brand-200) 100%);
-  color: var(--ds-success-fg);
-}
-.redIcon {
-  background: linear-gradient(135deg, var(--ds-danger-bg) 0%, var(--ds-danger-line) 100%);
-  color: var(--ds-danger-fg);
-}
-.orangeIcon {
-  background: linear-gradient(135deg, var(--ds-warning-bg) 0%, var(--ds-warning-line) 100%);
-  color: var(--ds-warning-fg);
-}
-.skyIcon {
-  background: linear-gradient(135deg, var(--ds-info-bg) 0%, var(--ds-info-line) 100%);
-  color: var(--ds-info-fg);
-}
-.tealIcon {
-  background: linear-gradient(135deg, var(--brand-100) 0%, #99f6e4 100%);
-  color: var(--brand-700);
-}
+.cardBody { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.cardValue { margin: 0; font-size: 24px; line-height: 1.2; font-weight: 700; color: var(--ds-ink); font-variant-numeric: tabular-nums; }
+.cardTitle { font-size: 13px; font-weight: 500; color: var(--ds-muted); }
 
-.trendTag {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  font-size: 11px;
-  font-weight: 800;
-}
+.trendTag { display: inline-flex; align-items: center; gap: 3px; font-size: 12px; font-weight: 600; }
+.trendUp { color: var(--ds-success-fg); }
+.trendDown { color: var(--ds-danger-fg); }
+.trendNeutral { color: var(--ds-muted); }
 
-.trendUp {
-  color: var(--ds-success-fg);
-}
-.trendDown {
-  color: var(--ds-danger-fg);
-}
-.trendNeutral {
-  color: var(--ds-muted);
-}
-
-.cardBody {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-}
-
-.cardValue {
-  font-size: 26px;
-  font-weight: 800;
-  margin: 0;
-}
-
-.cardTitle {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--ds-muted);
-  margin-top: 4px;
-}
-
-@media (max-width: 1200px) {
-  .gridContainer {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 640px) {
-  .gridContainer {
-    grid-template-columns: 1fr;
-  }
-}
+@media (max-width: 1200px) { .gridContainer { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .gridContainer { grid-template-columns: 1fr; } }

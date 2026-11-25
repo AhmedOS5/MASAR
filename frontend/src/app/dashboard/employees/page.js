@@ -6,6 +6,7 @@ import { Users, Plus, Edit2, Trash2, Mail, Send, Search, History } from "lucide-
 import EmployeeHistoryModal from "@/features/people/EmployeeHistoryModal";
 import QueryState, { EmptyState } from "@/components/ui/QueryState";
 import ui from "@/components/ui/ui.module.css";
+import PageHeader from "@/components/ui/PageHeader";
 import { formatNumber } from "@/lib/format";
 import ConfirmDialog from "@/components/ui/ConfirmDialog";
 import EmployeeFormModal from "@/features/people/EmployeeFormModal";
@@ -13,6 +14,7 @@ import { deleteEmployee, listEmployees, resendInvite } from "@/services/people.s
 import { useToast } from "@/components/Toast/ToastProvider";
 import usePermissions from "@/hooks/usePermissions";
 import styles from "./employees.module.css";
+import dashboardStyles from "../dashboard.module.css";
 
 // Figures and filters come from the list the API already returned (it is unpaginated), so they always agree with the cards.
 const FILTERS = [
@@ -53,24 +55,19 @@ export default function EmployeesPage() {
   });
 
   return (
-    <div className={styles.pageContainer}>
-      <div className={styles.headerWrapper}>
-        <div className={styles.titleGroup}>
-          <div className={styles.headerIcon}>
-            <Users size={24} />
-          </div>
-          <div>
-            <h1 className={styles.pageTitle}>إدارة الموظفين</h1>
-            <p className={styles.pageSubtitle}>عرض وإدارة بيانات الموظفين في مساحة العمل</p>
-          </div>
-        </div>
-        {can("employees.manage") && (
-          <button type="button" className={styles.actionBtn} onClick={() => setFormState({})}>
-            <Plus size={18} />
-            إضافة موظف جديد
-          </button>
-        )}
-      </div>
+    <main className={dashboardStyles.mainContainer}>
+      <PageHeader
+        icon={Users}
+        title="إدارة الموظفين"
+        subtitle="عرض وإدارة بيانات الموظفين في مساحة العمل"
+        primary={
+          manage && (
+            <button type="button" className={ui.primaryBtn} onClick={() => setFormState({})}>
+              <Plus size={16} aria-hidden="true" /> إضافة موظف جديد
+            </button>
+          )
+        }
+      />
 
       <QueryState query={query} isEmpty={(d) => d.length === 0} emptyIcon={Users} emptyText="لا يوجد موظفون بعد. ابدأ بإضافة موظف جديد.">
         {(all) => {
@@ -127,77 +124,102 @@ export default function EmployeesPage() {
               لا يوجد موظفون مطابقون لعوامل التصفية الحالية.
             </EmptyState>
           ) : (
-          <div className={styles.gridContainer}>
-            {employees.map((emp) => (
-              <div key={emp.id} className={styles.employeeCard}>
-                <div className={styles.avatarWrapper}>
-                  <Users size={32} />
-                  <div
-                    className={`${styles.statusIndicator} ${emp.status === "active" ? styles.statusActive : styles.statusInactive}`}
-                    title={emp.status === "active" ? "نشط" : "غير نشط"}
-                  />
-                </div>
-                <h3 className={styles.empName}>{emp.name}</h3>
-                <p className={styles.empRole}>
-                  {emp.role?.title ?? emp.role ?? "—"}
-                  {emp.role_source && (
-                    <span
-                      className={styles.empDepartment}
-                      title={emp.role_source === "auto" ? "عُيّن الدور تلقائياً حسب المسمى الوظيفي" : "غُيّر الدور يدوياً من مدير النظام"}
-                    >
-                      {" · "}
-                      {emp.role_source === "auto" ? "تلقائي" : "معدّل يدوياً"}
-                    </span>
-                  )}
-                </p>
-                <p className={styles.empDepartment}>{emp.department ?? "—"}</p>
-                {emp.invite_pending && (
-                  <span className={styles.pendingBadge} title="لم يختر الموظف كلمة المرور بعد">
-                    بانتظار التفعيل
-                  </span>
-                )}
-
-                <div className={styles.cardActions}>
-                  {manage && emp.invite_pending && emp.status === "active" && (
-                    <button
-                      type="button"
-                      className={styles.iconBtn}
-                      title="إعادة إرسال الدعوة"
-                      aria-label={`إعادة إرسال الدعوة إلى ${emp.name}`}
-                      disabled={invite.isPending && invite.variables === emp.id}
-                      onClick={() => invite.mutate(emp.id)}
-                    >
-                      <Send size={16} />
-                    </button>
-                  )}
-                  <button type="button" className={styles.iconBtn} title="سجل الدور" aria-label={`سجل دور ${emp.name}`} onClick={() => setHistoryOf(emp)}>
-                    <History size={16} />
-                  </button>
-                  {emp.email && (
-                    <a className={styles.iconBtn} title="مراسلة" aria-label={`مراسلة ${emp.name}`} href={`mailto:${emp.email}`}>
-                      <Mail size={16} />
-                    </a>
-                  )}
-                  {manage && (
-                    <button type="button" className={styles.iconBtn} title="تعديل" aria-label={`تعديل ${emp.name}`} onClick={() => setFormState({ employee: emp })}>
-                      <Edit2 size={16} />
-                    </button>
-                  )}
-                  {manage && (
-                    <button
-                      type="button"
-                      className={styles.iconBtn}
-                      title="حذف"
-                      aria-label={`حذف ${emp.name}`}
-                      style={{ color: "var(--ds-danger-fg)" }}
-                      onClick={() => setToDelete(emp)}
-                    >
-                      <Trash2 size={16} />
-                    </button>
-                  )}
-                </div>
-              </div>
-            ))}
+          <div className={ui.tableWrap}>
+            <table className={ui.table}>
+              <thead>
+                <tr>
+                  <th scope="col">الموظف</th>
+                  <th scope="col">الدور</th>
+                  <th scope="col">القسم</th>
+                  <th scope="col">الحالة</th>
+                  <th scope="col" className={styles.actionsHead}>
+                    <span className={styles.srOnly}>إجراءات</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {employees.map((emp) => (
+                  <tr key={emp.id}>
+                    <td>
+                      <div className={styles.person}>
+                        <span className={styles.avatar} aria-hidden="true">
+                          {String(emp.name ?? "?").trim().charAt(0)}
+                        </span>
+                        <div className={styles.personText}>
+                          <span className={ui.cellMain}>{emp.name}</span>
+                          {emp.email && <span className={ui.cellSub}>{emp.email}</span>}
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span className={styles.empRole}>{emp.role?.title ?? emp.role ?? "—"}</span>
+                      {emp.role_source && (
+                        <span
+                          className={styles.roleSource}
+                          title={emp.role_source === "auto" ? "عُيّن الدور تلقائياً حسب المسمى الوظيفي" : "غُيّر الدور يدوياً من مدير النظام"}
+                        >
+                          {" · "}
+                          {emp.role_source === "auto" ? "تلقائي" : "معدّل يدوياً"}
+                        </span>
+                      )}
+                    </td>
+                    <td>{emp.department ?? "—"}</td>
+                    <td>
+                      <div className={styles.statusCell}>
+                        <span className={`${ui.badge} ${emp.status === "active" ? ui.badge_success : ui.badge_neutral}`}>
+                          {emp.status === "active" ? "نشط" : "غير نشط"}
+                        </span>
+                        {emp.invite_pending && (
+                          <span className={`${ui.badge} ${ui.badge_warning}`} title="لم يختر الموظف كلمة المرور بعد">
+                            بانتظار التفعيل
+                          </span>
+                        )}
+                      </div>
+                    </td>
+                    <td>
+                      <div className={styles.rowActions}>
+                        {manage && emp.invite_pending && emp.status === "active" && (
+                          <button
+                            type="button"
+                            className={styles.iconBtn}
+                            title="إعادة إرسال الدعوة"
+                            aria-label={`إعادة إرسال الدعوة إلى ${emp.name}`}
+                            disabled={invite.isPending && invite.variables === emp.id}
+                            onClick={() => invite.mutate(emp.id)}
+                          >
+                            <Send size={16} />
+                          </button>
+                        )}
+                        <button type="button" className={styles.iconBtn} title="سجل الدور" aria-label={`سجل دور ${emp.name}`} onClick={() => setHistoryOf(emp)}>
+                          <History size={16} />
+                        </button>
+                        {emp.email && (
+                          <a className={styles.iconBtn} title="مراسلة" aria-label={`مراسلة ${emp.name}`} href={`mailto:${emp.email}`}>
+                            <Mail size={16} />
+                          </a>
+                        )}
+                        {manage && (
+                          <button type="button" className={styles.iconBtn} title="تعديل" aria-label={`تعديل ${emp.name}`} onClick={() => setFormState({ employee: emp })}>
+                            <Edit2 size={16} />
+                          </button>
+                        )}
+                        {manage && (
+                          <button
+                            type="button"
+                            className={`${styles.iconBtn} ${styles.iconBtnDanger}`}
+                            title="حذف"
+                            aria-label={`حذف ${emp.name}`}
+                            onClick={() => setToDelete(emp)}
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
           )}
           </>
@@ -218,6 +240,6 @@ export default function EmployeesPage() {
         onConfirm={() => remove.mutate(toDelete.id)}
         onClose={() => setToDelete(null)}
       />
-    </div>
+    </main>
   );
 }

@@ -5,7 +5,7 @@ import { REQUEST_STATUS, PRIORITY, pick } from "@/lib/labels";
 import { formatDate, formatDateTime } from "@/lib/format";
 import styles from "../requestDetail.module.css";
 
-const ACTIVITY_COLOR = { created: "#059669", reviewed: "#2563eb", pending: "#d97706", rejected: "#db2777" };
+const ACTIVITY_COLOR = { created: "var(--ds-success-fg)", reviewed: "var(--ds-info-fg)", pending: "var(--ds-warning-fg)", rejected: "var(--ds-danger-fg)" };
 
 export function RequestSidebarDetails({ request }) {
   const details = [
@@ -46,7 +46,7 @@ export function RequestSidebarDetails({ request }) {
                 </div>
                 <div
                   className={styles.timelineDot}
-                  style={{ backgroundColor: ACTIVITY_COLOR[act.kind] || "#94a3b8" }}
+                  style={{ backgroundColor: ACTIVITY_COLOR[act.kind] || "var(--ds-subtle)" }}
                 />
               </div>
             ))}

@@ -156,7 +156,7 @@ Set `E2E_VERBOSE=1` to see server output; `E2E_GREP="text"` runs matching browse
   PostgreSQL has not been run yet.
 * Uploads are stored on local disk (`UPLOAD_DIR`): mount persistent storage or add a storage driver (`src/lib/storage.js` is the interface).
 * Per-identity rate limits are in memory (per process); behind several instances use a shared store.
-* Not in CI yet (the workflows run the frontend on Node 20). Open items and limits: [`docs/backend-rules.md` §10](../docs/backend-rules.md).
+* CI (`.github/workflows/ci.yml`, Node 22): this suite on SQLite and on PostgreSQL 17, plus the frontend lint/tests/build. Not in CI yet: the e2e suites. Open items and limits: [`docs/backend-rules.md` §10](../docs/backend-rules.md).
 
 ### Real client addresses (`TRUST_PROXY`)
 Browsers never talk to this API: the Next.js server does. Every request therefore arrives from **one** address, and without

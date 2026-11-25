@@ -7,7 +7,7 @@
 }
 
 .statCard {
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 16px;
   padding: 18px 20px;
@@ -36,24 +36,24 @@
 }
 
 .blueIcon {
-  background-color: #dbeafe;
-  color: #2563eb;
+  background-color: var(--brand-100);
+  color: var(--brand-600);
 }
 .slateIcon {
-  background-color: #eef2f7;
+  background-color: var(--ds-surface-2);
   color: var(--ds-muted);
 }
 .amberIcon {
-  background-color: #fef3c7;
-  color: #d97706;
+  background-color: var(--ds-warning-bg);
+  color: var(--ds-warning-fg);
 }
 .redIcon {
-  background-color: #fee2e2;
-  color: #dc2626;
+  background-color: var(--ds-danger-bg);
+  color: var(--ds-danger-fg);
 }
 .greenIcon {
   background-color: var(--brand-100);
-  color: #16a34a;
+  color: var(--ds-success-fg);
 }
 
 .value {

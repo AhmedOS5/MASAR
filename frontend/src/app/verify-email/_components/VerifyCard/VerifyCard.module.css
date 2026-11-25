@@ -112,8 +112,8 @@
   gap: 8px;
   width: 100%;
   padding: 14px 16px;
-  background: linear-gradient(135deg, var(--brand-900) 0%, #0f766e 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, var(--fill-900) 0%, #0f766e 100%);
+  color: var(--ds-on-brand);
   border: none;
   border-radius: 12px;
   font-size: 15px;
@@ -164,7 +164,7 @@
 
 .secondaryBtn {
   width: 100%;
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   border: 1px solid #dbe2ea;
   color: var(--ds-ink-2);
   padding: 12px 14px;
@@ -287,7 +287,7 @@
 .codeInput {
   width: 100%;
   padding: 14px 44px 14px 16px;
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   border: 2px solid var(--ds-line-strong);
   border-radius: 12px;
   color: var(--ds-ink);

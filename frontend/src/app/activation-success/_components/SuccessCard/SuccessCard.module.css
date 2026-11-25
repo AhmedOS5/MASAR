@@ -1,5 +1,5 @@
 .cardContainer {
-  background: #ffffff;
+  background: var(--ds-card);
   max-width: 580px;
   width: 92%;
   margin: -80px auto 40px auto; /* مارجن علوي بالسالب لكي يركب الكرت فوق الهيدر المتدرج بالملي */
@@ -127,7 +127,7 @@
 
 .primaryBtn {
   /* flex: 1; */
-  background-color: var(--brand-900); /* الأخضر الزيتي الداكن الفخم */
+  background-color: var(--fill-900); /* الأخضر الزيتي الداكن الفخم */
   color: white;
   padding: 15px;
   border: none;
@@ -149,7 +149,7 @@
 
 .secondaryBtn {
   flex: 1;
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   border: 1px solid var(--brand-900); /* إطار بنفس لون الأخضر الداكن */
   color: var(--brand-900);
   padding: 14px;

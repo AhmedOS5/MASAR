@@ -10,10 +10,10 @@
       rgba(59, 130, 246, 0.25),
       transparent 42%
     ),
-    linear-gradient(120deg, #0f766e 0%, var(--brand-700) 55%, var(--brand-800) 100%);
+    linear-gradient(120deg, var(--fill-700) 0%, var(--fill-700) 55%, var(--fill-800) 100%);
   border-radius: 18px;
   padding: 28px 32px;
-  color: #ffffff;
+  color: var(--ds-on-brand);
   direction: rtl;
   box-shadow: 0 14px 30px rgba(6, 95, 70, 0.25);
 }
@@ -30,7 +30,7 @@
   font-weight: 800;
   letter-spacing: 2px;
   margin: 0;
-  color: #ffffff;
+  color: var(--ds-on-brand);
 }
 
 .mealSubtitle {
@@ -61,7 +61,7 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background-color: #4ade80;
+  background-color: var(--ds-success-fg);
   box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.25);
 }
 
@@ -81,7 +81,7 @@
   align-items: center;
   justify-content: flex-start;
   gap: 8px;
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   color: var(--brand-800);
   border: none;
   border-radius: 10px;

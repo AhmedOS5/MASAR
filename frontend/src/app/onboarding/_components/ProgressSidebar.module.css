@@ -5,7 +5,7 @@
 }
 
 .card {
-  background: #ffffff;
+  background: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 8px;
   padding: 20px;
@@ -74,7 +74,7 @@
 /* حالات الخطوات المتغيرة */
 .completed .stepNumber {
   background-color: #00a86b;
-  color: #ffffff;
+  color: var(--ds-on-brand);
 }
 .completed .stepInfo h4 {
   color: #00a86b;
@@ -82,7 +82,7 @@
 
 .active .stepNumber {
   background-color: #0056b3;
-  color: #ffffff;
+  color: var(--ds-on-brand);
   box-shadow: 0 0 0 4px rgba(0, 86, 179, 0.15);
 }
 .active .stepInfo h4 {
@@ -124,7 +124,7 @@
   font-size: 0.85rem;
   color: #4a5568;
   padding: 12px;
-  background: #ffffff;
+  background: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 8px;
   cursor: pointer;

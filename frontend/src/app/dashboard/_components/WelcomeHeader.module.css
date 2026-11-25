@@ -43,7 +43,7 @@
 
 .subDetails {
   font-size: 13px;
-  color: #ccfbf1;
+  color: var(--brand-100);
   margin: 0;
   opacity: 0.95;
 }

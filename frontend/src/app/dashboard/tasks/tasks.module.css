@@ -37,8 +37,8 @@
 }
 
 .addTaskBtn {
-  background-color: var(--brand-900);
-  color: #ffffff;
+  background-color: var(--fill-900);
+  color: var(--ds-on-brand);
   border: none;
   padding: 10px 18px;
   border-radius: 8px;
@@ -93,7 +93,7 @@
 
 /* شريط الفلاتر الكرت */
 .filtersCard {
-  background: #ffffff;
+  background: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 12px;
   padding: 16px;
@@ -135,7 +135,7 @@
 
 .searchInput:focus {
   border-color: var(--ds-line-strong);
-  background-color: #ffffff;
+  background-color: var(--ds-card);
 }
 
 .filterSelect {
@@ -143,8 +143,8 @@
   border-radius: 8px;
   padding: 10px 12px;
   font-size: 13px;
-  color: #475569;
-  background-color: #ffffff;
+  color: var(--ds-ink-3);
+  background-color: var(--ds-card);
   outline: none;
   min-width: 120px;
   cursor: pointer;
@@ -152,7 +152,7 @@
 
 /* كرت الجدول وبنية الجدول */
 .tableCard {
-  background: #ffffff;
+  background: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 12px;
   padding: 20px;
@@ -214,38 +214,38 @@
 }
 
 .status_wait {
-  background-color: #fffbeb;
-  color: #d97706;
+  background-color: var(--ds-warning-bg);
+  color: var(--ds-warning-fg);
 }
 .status_success {
   background-color: var(--brand-50);
   color: var(--brand-600);
 }
 .status_progress {
-  background-color: #eff6ff;
-  color: #2563eb;
+  background-color: var(--ds-info-bg);
+  color: var(--ds-info-fg);
 }
 .status_done {
-  background-color: #f0fdf4;
-  color: #16a34a;
-  border: 1px solid #bbf7d0;
+  background-color: var(--ds-success-bg);
+  color: var(--ds-success-fg);
+  border: 1px solid var(--ds-success-line);
 }
 .status_reject {
-  background-color: #fdf2f8;
-  color: #db2777;
+  background-color: var(--ds-violet-bg);
+  color: var(--ds-violet-fg);
 }
 
 .prio_urgent {
-  background-color: #fee2e2;
-  color: #dc2626;
+  background-color: var(--ds-danger-bg);
+  color: var(--ds-danger-fg);
 }
 .prio_high {
-  background-color: #fff7ed;
-  color: #ea580c;
+  background-color: var(--ds-warning-bg);
+  color: var(--ds-warning-fg);
 }
 .prio_medium {
-  background-color: #fef3c7;
-  color: #d97706;
+  background-color: var(--ds-warning-bg);
+  color: var(--ds-warning-fg);
 }
 .prio_low {
   background-color: var(--ds-surface-2);
@@ -321,7 +321,7 @@
 }
 
 .pageBtn {
-  background: #ffffff;
+  background: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 6px;
   width: 28px;
@@ -341,8 +341,8 @@
   color: var(--ds-ink);
 }
 .activePage {
-  background: var(--brand-900);
-  color: #ffffff;
+  background: var(--fill-900);
+  color: var(--ds-on-brand);
   border-color: var(--brand-900);
 }
 

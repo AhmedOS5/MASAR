@@ -71,7 +71,7 @@
 }
 
 .detailCard {
-  background: #ffffff;
+  background: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 12px;
   padding: 24px;
@@ -105,12 +105,12 @@
 }
 
 .status_wait {
-  background: #fffbeb;
-  color: #d97706;
+  background: var(--ds-warning-bg);
+  color: var(--ds-warning-fg);
 }
 .prio_high {
-  background: #fff7ed;
-  color: #ea580c;
+  background: var(--ds-warning-bg);
+  color: var(--ds-warning-fg);
 }
 
 .requestTitle {
@@ -131,7 +131,7 @@
 
 .requestDescription {
   font-size: 14px;
-  color: #475569;
+  color: var(--ds-ink-3);
   line-height: 1.7;
   margin: 0;
   text-align: right;
@@ -169,16 +169,16 @@
 }
 
 .approveBtn {
-  background: var(--brand-900);
+  background: var(--fill-900);
   color: white;
 }
 .rejectBtn {
-  background: #dc2626;
+  background: var(--ds-danger-fg);
   color: white;
 }
 .taskBtn {
-  background: white;
-  color: #475569;
+  background: var(--ds-card);
+  color: var(--ds-ink-3);
   border: 1px solid var(--ds-line);
 }
 
@@ -346,7 +346,7 @@
 }
 
 .sendBtn {
-  background: var(--brand-900);
+  background: var(--fill-900);
   color: white;
   border: none;
   padding: 8px 16px;
@@ -495,12 +495,12 @@
 
 /* status / priority tones used by the data-driven badges */
 .status_success { background: var(--brand-50); color: var(--brand-600); }
-.status_progress { background: #eff6ff; color: #2563eb; }
-.status_done { background: #f0fdf4; color: #16a34a; }
-.status_reject { background: #fdf2f8; color: #db2777; }
+.status_progress { background: var(--ds-info-bg); color: var(--ds-info-fg); }
+.status_done { background: var(--ds-success-bg); color: var(--ds-success-fg); }
+.status_reject { background: var(--ds-violet-bg); color: var(--ds-violet-fg); }
 .status_draft { background: var(--ds-surface); color: var(--ds-muted); }
-.prio_urgent { background: #fee2e2; color: #dc2626; }
-.prio_medium { background: #fef3c7; color: #d97706; }
+.prio_urgent { background: var(--ds-danger-bg); color: var(--ds-danger-fg); }
+.prio_medium { background: var(--ds-warning-bg); color: var(--ds-warning-fg); }
 .prio_low { background: var(--ds-surface-2); color: var(--ds-muted); }
 
 .downloadLink { text-decoration: none; }

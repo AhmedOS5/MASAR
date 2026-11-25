@@ -22,19 +22,19 @@
 .brandMark {
   width: 30px; height: 30px; border-radius: 9px;
   display: inline-flex; align-items: center; justify-content: center;
-  background: linear-gradient(135deg, var(--brand-900), var(--brand-600)); color: #fff;
+  background: linear-gradient(135deg, var(--fill-900), var(--fill-600)); color: var(--ds-on-brand);
 }
 .brandName { font-size: 17px; font-weight: 800; color: var(--brand-900); }
 .brandTag {
   font-size: 12px; font-weight: 600; color: var(--ds-muted);
-  padding: 2px 8px; border: 1px solid var(--ds-line); border-radius: 999px; background: #fff;
+  padding: 2px 8px; border: 1px solid var(--ds-line); border-radius: 999px; background: var(--ds-card);
 }
 .topbarEnd { display: flex; align-items: center; gap: 10px; }
 .userChip { font-size: 13px; font-weight: 600; color: var(--ds-ink-2); }
 .logout {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 7px 12px; border-radius: var(--ds-radius-sm);
-  border: 1px solid var(--ds-line-strong); background: #fff; color: var(--ds-ink-2);
+  border: 1px solid var(--ds-line-strong); background: var(--ds-card); color: var(--ds-ink-2);
   font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
 }
 .logout:hover { background: var(--ds-danger-bg); border-color: var(--ds-danger-line); color: var(--ds-danger-fg); }

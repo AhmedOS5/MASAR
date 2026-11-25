@@ -8,7 +8,7 @@
 }
 
 .card {
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 14px;
   padding: 18px;
@@ -24,7 +24,7 @@
 }
 
 .headerIcon {
-  color: #2563eb;
+  color: var(--brand-600);
 }
 
 .cardTitle {
@@ -58,7 +58,7 @@
 .itemText {
   font-size: 12px;
   font-weight: 600;
-  color: #475569;
+  color: var(--ds-ink-3);
   line-height: 1.5;
 }
 
@@ -79,11 +79,11 @@
 }
 
 .btnBlue {
-  background-color: #eff6ff;
-  color: #2563eb;
+  background-color: var(--brand-50);
+  color: var(--brand-600);
 }
 
 .btnAmber {
-  background-color: #fffbeb;
-  color: #b45309;
+  background-color: var(--ds-warning-bg);
+  color: var(--ds-warning-fg);
 }

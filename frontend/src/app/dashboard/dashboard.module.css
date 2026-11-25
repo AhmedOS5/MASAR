@@ -9,10 +9,10 @@
   background:
     radial-gradient(
       circle at top right,
-      rgba(16, 185, 129, 0.1),
+      rgba(13, 148, 136, 0.1),
       transparent 24%
     ),
-    linear-gradient(180deg, #f8fbff 0%, #f4f7fb 100%);
+    linear-gradient(180deg, var(--brand-50) 0%, var(--ds-surface-2) 100%);
 }
 
 :global(html[data-app-theme="dark"]) .dashboardWrapper {

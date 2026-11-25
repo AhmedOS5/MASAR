@@ -1,5 +1,5 @@
 .tableCard {
-  background: #ffffff;
+  background: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 12px;
   padding: 20px;
@@ -63,25 +63,25 @@
 
 /* ألوان الحالات (Status) */
 .status_wait {
-  background-color: #fffbeb;
-  color: #d97706;
+  background-color: var(--ds-warning-bg);
+  color: var(--ds-warning-fg);
 }
 .status_success {
   background-color: var(--brand-50);
   color: var(--brand-600);
 }
 .status_progress {
-  background-color: #eff6ff;
-  color: #2563eb;
+  background-color: var(--ds-info-bg);
+  color: var(--ds-info-fg);
 }
 .status_done {
-  background-color: #f0fdf4;
-  color: #16a34a;
-  border: 1px solid #bbf7d0;
+  background-color: var(--ds-success-bg);
+  color: var(--ds-success-fg);
+  border: 1px solid var(--ds-success-line);
 }
 .status_reject {
-  background-color: #fdf2f8;
-  color: #db2777;
+  background-color: var(--ds-violet-bg);
+  color: var(--ds-violet-fg);
 }
 .status_draft {
   background-color: var(--ds-surface);
@@ -91,16 +91,16 @@
 
 /* ألوان الأولويات (Priority) */
 .prio_urgent {
-  background-color: #fee2e2;
-  color: #dc2626;
+  background-color: var(--ds-danger-bg);
+  color: var(--ds-danger-fg);
 }
 .prio_high {
-  background-color: #fff7ed;
-  color: #ea580c;
+  background-color: var(--ds-warning-bg);
+  color: var(--ds-warning-fg);
 }
 .prio_medium {
-  background-color: #fef3c7;
-  color: #d97706;
+  background-color: var(--ds-warning-bg);
+  color: var(--ds-warning-fg);
 }
 .prio_low {
   background-color: var(--ds-surface-2);
@@ -169,7 +169,7 @@
 }
 
 .pageBtn {
-  background: #ffffff;
+  background: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 6px;
   width: 28px;
@@ -192,14 +192,14 @@
 }
 
 .activePage {
-  background: var(--brand-900);
-  color: #ffffff;
+  background: var(--fill-900);
+  color: var(--ds-on-brand);
   border-color: var(--brand-900);
 }
 
 .activePage:hover {
-  background: var(--brand-900);
-  color: #ffffff;
+  background: var(--fill-900);
+  color: var(--ds-on-brand);
 }
 
 /* تنسيق روابط الانتقال داخل الجدول لترث خصائص الألوان وتمنع ظهور خطوط افتراضية */

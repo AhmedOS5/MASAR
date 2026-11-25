@@ -11,7 +11,7 @@
   border: none;
   border-radius: 50%;
   background-color: var(--accent-primary);
-  color: #ffffff;
+  color: var(--ds-on-brand);
   cursor: pointer;
   box-shadow:
     0 0 14px color-mix(in srgb, var(--accent-primary) 70%, transparent),

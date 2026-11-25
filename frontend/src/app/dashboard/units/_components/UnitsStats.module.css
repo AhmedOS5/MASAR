@@ -5,7 +5,7 @@
   width: 100%;
 }
 .statCard {
-  background: #ffffff;
+  background: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 12px;
   padding: 16px;
@@ -22,20 +22,20 @@
   justify-content: center;
 }
 .blueIcon {
-  background: #eff6ff;
-  color: #2563eb;
+  background: var(--brand-50);
+  color: var(--brand-600);
 }
 .greenIcon {
-  background: #f0fdf4;
-  color: #16a34a;
+  background: var(--ds-success-bg);
+  color: var(--ds-success-fg);
 }
 .redIcon {
-  background: #fef2f2;
-  color: #dc2626;
+  background: var(--ds-danger-bg);
+  color: var(--ds-danger-fg);
 }
 .orangeIcon {
-  background: #fff7ed;
-  color: #ea580c;
+  background: var(--ds-warning-bg);
+  color: var(--ds-warning-fg);
 }
 .meta {
   text-align: right;

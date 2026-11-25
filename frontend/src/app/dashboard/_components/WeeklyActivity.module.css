@@ -8,7 +8,7 @@
 /* كرت الرسم البياني عريض */
 .chartCard {
   flex: 1.6;
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 14px;
   padding: 24px;
@@ -47,7 +47,7 @@
 .dotBtn {
   width: 8px;
   height: 3px;
-  background-color: #2563eb;
+  background-color: var(--fill-600);
   border-radius: 2px;
 }
 .dotTask {
@@ -113,7 +113,7 @@
 }
 
 .mainBar {
-  background-color: #2563eb;
+  background-color: var(--fill-600);
   width: 100%;
   border-radius: 4px;
   transition: height 0.3s ease;
@@ -128,7 +128,7 @@
 /* كرت الوحدات المفعّلة جانبي */
 .unitsCard {
   flex: 1;
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 14px;
   padding: 24px;
@@ -138,7 +138,7 @@
 
 .headerLink {
   font-size: 11px;
-  color: #2563eb;
+  color: var(--brand-600);
   text-decoration: none;
   font-weight: 700;
 }
@@ -169,16 +169,16 @@
 }
 
 .blueIcon {
-  background-color: #e0f2fe;
-  color: #0284c7;
+  background-color: var(--ds-info-bg);
+  color: var(--ds-info-fg);
 }
 .greenIcon {
   background-color: var(--brand-100);
   color: var(--brand-600);
 }
 .purpleIcon {
-  background-color: #f3e8ff;
-  color: #7c3aed;
+  background-color: var(--ds-violet-bg);
+  color: var(--ds-violet-fg);
 }
 
 .unitName {
@@ -217,7 +217,7 @@
 }
 
 .addUnitBtn:hover {
-  background-color: #f0fdf4;
+  background-color: var(--ds-success-bg);
 }
 
 @media (max-width: 992px) {

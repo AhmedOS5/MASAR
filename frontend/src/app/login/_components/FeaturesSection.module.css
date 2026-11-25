@@ -122,12 +122,12 @@
 
 .iconGreen {
   background-color: var(--accent-primary);
-  color: #ffffff;
+  color: var(--ds-on-brand);
 }
 
 .iconBlue {
   background-color: var(--accent-secondary);
-  color: #ffffff;
+  color: var(--ds-on-brand);
 }
 
 .iconGray {

@@ -173,7 +173,7 @@
 
 .submitBtn {
   background: var(--accent-primary);
-  color: #ffffff;
+  color: var(--ds-on-brand);
   border: none;
   border-radius: 16px;
   padding: 16px 20px;

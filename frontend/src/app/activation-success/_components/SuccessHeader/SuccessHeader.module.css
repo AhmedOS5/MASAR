@@ -72,20 +72,20 @@
 }
 
 .completed .stepLabel {
-  color: #ffffff;
+  color: var(--ds-on-brand);
   font-weight: 500;
 }
 
 /* 2. الخطوة النشطة الحالية (رقم 3 - فتح لوحة التحكم) */
 .active .stepCircle {
-  background-color: var(--brand-900); /* نفس اللون الزيتي الغامق الأصلي للخطوة النشطة */
+  background-color: var(--fill-900); /* نفس اللون الزيتي الغامق الأصلي للخطوة النشطة */
   border-color: #34d399; /* حافة خضراء مضيئة */
-  color: #ffffff;
+  color: var(--ds-on-brand);
   box-shadow: 0 0 0 4px rgba(52, 211, 153, 0.25); /* ظل محيط بالدائرة لإبرازها */
 }
 
 .active .stepLabel {
-  color: #ffffff;
+  color: var(--ds-on-brand);
   font-weight: 600;
 }
 

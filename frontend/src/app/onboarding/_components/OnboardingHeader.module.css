@@ -1,5 +1,5 @@
 .header {
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   border-bottom: 1px solid var(--ds-line);
   padding: 20px 24px;
   border-top: 4px solid #0056b3; /* الخط الأزرق العلوي المميز بالصورة */

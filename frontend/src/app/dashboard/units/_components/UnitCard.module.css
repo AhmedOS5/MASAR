@@ -1,5 +1,5 @@
 .cardContainer {
-  background: #ffffff;
+  background: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 12px;
   padding: 20px;
@@ -32,7 +32,7 @@
 }
 .badgeType {
   background: var(--ds-surface-2);
-  color: #475569;
+  color: var(--ds-ink-3);
 }
 .iconBox {
   width: 38px;
@@ -104,12 +104,12 @@
   width: 14px;
   left: 3px;
   bottom: 3px;
-  background-color: white;
+  background-color: var(--ds-card);
   transition: 0.3s;
   border-radius: 50%;
 }
 input:checked + .slider {
-  background-color: var(--brand-900);
+  background-color: var(--fill-900);
 }
 input:checked + .slider:before {
   transform: translateX(16px);
@@ -146,11 +146,11 @@ input:checked + .slider:before {
   text-decoration: none;
 }
 .btnPrimary {
-  background: var(--brand-900);
-  color: #ffffff;
+  background: var(--fill-900);
+  color: var(--ds-on-brand);
 }
 .btnSecondary {
   background: var(--ds-surface-2);
-  color: #475569;
+  color: var(--ds-ink-3);
   border: 1px solid var(--ds-line);
 }

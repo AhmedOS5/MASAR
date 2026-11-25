@@ -5,8 +5,8 @@
   gap: 16px;
   width: 100%;
   direction: rtl;
-  background-color: #fef2f2;
-  border: 1px solid #fecaca;
+  background-color: var(--ds-danger-bg);
+  border: 1px solid var(--ds-danger-line);
   border-radius: 12px;
   padding: 12px 18px;
 }
@@ -17,7 +17,7 @@
   gap: 10px;
   font-size: 12.5px;
   font-weight: 700;
-  color: #b91c1c;
+  color: var(--ds-danger-fg);
 }
 
 .alertIcon {
@@ -28,8 +28,8 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background-color: #dc2626;
-  color: #ffffff;
+  background-color: var(--ds-danger-fg);
+  color: var(--ds-on-brand);
   border: none;
   border-radius: 9px;
   padding: 8px 16px;

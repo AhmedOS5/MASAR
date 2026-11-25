@@ -27,7 +27,7 @@
 
 .headLink {
   font-size: 11.5px;
-  color: #2563eb;
+  color: var(--brand-600);
   text-decoration: none;
   font-weight: 700;
   white-space: nowrap;
@@ -40,7 +40,7 @@
 }
 
 .recordCard {
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 14px;
   padding: 16px 18px;
@@ -74,16 +74,16 @@
 }
 
 .done {
-  background-color: #dcfce7;
-  color: #166534;
+  background-color: var(--ds-success-bg);
+  color: var(--ds-success-fg);
 }
 .reviewing {
-  background-color: #fef3c7;
-  color: #92400e;
+  background-color: var(--ds-warning-bg);
+  color: var(--ds-warning-fg);
 }
 .documenting {
-  background-color: #dbeafe;
-  color: #1e40af;
+  background-color: var(--brand-100);
+  color: var(--brand-900);
 }
 
 .recordDate {

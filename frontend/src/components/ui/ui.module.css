@@ -113,7 +113,7 @@
 .secondaryBtn:hover:not(:disabled) { background: var(--ds-surface); }
 .ghostBtn { background: transparent; color: var(--ds-ink-2); }
 .ghostBtn:hover:not(:disabled) { background: var(--ds-surface-2); }
-.dangerBtn { background: #dc2626; color: var(--ds-on-brand); }
+.dangerBtn { background: var(--ds-danger-fg); color: var(--ds-on-brand); }
 .dangerBtn:hover:not(:disabled) { background: var(--ds-danger-fg); }
 .primaryBtn:disabled, .secondaryBtn:disabled, .dangerBtn:disabled, .ghostBtn:disabled, .successBtn:disabled { opacity: 0.6; cursor: not-allowed; }
 .smallBtn { padding: 6px 10px; font-size: 13px; }

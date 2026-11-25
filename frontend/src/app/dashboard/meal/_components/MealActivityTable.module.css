@@ -1,5 +1,5 @@
 .tableCard {
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 14px;
   padding: 24px;
@@ -48,12 +48,12 @@
 }
 
 .activeFilter {
-  background: #2563eb;
-  color: #ffffff;
+  background: var(--fill-600);
+  color: var(--ds-on-brand);
 }
 
 .activeFilter:hover {
-  background: #1d4ed8;
+  background: var(--fill-700);
 }
 
 .searchInput {
@@ -66,7 +66,7 @@
   width: 200px;
 }
 .searchInput:focus {
-  border-color: #2563eb;
+  border-color: var(--brand-600);
 }
 
 .titleBlock {
@@ -91,7 +91,7 @@
 
 .headerLink {
   font-size: 11px;
-  color: #2563eb;
+  color: var(--brand-600);
   text-decoration: none;
   font-weight: 700;
   white-space: nowrap;
@@ -138,11 +138,11 @@
 }
 
 .dataTable tbody tr:nth-child(even) {
-  background-color: #fbfdff;
+  background-color: var(--ds-card);
 }
 
 .plainCell {
-  color: #475569;
+  color: var(--ds-ink-3);
   font-weight: 600;
 }
 
@@ -168,22 +168,22 @@
 }
 
 .done {
-  background-color: #dcfce7;
-  color: #166534;
+  background-color: var(--ds-success-bg);
+  color: var(--ds-success-fg);
 }
 
 .sensitive {
-  background-color: #fee2e2;
-  color: #991b1b;
+  background-color: var(--ds-danger-bg);
+  color: var(--ds-danger-fg);
 }
 
 .processing {
   background-color: var(--ds-line);
-  color: #475569;
+  color: var(--ds-ink-3);
 }
 
 .documenting {
-  background-color: #fef9c3;
+  background-color: var(--ds-warning-bg);
   color: #854d0e;
 }
 
@@ -199,19 +199,19 @@
 }
 
 .typeBlue {
-  background-color: #eff6ff;
-  color: #2563eb;
-  border-color: #dbeafe;
+  background-color: var(--brand-50);
+  color: var(--brand-600);
+  border-color: var(--brand-100);
 }
 
 .typeRed {
-  background-color: #fef2f2;
-  color: #dc2626;
-  border-color: #fee2e2;
+  background-color: var(--ds-danger-bg);
+  color: var(--ds-danger-fg);
+  border-color: var(--ds-danger-bg);
 }
 
 .typeTeal {
-  background-color: #f0fdfa;
-  color: #0f766e;
-  border-color: #ccfbf1;
+  background-color: var(--brand-50);
+  color: var(--brand-700);
+  border-color: var(--brand-100);
 }

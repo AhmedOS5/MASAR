@@ -4,7 +4,7 @@
   gap: 14px;
   width: 100%;
   direction: rtl;
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 14px;
   padding: 14px 16px;
@@ -63,8 +63,8 @@
 }
 
 .filterPillActive {
-  background-color: var(--brand-700);
-  color: #ffffff;
+  background-color: var(--fill-700);
+  color: var(--ds-on-brand);
   border: 1px solid var(--brand-700);
 }
 

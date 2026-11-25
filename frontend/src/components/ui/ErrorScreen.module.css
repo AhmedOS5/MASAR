@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
   padding: 24px 16px;
-  background: #f4f6fa;
+  background: var(--ds-surface-2);
   direction: rtl;
   font-family: var(--font-cairo), Tahoma, Arial, sans-serif;
 }
@@ -22,7 +22,7 @@
   width: 100%;
   max-width: 480px;
   text-align: center;
-  background: #fff;
+  background: var(--ds-card);
   color: var(--ds-ink);
   border: 1px solid var(--ds-line);
   border-radius: 16px;
@@ -37,13 +37,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fef2f2;
-  color: #b91c1c;
+  background: var(--ds-danger-bg);
+  color: var(--ds-danger-fg);
 }
-.iconNeutral { background: #eff6ff; color: #1d4ed8; }
-.code { font-size: 44px; font-weight: 800; line-height: 1; margin-bottom: 8px; color: #1d4ed8; letter-spacing: 2px; }
+.iconNeutral { background: var(--brand-50); color: var(--brand-700); }
+.code { font-size: 44px; font-weight: 800; line-height: 1; margin-bottom: 8px; color: var(--brand-700); letter-spacing: 2px; }
 .title { font-size: 20px; font-weight: 700; margin: 0 0 8px; }
-.message { font-size: 14px; line-height: 1.9; color: #475569; margin: 0 0 20px; }
+.message { font-size: 14px; line-height: 1.9; color: var(--ds-ink-3); margin: 0 0 20px; }
 .ref { font-size: 12px; color: var(--ds-muted); margin: -8px 0 18px; direction: ltr; }
 .actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
 .primaryBtn, .secondaryBtn {
@@ -56,7 +56,7 @@
   text-decoration: none;
   display: inline-block;
 }
-.primaryBtn { background: #2563eb; color: #fff; border: 1px solid #2563eb; }
-.primaryBtn:hover { background: #1d4ed8; }
-.secondaryBtn { background: #fff; color: var(--ds-ink); border: 1px solid var(--ds-line-strong); }
+.primaryBtn { background: var(--fill-600); color: var(--ds-on-brand); border: 1px solid var(--brand-600); }
+.primaryBtn:hover { background: var(--fill-700); }
+.secondaryBtn { background: var(--ds-card); color: var(--ds-ink); border: 1px solid var(--ds-line-strong); }
 .secondaryBtn:hover { background: var(--ds-surface-2); }

@@ -21,7 +21,7 @@
 }
 
 .panelCard {
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 14px;
   padding: 20px;
@@ -109,16 +109,16 @@
 }
 
 .badgeWait {
-  background-color: #fef3c7;
-  color: #d97706;
+  background-color: var(--ds-warning-bg);
+  color: var(--ds-warning-fg);
 }
 .badgeSuccess {
   background-color: var(--brand-100);
   color: var(--brand-800);
 }
 .badgeProgress {
-  background-color: #e0f2fe;
-  color: #0369a1;
+  background-color: var(--ds-info-bg);
+  color: var(--ds-info-fg);
 }
 
 .priorityBadge {
@@ -131,17 +131,17 @@
 }
 
 .prioHigh {
-  background-color: #fee2e2;
-  color: #991b1b;
+  background-color: var(--ds-danger-bg);
+  color: var(--ds-danger-fg);
 }
 .prioMedium {
   background-color: var(--ds-surface-2);
-  color: #475569;
+  color: var(--ds-ink-3);
 }
 .prioUrgent {
-  background-color: #fee2e2;
-  color: #dc2626;
-  border: 1px solid #fca5a5;
+  background-color: var(--ds-danger-bg);
+  color: var(--ds-danger-fg);
+  border: 1px solid var(--ds-danger-line);
 }
 .prioLow {
   background-color: var(--ds-surface);
@@ -151,8 +151,8 @@
 .notifBadgeCount {
   width: 18px;
   height: 18px;
-  background-color: var(--brand-900);
-  color: #ffffff;
+  background-color: var(--fill-900);
+  color: var(--ds-on-brand);
   border-radius: 50%;
   font-size: 10px;
   font-weight: 700;
@@ -163,10 +163,10 @@
 
 /* كرت ذكاء مسار الاصطناعي الأزرق العائم */
 .aiBotCard {
-  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  background: linear-gradient(135deg, var(--fill-700) 0%, var(--fill-900) 100%);
   border-radius: 14px;
   padding: 20px;
-  color: #ffffff;
+  color: var(--ds-on-brand);
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -204,7 +204,7 @@
 .aiBtn {
   background-color: rgba(255, 255, 255, 0.15);
   border: none;
-  color: #ffffff;
+  color: var(--ds-on-brand);
   font-size: 12px;
   font-weight: 700;
   padding: 8px 12px;

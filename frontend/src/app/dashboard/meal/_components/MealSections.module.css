@@ -20,7 +20,7 @@
 }
 
 .sectionCard {
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 16px;
   padding: 22px 20px;
@@ -55,16 +55,16 @@
   color: var(--brand-700);
 }
 .blueIcon {
-  background-color: #dbeafe;
-  color: #2563eb;
+  background-color: var(--brand-100);
+  color: var(--brand-600);
 }
 .amberIcon {
-  background-color: #fef3c7;
-  color: #b45309;
+  background-color: var(--ds-warning-bg);
+  color: var(--ds-warning-fg);
 }
 .purpleIcon {
-  background-color: #ede9fe;
-  color: #7c3aed;
+  background-color: var(--ds-violet-bg);
+  color: var(--ds-violet-fg);
 }
 
 .sectionTitle {
@@ -108,19 +108,19 @@
   border: 1px solid var(--brand-100);
 }
 .blueBtn {
-  background-color: #eff6ff;
-  color: #2563eb;
-  border: 1px solid #dbeafe;
+  background-color: var(--brand-50);
+  color: var(--brand-600);
+  border: 1px solid var(--brand-100);
 }
 .amberBtn {
-  background-color: #fffbeb;
-  color: #b45309;
-  border: 1px solid #fef3c7;
+  background-color: var(--ds-warning-bg);
+  color: var(--ds-warning-fg);
+  border: 1px solid var(--ds-warning-bg);
 }
 .purpleBtn {
-  background-color: #f5f3ff;
-  color: #7c3aed;
-  border: 1px solid #ede9fe;
+  background-color: var(--ds-violet-bg);
+  color: var(--ds-violet-fg);
+  border: 1px solid var(--ds-violet-bg);
 }
 
 @media (max-width: 1200px) {

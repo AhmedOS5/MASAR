@@ -5,7 +5,7 @@
       rgba(255, 255, 255, 0.18),
       transparent 24%
     ),
-    linear-gradient(135deg, var(--brand-900) 0%, #0284c7 50%, #2563eb 100%);
+    linear-gradient(135deg, var(--fill-900) 0%, #0284c7 50%, #2563eb 100%);
   padding: 40px 20px 130px;
   text-align: center;
   color: white;
@@ -74,19 +74,19 @@
 }
 
 .completed .stepLabel {
-  color: #ffffff;
+  color: var(--ds-on-brand);
   font-weight: 700;
 }
 
 .active .stepCircle {
   background-color: #14532d;
   border-color: #4ade80;
-  color: #ffffff;
+  color: var(--ds-on-brand);
   box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.2);
 }
 
 .active .stepLabel {
-  color: #ffffff;
+  color: var(--ds-on-brand);
   font-weight: 800;
 }
 

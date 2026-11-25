@@ -1,6 +1,6 @@
 .tableCard {
   flex: 2.2;
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 14px;
   padding: 22px 24px;
@@ -93,7 +93,7 @@
 }
 
 .achievedCell {
-  color: #2563eb;
+  color: var(--brand-600);
   font-weight: 800;
 }
 
@@ -135,20 +135,20 @@
 }
 
 .onTrack {
-  background-color: #dcfce7;
-  color: #166534;
+  background-color: var(--ds-success-bg);
+  color: var(--ds-success-fg);
 }
 .needsFollow {
-  background-color: #fef3c7;
-  color: #92400e;
+  background-color: var(--ds-warning-bg);
+  color: var(--ds-warning-fg);
 }
 .delayed {
-  background-color: #fee2e2;
-  color: #991b1b;
+  background-color: var(--ds-danger-bg);
+  color: var(--ds-danger-fg);
 }
 .achieved {
-  background-color: #dbeafe;
-  color: #1e40af;
+  background-color: var(--brand-100);
+  color: var(--brand-900);
 }
 
 .dateCell {
@@ -176,5 +176,5 @@
 
 .actionBtn:hover {
   background-color: var(--ds-surface-2);
-  color: #475569;
+  color: var(--ds-ink-3);
 }

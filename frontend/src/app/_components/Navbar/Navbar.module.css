@@ -130,7 +130,7 @@
 .registerBtn {
   background-color: var(--accent-primary);
   font-family: Cairo, sans-serif;
-  color: #ffffff;
+  color: var(--ds-on-brand);
   border: none;
   padding: 12px 26px;
   border-radius: 10px;

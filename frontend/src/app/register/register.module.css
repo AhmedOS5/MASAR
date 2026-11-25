@@ -15,7 +15,7 @@
   background: linear-gradient(135deg, #024843 0%, #1d5cb3 50%, #1e6ae6 100%);
   /* padding: 60px 20px 140px 20px;     */
   text-align: center;
-  color: #ffffff;
+  color: var(--ds-on-brand);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -65,7 +65,7 @@
    تنسيق العمود الأيمن (Form Section)
    ========================================== */
 .formSection {
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   border-radius: 16px;
   padding: 40px;
   box-shadow:
@@ -124,7 +124,7 @@
 .inputWrapper input:focus,
 .inputWrapper select:focus {
   border-color: #026960;
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   box-shadow: 0 0 0 4px rgba(2, 105, 96, 0.1);
 }
 
@@ -221,7 +221,7 @@
 
 .submitBtn {
   background-color: #024843;
-  color: #ffffff;
+  color: var(--ds-on-brand);
   border: none;
   padding: 14px 35px;
   border-radius: 10px;
@@ -250,7 +250,7 @@
 }
 
 .modulesCard {
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   border-radius: 16px;
   padding: 24px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
@@ -499,7 +499,7 @@
   justify-content: center;
   gap: 8px;
   color: #475569;
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   border: 1px solid var(--ds-line-strong);
   padding: 13px 24px;
   border-radius: 10px;

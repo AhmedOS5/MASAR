@@ -49,16 +49,16 @@
   color: var(--brand-700);
 }
 .blueIcon {
-  background-color: #dbeafe;
-  color: #2563eb;
+  background-color: var(--brand-100);
+  color: var(--brand-600);
 }
 .amberIcon {
-  background-color: #fef3c7;
-  color: #b45309;
+  background-color: var(--ds-warning-bg);
+  color: var(--ds-warning-fg);
 }
 .purpleIcon {
-  background-color: #ede9fe;
-  color: #7c3aed;
+  background-color: var(--ds-violet-bg);
+  color: var(--ds-violet-fg);
 }
 
 .titleBlock {
@@ -81,7 +81,7 @@
 }
 
 .placeholderCard {
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   border: 1px dashed var(--ds-line-strong);
   border-radius: 16px;
   padding: 60px 24px;

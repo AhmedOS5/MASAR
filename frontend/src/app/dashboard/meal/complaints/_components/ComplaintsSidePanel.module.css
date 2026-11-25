@@ -8,7 +8,7 @@
 }
 
 .card {
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 14px;
   padding: 18px;
@@ -24,7 +24,7 @@
 }
 
 .headerIcon {
-  color: #2563eb;
+  color: var(--brand-600);
 }
 
 .cardTitle {
@@ -40,8 +40,8 @@
   gap: 5px;
   font-size: 10.5px;
   font-weight: 800;
-  color: #dc2626;
-  background-color: #fee2e2;
+  color: var(--ds-danger-fg);
+  background-color: var(--ds-danger-bg);
   padding: 3px 9px;
   border-radius: 999px;
   margin-right: auto;
@@ -102,7 +102,7 @@
 .alertText {
   font-size: 12px;
   font-weight: 600;
-  color: #475569;
+  color: var(--ds-ink-3);
   line-height: 1.5;
 }
 
@@ -124,19 +124,19 @@
 }
 
 .btnBlue {
-  background-color: #eff6ff;
-  color: #2563eb;
+  background-color: var(--brand-50);
+  color: var(--brand-600);
 }
 
 .btnRed {
-  background-color: #fef2f2;
-  color: #dc2626;
+  background-color: var(--ds-danger-bg);
+  color: var(--ds-danger-fg);
 }
 
 /* كرت تنبيه الخصوصية */
 .privacyCard {
-  background-color: #fffbeb;
-  border: 1px solid #fde68a;
+  background-color: var(--ds-warning-bg);
+  border: 1px solid var(--ds-warning-line);
   border-radius: 14px;
   padding: 16px;
   display: flex;
@@ -145,7 +145,7 @@
 }
 
 .privacyIcon {
-  color: #d97706;
+  color: var(--ds-warning-fg);
   flex-shrink: 0;
   margin-top: 1px;
 }
@@ -159,14 +159,14 @@
 .privacyTitle {
   font-size: 12.5px;
   font-weight: 800;
-  color: #92400e;
+  color: var(--ds-warning-fg);
   margin: 0;
 }
 
 .privacyText {
   font-size: 11.5px;
   font-weight: 600;
-  color: #b45309;
+  color: var(--ds-warning-fg);
   line-height: 1.6;
   margin: 0;
 }

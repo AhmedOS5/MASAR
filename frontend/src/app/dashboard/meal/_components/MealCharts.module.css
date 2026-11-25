@@ -10,7 +10,7 @@
 /* كرت الأعمدة عريض */
 .barCard {
   flex: 1.6;
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 14px;
   padding: 24px;
@@ -21,7 +21,7 @@
 /* كرت الدونات جانبي */
 .donutCard {
   flex: 1;
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 14px;
   padding: 24px;
@@ -59,7 +59,7 @@
 
 .headerLink {
   font-size: 11px;
-  color: #2563eb;
+  color: var(--brand-600);
   text-decoration: none;
   font-weight: 700;
   white-space: nowrap;
@@ -83,7 +83,7 @@
 .dotActual {
   width: 10px;
   height: 10px;
-  background-color: var(--brand-800);
+  background-color: var(--fill-800);
   border-radius: 3px;
 }
 
@@ -152,7 +152,7 @@
 }
 
 .actualBar {
-  background-color: var(--brand-800);
+  background-color: var(--fill-800);
   width: 12px;
   border-radius: 4px 4px 0 0;
   transition: height 0.3s ease;
@@ -188,7 +188,7 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background-color: #ffffff;
+  background-color: var(--ds-card);
 }
 
 .donutLegend {
@@ -196,7 +196,7 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px 16px;
   font-size: 11.5px;
-  color: #475569;
+  color: var(--ds-ink-3);
   font-weight: 600;
   margin-top: 8px;
 }

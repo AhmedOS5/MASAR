@@ -58,12 +58,12 @@
 .userName {
   font-size: 0.9rem;
   font-weight: 600;
-  color: #fff;
+  color: var(--ds-on-brand);
 }
 
 .userRole {
   font-size: 0.75rem;
-  color: #fff;
+  color: var(--ds-on-brand);
 }
 
 .avatar {

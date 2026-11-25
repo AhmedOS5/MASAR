@@ -75,7 +75,7 @@
 }
 
 .detailCard {
-  background: #ffffff;
+  background: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 12px;
   padding: 24px;
@@ -106,12 +106,12 @@
 }
 
 .status_wait {
-  background: #fffbeb;
-  color: #d97706;
+  background: var(--ds-warning-bg);
+  color: var(--ds-warning-fg);
 }
 .prio_high {
-  background: #fff7ed;
-  color: #ea580c;
+  background: var(--ds-warning-bg);
+  color: var(--ds-warning-fg);
 }
 
 .requestTitle {
@@ -130,7 +130,7 @@
 
 .requestDescription {
   font-size: 14px;
-  color: #475569;
+  color: var(--ds-ink-3);
   line-height: 1.7;
   margin: 0;
 }
@@ -166,16 +166,16 @@
 }
 
 .approveBtn {
-  background: var(--brand-900);
+  background: var(--fill-900);
   color: white;
 }
 .rejectBtn {
-  background: #dc2626;
+  background: var(--ds-danger-fg);
   color: white;
 }
 .taskBtn {
-  background: white;
-  color: #475569;
+  background: var(--ds-card);
+  color: var(--ds-ink-3);
   border: 1px solid var(--ds-line);
 }
 
@@ -332,7 +332,7 @@
 }
 
 .sendBtn {
-  background: var(--brand-900);
+  background: var(--fill-900);
   color: white;
   border: none;
   padding: 8px 16px;

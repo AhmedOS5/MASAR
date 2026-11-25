@@ -53,7 +53,7 @@
   bottom: -1px;
   height: 2.5px;
   border-radius: 3px 3px 0 0;
-  background-color: var(--brand-700);
+  background-color: var(--fill-700);
 }
 
 @media (max-width: 640px) {

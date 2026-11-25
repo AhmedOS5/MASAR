@@ -20,8 +20,8 @@
 }
 
 .createBtn {
-  background-color: var(--brand-900);
-  color: #ffffff;
+  background-color: var(--fill-900);
+  color: var(--ds-on-brand);
   border: none;
   border-radius: 8px;
   padding: 8px 16px;
@@ -53,7 +53,7 @@
 }
 
 .tabBtn {
-  background: #ffffff;
+  background: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 8px;
   padding: 6px 14px;
@@ -74,14 +74,14 @@
 }
 
 .activeTab {
-  background: var(--brand-900);
-  color: #ffffff;
+  background: var(--fill-900);
+  color: var(--ds-on-brand);
   border-color: var(--brand-900);
 }
 
 .activeTab:hover {
-  background: var(--brand-900);
-  color: #ffffff;
+  background: var(--fill-900);
+  color: var(--ds-on-brand);
 }
 
 .badgeCount {
@@ -95,7 +95,7 @@
 
 .activeTab .badgeCount {
   background: rgba(255, 255, 255, 0.2);
-  color: #ffffff;
+  color: var(--ds-on-brand);
 }
 
 .searchRow {
@@ -126,7 +126,7 @@
   font-size: 13px;
   text-align: right;
   outline: none;
-  background: #ffffff;
+  background: var(--ds-card);
   color: var(--ds-ink-2);
   transition: border-color 0.2s ease;
 }
@@ -157,7 +157,7 @@
   font-size: 13px;
   color: var(--ds-ink-2);
   font-weight: 600;
-  background: #ffffff;
+  background: var(--ds-card);
   appearance: none;
   text-align: right;
   outline: none;

@@ -20,7 +20,7 @@
   font-family: var(--font-cairo), sans-serif;
   font-size: 14px;
   line-height: 1.5;
-  color: #fff;
+  color: var(--ds-on-brand);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
   animation: slideIn 0.25s ease-out;
 }
@@ -35,9 +35,9 @@
   opacity: 0.8;
 }
 
-.success { background: var(--brand-700); }
-.error { background: #b91c1c; }
-.info { background: #1d4ed8; }
+.success { background: var(--fill-700); }
+.error { background: var(--ds-danger-fg); }
+.info { background: var(--fill-700); }
 
 @keyframes slideIn {
   from { opacity: 0; transform: translateY(8px); }

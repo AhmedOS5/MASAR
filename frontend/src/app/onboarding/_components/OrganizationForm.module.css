@@ -67,7 +67,7 @@
 }
 
 .section {
-  background: #ffffff;
+  background: var(--ds-card);
   border: 1px solid var(--ds-line);
   border-radius: 8px;
   padding: 24px;
@@ -130,7 +130,7 @@
 .field select:focus,
 .field textarea:focus {
   border-color: #0056b3;
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
 }
 
@@ -201,8 +201,8 @@
 }
 
 .activeTag {
-  background: var(--brand-900);
-  color: #ffffff;
+  background: var(--fill-900);
+  color: var(--ds-on-brand);
   border-color: var(--brand-900);
 }
 
@@ -330,8 +330,8 @@
 
 .btnSubmit {
   padding: 12px 24px;
-  background-color: var(--brand-900);
-  color: #ffffff;
+  background-color: var(--fill-900);
+  color: var(--ds-on-brand);
   border: none;
   border-radius: 6px;
   font-size: 0.9rem;
@@ -346,7 +346,7 @@
 
 .btnDraft {
   padding: 12px 24px;
-  background-color: #ffffff;
+  background-color: var(--ds-card);
   color: var(--ds-ink-2);
   border: 1px solid var(--ds-line-strong);
   border-radius: 6px;

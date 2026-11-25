@@ -1,5 +1,6 @@
 import { parse } from "../../lib/validate.js";
 import {
+  changePasswordSchema,
   forgotPasswordSchema,
   loginSchema,
   registerSchema,
@@ -56,6 +57,11 @@ export default async function authRoutes(app) {
     const ctx = request.auth;
     return { user: publicUser(ctx), organization: publicOrganization(ctx.org) };
   });
+
+  // Any signed-in account (including one whose organization is not approved yet, and platform operators) may change its password.
+  app.post("/auth/change-password", { ...ipLimit(app, 20, 10), preHandler: app.guard({ allowUnapproved: true }) }, async (request) =>
+    auth.changePassword(request.auth, parse(changePasswordSchema, request.body)),
+  );
 
   app.post("/logout", { preHandler: app.guard({ allowUnapproved: true }) }, async (request) => {
     await auth.logout(request.auth.tokenId);

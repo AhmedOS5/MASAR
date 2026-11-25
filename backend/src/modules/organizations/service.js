@@ -5,6 +5,7 @@ import { ValidationError, HttpError, conflict, notFound } from "../../lib/errors
 import { applySearch, hasFilter, pageParams, paginate } from "../../lib/pagination.js";
 import { hashPassword } from "../../lib/password.js";
 import { iso, nowIso } from "../../lib/time.js";
+import { writeAudit } from "../../lib/audit.js";
 import { orgDecisionEmail } from "../../lib/mailer.js";
 import { notifyOrganization } from "../notifications/service.js";
 import { passwordPolicy } from "../auth/schema.js";
@@ -231,6 +232,8 @@ export function createOrganizationService({ db, config, mailer, authService, lim
       suspend: { from: ["approved"], to: "suspended", label: "تعليق", set: { rejection_reason: reason } },
     }[kind];
     await transition(id, rules);
+    // The operator's decisions are the most consequential actions on the platform: they leave a trace (HTTP console and CLI alike).
+    await writeAudit(db, { organizationId: id, actorId, action: `organization.${{ approve: "approved", reject: "rejected", suspend: "suspended" }[kind]}`, entityType: "organization", entityId: id, meta: { reason } });
 
     const org = await db("organizations").where({ id }).first("name");
     if (kind === "approve") {

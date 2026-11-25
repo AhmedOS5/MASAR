@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 import { apiBase, configError, UPSTREAM_TIMEOUT_MS } from "@/lib/server/config";
 import { forwardedFor } from "@/lib/server/client-ip";
+import { crossSiteResponse, isSameSiteRequest } from "@/lib/server/csrf";
 import { AUTH_COOKIE, STATUS_COOKIE, ONBOARDING, cookieOptions } from "@/lib/session";
 
-// Generic same-origin proxy to the Laravel API: attaches the HttpOnly cookie as a
+// Generic same-origin proxy to the backend API: attaches the HttpOnly cookie as a
 // Bearer token so the browser never sees or stores the token.
 
 export const dynamic = "force-dynamic";
@@ -42,6 +43,7 @@ function validSegments(segments) {
 }
 
 async function handle(request, { params }) {
+  if (!isSameSiteRequest(request)) return crossSiteResponse();
   const base = apiBase();
   if (!base) return configError();
 

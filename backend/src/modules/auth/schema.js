@@ -79,4 +79,19 @@ export const setPasswordSchema = z
     }
   });
 export const resetPasswordSchema = setPasswordSchema;
+
+/** A signed-in user chooses a new password: the current one proves it is really them (not just a stolen session). */
+export const changePasswordSchema = z
+  .object({
+    current_password: z.string().min(1, "كلمة المرور الحالية مطلوبة.").max(PASSWORD_MAX_LENGTH),
+    password: passwordPolicy,
+    password_confirmation: z.string().optional(),
+  })
+  .superRefine((d, ctx) => {
+    if (d.password !== d.password_confirmation) {
+      ctx.addIssue({ code: "custom", path: ["password"], message: "كلمتا المرور غير متطابقتين." });
+    } else if (d.password === d.current_password) {
+      ctx.addIssue({ code: "custom", path: ["password"], message: "كلمة المرور الجديدة يجب أن تختلف عن الحالية." });
+    }
+  });
 export const resendSchema = z.object({ email: email() });

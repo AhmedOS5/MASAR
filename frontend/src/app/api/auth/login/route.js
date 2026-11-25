@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { apiBase, configError, UPSTREAM_TIMEOUT_MS } from "@/lib/server/config";
 import { forwardedFor } from "@/lib/server/client-ip";
+import { crossSiteResponse, isSameSiteRequest } from "@/lib/server/csrf";
 import {
   AUTH_COOKIE,
   STATUS_COOKIE,
@@ -25,6 +26,7 @@ async function fetchMe(base, token, forwarded) {
 }
 
 export async function POST(request) {
+  if (!isSameSiteRequest(request)) return crossSiteResponse(); // login CSRF: never sign a victim into the attacker's account
   const base = apiBase();
   if (!base) return configError();
 

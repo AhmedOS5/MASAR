@@ -13,6 +13,7 @@ import { issueToken } from "../../lib/tokens.js";
 import { generateOtp, hashOtp, otpMatches } from "../../lib/otp.js";
 import { inviteEmail, otpEmail, passwordChangedEmail, passwordResetEmail } from "../../lib/mailer.js";
 import { iso, nowIso } from "../../lib/time.js";
+import { writeAudit } from "../../lib/audit.js";
 import { provisionOrganization } from "../organizations/provisioning.js";
 import { ORG_BLOCKED, USER_CONTEXT_COLUMNS, loadPermissions, toAuthContext, userContextQuery } from "./context.js";
 
@@ -403,5 +404,34 @@ export function createAuthService(app) {
 
   const logout = (tokenId) => db("auth_tokens").where({ id: tokenId }).del();
 
-  return { register, resend, verifyEmail, setPassword, forgotPassword, resetPassword, login, logout, sendVerificationCode, sendInvite };
+  /**
+   * A signed-in user changes their own password. The current password must be right (wrong guesses are throttled per user:
+   * MAX_FAILED_LOGINS per 15 minutes, so a stolen session cannot be used to guess it). One transaction: new hash, every OTHER
+   * session of the user ended (the one making the request stays), an audit row. The owner is told by e-mail.
+   */
+  async function changePassword(auth, { current_password: current, password }) {
+    const key = `change-password:${auth.userId}`;
+    limiter.assert(key, MAX_FAILED_LOGINS * scale, FIFTEEN_MIN);
+
+    const user = await db("users").where({ id: auth.userId }).first("name", "email", "password_hash");
+    if (!user?.password_hash || !(await verifyPassword(current, user.password_hash))) {
+      limiter.hit(key, FIFTEEN_MIN);
+      throw new ValidationError({ current_password: ["كلمة المرور الحالية غير صحيحة."] });
+    }
+
+    const passwordHash = await hashPassword(password, { logN: config.SCRYPT_LOG_N });
+    await db.transaction(async (trx) => {
+      await trx("users").where({ id: auth.userId }).update({ password_hash: passwordHash, updated_at: nowIso() });
+      await trx("auth_tokens").where({ user_id: auth.userId }).whereNot({ id: auth.tokenId }).del();
+      // platform operators belong to no organization: there is no tenant to write the audit row under
+      if (auth.organizationId) {
+        await writeAudit(trx, { organizationId: auth.organizationId, actorId: auth.userId, action: "auth.password_changed", entityType: "user", entityId: auth.userId });
+      }
+    });
+    limiter.reset(key);
+    mailer.sendSafe({ to: user.email, ...passwordChangedEmail({ name: user.name }) });
+    return { changed: true, message: "تم تغيير كلمة المرور وإنهاء جلساتك الأخرى." };
+  }
+
+  return { register, resend, verifyEmail, setPassword, forgotPassword, resetPassword, changePassword, login, logout, sendVerificationCode, sendInvite };
 }

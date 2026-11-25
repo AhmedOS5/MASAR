@@ -15,6 +15,7 @@ import {
   FolderOpen,
   BarChart3,
   Bell,
+  KeyRound,
   LogOut,
   ChevronDown,
   ChevronUp,
@@ -244,6 +245,15 @@ export default function Sidebar({ isOpen, onClose, collapsed = false, onToggleCo
             )}
             <Bell size={18} />
             <span className={styles.linkText}>الإشعارات</span>
+          </Link>
+
+          <Link
+            href="/dashboard/account"
+            onClick={onClose}
+            className={isActive("/dashboard/account") ? styles.navLinkActive : styles.navLink}
+          >
+            <KeyRound size={18} />
+            <span className={styles.linkText}>حسابي</span>
           </Link>
         </nav>
 

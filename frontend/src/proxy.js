@@ -5,7 +5,7 @@ import { evaluateAccess } from "@/lib/access";
 /**
  * Route guard (Next.js 16 "proxy", formerly "middleware").
  * Cookies are HttpOnly and written only by /api/auth/login | session | organization/o.
- * This is a UX guard; the Laravel API remains the authority and must itself
+ * This is a UX guard; the backend API remains the authority and must itself
  * reject unauthenticated requests.
  */
 export function proxy(request) {

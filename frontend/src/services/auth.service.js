@@ -45,6 +45,18 @@ export const resetPassword = ({ email, code, password, passwordConfirmation }) =
   post("/auth/reset-password", { email, code, password, password_confirmation: passwordConfirmation }, { auth: false });
 
 /**
+ * A signed-in user changes their own password (needs the current one). 200 -> { changed: true } — this session stays
+ * signed in, every other session of the user is ended. Wrong current password -> 422 (field error on `current_password`);
+ * weak / unconfirmed / unchanged new password -> 422 (field error on `password`); after 5 wrong attempts -> 429 for 15 minutes.
+ */
+export const changePassword = ({ currentPassword, password, passwordConfirmation }) =>
+  post("/auth/change-password", {
+    current_password: currentPassword,
+    password,
+    password_confirmation: passwordConfirmation,
+  });
+
+/**
  * Invalidates the previous code and e-mails a new one.
  * -> { message, expires_in_minutes, resend_after_seconds }. 429 while the cooldown is running, 400 if already verified.
  */

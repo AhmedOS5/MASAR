@@ -1,5 +1,5 @@
 // Single browser-side HTTP client. All calls go to the same-origin BFF (/api/*),
-// which attaches the HttpOnly auth cookie as a Bearer token for the Laravel API.
+// which attaches the HttpOnly auth cookie as a Bearer token for the backend API.
 
 export class ApiError extends Error {
   constructor(status, message, fieldErrors = {}, data = null) {
@@ -14,7 +14,7 @@ export class ApiError extends Error {
 const BASE = "/api";
 let redirecting = false;
 
-/** Laravel validation errors => { field: "first message" } */
+/** Backend validation errors => { field: "first message" } */
 export function toFieldErrors(errors) {
   if (!errors || typeof errors !== "object") return {};
   const out = {};
@@ -91,7 +91,7 @@ export async function http(path, opts = {}) {
   return data;
 }
 
-/** Laravel resource helpers: { data: [...], meta: {...} } or bare arrays/objects. */
+/** Resource helpers: { data: [...], meta: {...} } or bare arrays/objects. */
 export const unwrap = (res) =>
   res && typeof res === "object" && "data" in res && !Array.isArray(res)
     ? res.data

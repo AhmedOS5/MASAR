@@ -330,3 +330,33 @@ describe("platform operators are routed to the operator page", () => {
     expect(setCookies(res).join("\n")).toMatch(/onboarding_status=operator/);
   });
 });
+
+describe("cross-site protection of the BFF", () => {
+  it("refuses a state-changing request whose Origin is another site, before anything reaches the backend", async () => {
+    const m = mockFetch({ "POST /requests": { ok: true } });
+    const res = await proxyPOST(
+      req("/api/requests", { method: "POST", body: { x: 1 }, cookies: "auth_token=T", headers: { origin: "https://evil.example" } }),
+      ctx("requests"),
+    );
+    expect(res.status).toBe(403);
+    expect(m.calls).toHaveLength(0);
+  });
+
+  it("refuses a cross-site login and logout too", async () => {
+    const m = mockFetch({});
+    const evil = { origin: "https://evil.example" };
+    expect((await loginPOST(req("/api/auth/login", { method: "POST", body: { email: "a@b.c", password: "x" }, headers: evil }))).status).toBe(403);
+    expect((await logoutPOST(req("/api/auth/logout", { method: "POST", cookies: "auth_token=T", headers: evil }))).status).toBe(403);
+    expect(m.calls).toHaveLength(0);
+  });
+
+  it("lets the app's own same-origin request through", async () => {
+    const m = mockFetch({ "POST /requests": { ok: true } });
+    const res = await proxyPOST(
+      req("/api/requests", { method: "POST", body: { x: 1 }, cookies: "auth_token=T", headers: { origin: "http://localhost", host: "localhost" } }),
+      ctx("requests"),
+    );
+    expect(res.status).toBe(200);
+    expect(m.calls).toHaveLength(1);
+  });
+});

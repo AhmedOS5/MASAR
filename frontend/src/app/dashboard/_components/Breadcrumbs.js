@@ -20,6 +20,9 @@ const LABELS = {
   roles: "الأدوار والصلاحيات",
   files: "الملفات",
   notifications: "الإشعارات",
+  projects: "المشاريع",
+  settings: "إعدادات القوائم",
+  account: "حسابي",
 };
 
 /** "لوحة التحكم ‹ الطلبات ‹ التفاصيل" from the current path; every step but the last is a link. */

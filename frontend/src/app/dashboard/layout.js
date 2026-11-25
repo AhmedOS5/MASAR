@@ -7,30 +7,20 @@ import TopHeader from "./_components/TopHeader";
 import styles from "./dashboard.module.css";
 import { NotificationsProvider } from "./_context/NotificationsContext";
 import useSession from "@/hooks/useSession";
+import useStoredPreference, { writeStoredPreference } from "@/hooks/useStoredPreference";
 
 const SIDEBAR_KEY = "masar-sidebar";
+const isCollapsed = (v) => v === "collapsed";
 
 export default function DashboardLayout({ children }) {
   const router = useRouter();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // Desktop icon-rail preference. Read after mount: the page is pre-rendered, so the first render must not depend on storage.
-  const [collapsed, setCollapsed] = useState(false);
-  useEffect(() => {
-    try {
-      setCollapsed(localStorage.getItem(SIDEBAR_KEY) === "collapsed");
-    } catch {
-      /* storage blocked: stay expanded */
-    }
-  }, []);
+  // Desktop icon-rail preference. The page is pre-rendered, so the first render (and hydration) is always expanded and the
+  // saved choice applies right after; if storage is blocked the toggle still works for this visit.
+  const collapsed = useStoredPreference(SIDEBAR_KEY, isCollapsed, false);
   function toggleCollapsed() {
-    const next = !collapsed;
-    setCollapsed(next);
-    try {
-      localStorage.setItem(SIDEBAR_KEY, next ? "collapsed" : "open");
-    } catch {
-      /* the choice still applies for this visit */
-    }
+    writeStoredPreference(SIDEBAR_KEY, collapsed ? "open" : "collapsed");
   }
 
   // Platform operators belong to no organization: every business API answers 403 for them. The route guard already keeps

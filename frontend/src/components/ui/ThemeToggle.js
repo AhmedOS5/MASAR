@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Monitor, Moon, Sun } from "lucide-react";
-import { applyTheme, clearTheme, readStoredTheme, storeTheme } from "@/lib/theme";
+import { THEME_KEY, applyTheme, clearTheme, parseTheme } from "@/lib/theme";
+import useStoredPreference, { writeStoredPreference } from "@/hooks/useStoredPreference";
 import styles from "./ThemeToggle.module.css";
 
 const OPTIONS = [
@@ -16,14 +17,14 @@ const OPTIONS = [
  * full page load); unmounting restores the default so the public pages are never affected.
  */
 export default function ThemeToggle() {
-  const [pref, setPref] = useState("light"); // the saved value is read after mount, so server and client markup agree
+  // Server markup and hydration use "light"; the saved value takes over on the client, so both renders agree.
+  const pref = useStoredPreference(THEME_KEY, parseTheme, "light");
 
   useEffect(() => {
-    const saved = readStoredTheme();
-    setPref(saved);
-    applyTheme(saved);
-    return clearTheme;
-  }, []);
+    applyTheme(pref);
+  }, [pref]);
+
+  useEffect(() => clearTheme, []);
 
   useEffect(() => {
     if (pref !== "system" || !window.matchMedia) return undefined;
@@ -34,9 +35,7 @@ export default function ThemeToggle() {
   }, [pref]);
 
   function choose(value) {
-    setPref(value);
-    storeTheme(value);
-    applyTheme(value);
+    writeStoredPreference(THEME_KEY, value); // the effect above applies it
   }
 
   return (

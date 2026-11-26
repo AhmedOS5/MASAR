@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+      - "design/**"
+      - "audit/**"
   pull_request:
     branches:
       - main

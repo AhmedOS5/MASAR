@@ -307,3 +307,97 @@ describe("reports", () => {
     void PNG;
   });
 });
+
+describe("deleting files, folders and reports", () => {
+  const PERMS = ["files.view", "files.upload", "reports.view", "reports.manage"];
+  /** admin + two team members (a, b), a supervisor, a view-only member and an outsider who holds the same permissions but is not on the project */
+  async function setup() {
+    const admin = await signedInAdmin(app);
+    const a = await member(app, admin, { email: "a@org.org", permissions: PERMS });
+    const b = await member(app, admin, { email: "b@org.org", permissions: PERMS });
+    const sup = await member(app, admin, { email: "s@org.org", permissions: PERMS });
+    const viewer = await member(app, admin, { email: "v@org.org", permissions: ["files.view", "reports.view"] });
+    const outsider = await member(app, admin, { email: "o@org.org", permissions: PERMS });
+    const ws = await workspace(admin, { team: [{ user: a }, { user: b }, { user: sup, role: "supervisor" }, { user: viewer }] });
+    return { admin, a, b, sup, viewer, outsider, ...ws };
+  }
+  const del = (url, headers) => send("DELETE", url, undefined, headers);
+
+  it("DELETE /files/:id: the uploader, a supervisor or an admin may; other members 403, outsiders and other orgs 404", async () => {
+    app = await testApp();
+    const { admin, a, b, sup, viewer, outsider, folders } = await setup();
+    const other = await otherOrg();
+    const mine = (await upload("/files", a.headers, inFolder(folders[0], file()))).json().data;
+    expect(filesOnDisk(app)).toHaveLength(1);
+
+    expect((await del(`/files/${mine.id}`, viewer.headers)).statusCode).toBe(403); // no files.upload
+    expect((await del(`/files/${mine.id}`, b.headers)).statusCode).toBe(403); // a member, not the uploader
+    expect((await del(`/files/${mine.id}`, outsider.headers)).statusCode).toBe(404); // not on the project
+    expect((await del(`/files/${mine.id}`, other.headers)).statusCode).toBe(404); // another organization
+    expect((await del("/files/9999", a.headers)).statusCode).toBe(404);
+    expect(filesOnDisk(app)).toHaveLength(1);
+
+    expect((await del(`/files/${mine.id}`, a.headers)).statusCode).toBe(204);
+    expect(filesOnDisk(app)).toHaveLength(0);
+    expect((await get("/files", admin.headers)).json().meta.total).toBe(0);
+    expect((await del(`/files/${mine.id}`, a.headers)).statusCode).toBe(404); // already gone
+    const audit = await app.db("audit_logs").where({ action: "file.deleted" });
+    expect(audit).toHaveLength(1);
+    expect(audit[0]).toMatchObject({ entity_type: "file", entity_id: mine.id, actor_id: a.userId });
+
+    const second = (await upload("/files", a.headers, inFolder(folders[0], file("ب.pdf")))).json().data;
+    expect((await del(`/files/${second.id}`, sup.headers)).statusCode).toBe(204); // supervisor
+    const third = (await upload("/files", b.headers, inFolder(folders[0], file("ج.pdf")))).json().data;
+    expect((await del(`/files/${third.id}`, admin.headers)).statusCode).toBe(204); // full access
+    expect(filesOnDisk(app)).toHaveLength(0);
+  });
+
+  it("DELETE /files/folders/:id: supervisors and admins only; it removes the folder's files, keeps its reports", async () => {
+    app = await testApp();
+    const { admin, a, sup, outsider, folders } = await setup();
+    await upload("/files", a.headers, inFolder(folders[0], file("1.pdf")));
+    await upload("/files", a.headers, inFolder(folders[0], file("2.pdf")));
+    await upload("/files", a.headers, inFolder(folders[1], file("3.pdf")));
+    const report = (await upload("/reports", a.headers, [file("تقرير.pdf"), { name: "name", value: "تقرير" }, { name: "folder_id", value: String(folders[0].id) }])).json().data;
+    expect(report.folder_id).toBe(folders[0].id);
+    expect(filesOnDisk(app)).toHaveLength(4);
+
+    expect((await del(`/files/folders/${folders[0].id}`, a.headers)).statusCode).toBe(403); // a plain member
+    expect((await del(`/files/folders/${folders[0].id}`, outsider.headers)).statusCode).toBe(404);
+    expect((await del("/files/folders/9999", sup.headers)).statusCode).toBe(404);
+    expect(filesOnDisk(app)).toHaveLength(4);
+
+    expect((await del(`/files/folders/${folders[0].id}`, sup.headers)).statusCode).toBe(204);
+    expect(filesOnDisk(app)).toHaveLength(2); // the other folder's file and the report's document remain
+    const left = (await get("/files/folders", admin.headers)).json();
+    expect(left.data.map((f) => f.id)).toEqual([folders[1].id]);
+    expect((await get("/files", admin.headers)).json().meta.total).toBe(1);
+    expect((await get("/reports", admin.headers)).json().data).toEqual([expect.objectContaining({ id: report.id, folder_id: null })]);
+    expect(await app.db("audit_logs").where({ action: "folder.deleted", entity_id: folders[0].id })).toHaveLength(1);
+  });
+
+  it("DELETE /reports/:id: needs reports.manage; the author, a supervisor or an admin may; it removes the document", async () => {
+    app = await testApp();
+    const { admin, a, b, sup, viewer, outsider, folders } = await setup();
+    const other = await otherOrg();
+    const make = async (user) => (await upload("/reports", user.headers, [file(), { name: "name", value: "تقرير" }, { name: "folder_id", value: String(folders[0].id) }])).json().data;
+    const r = await make(a);
+    expect(filesOnDisk(app)).toHaveLength(1);
+
+    expect((await del(`/reports/${r.id}`, viewer.headers)).statusCode).toBe(403); // no reports.manage
+    expect((await del(`/reports/${r.id}`, b.headers)).statusCode).toBe(403); // not the author
+    expect((await del(`/reports/${r.id}`, outsider.headers)).statusCode).toBe(404);
+    expect((await del(`/reports/${r.id}`, other.headers)).statusCode).toBe(404);
+    expect(filesOnDisk(app)).toHaveLength(1);
+
+    expect((await del(`/reports/${r.id}`, a.headers)).statusCode).toBe(204);
+    expect(filesOnDisk(app)).toHaveLength(0);
+    expect((await get("/reports", admin.headers)).json().meta.total).toBe(0);
+    expect((await get(`/reports/${r.id}/download`, admin.headers)).statusCode).toBe(404);
+    expect(await app.db("audit_logs").where({ action: "report.deleted", entity_id: r.id, actor_id: a.userId })).toHaveLength(1);
+
+    expect((await del(`/reports/${(await make(b)).id}`, sup.headers)).statusCode).toBe(204);
+    expect((await del(`/reports/${(await make(b)).id}`, admin.headers)).statusCode).toBe(204);
+    expect(filesOnDisk(app)).toHaveLength(0);
+  });
+});

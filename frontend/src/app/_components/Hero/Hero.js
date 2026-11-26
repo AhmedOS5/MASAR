@@ -37,7 +37,6 @@ const Hero = () => {
                 </div>
               </Link>
             </div>
-            <div className={styles.check}></div>
           </div>
           {/* الشق الأيسر: رسم توضيحي للعقد المترابطة (Nodes Diagram) */}
           <div className={styles.heroVisual}>

@@ -1,5 +1,5 @@
 import { paramId, parse } from "../../lib/validate.js";
-import { attachUploadedFile, sendAttachment } from "../shared/attachments.js";
+import { attachUploadedFile, removeAttachment, sendAttachment } from "../shared/attachments.js";
 import { commentSchema } from "../requests/schema.js";
 import { createTaskSchema, updateTaskSchema } from "./schema.js";
 
@@ -40,5 +40,12 @@ export default async function taskRoutes(app) {
     const id = paramId(request.params.id);
     await tasks.assertExists(request.auth, id); // outside the project's team: 404
     return sendAttachment(app, reply, request.auth, { type: "task", id, attachmentId: paramId(request.params.aid) });
+  });
+
+  app.delete("/tasks/:id/attachments/:aid", view, async (request, reply) => {
+    const id = paramId(request.params.id);
+    await tasks.assertExists(request.auth, id); // outside the project's team: 404
+    await removeAttachment(app, request.auth, { type: "task", id, attachmentId: paramId(request.params.aid) });
+    return reply.status(204).send();
   });
 }

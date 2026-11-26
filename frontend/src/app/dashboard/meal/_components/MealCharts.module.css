@@ -213,3 +213,8 @@
     flex-direction: column;
   }
 }
+
+.quarterTabs {
+  display: flex;
+  gap: 8px;
+}

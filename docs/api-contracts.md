@@ -138,6 +138,7 @@ Activity `{ id, text, kind: created|reviewed|pending|rejected, created_at }` (ol
 | `POST /requests/{id}/comments` `{ body* }` | `requests.view` | `201 { data: comment }` |
 | `POST /requests/{id}/attachments` *(multipart `file`)* | `requests.view` | any type, ≤ `MAX_UPLOAD_MB`, ≤ 20 per request → `201 { data: attachment }` |
 | `GET /requests/{id}/attachments/{aid}/download` | `requests.view` | |
+| `DELETE /requests/{id}/attachments/{aid}` · `DELETE /tasks/{id}/attachments/{aid}` | `requests.view` · `tasks.view` | `204`; removes the row and the stored file and writes an audit entry (`attachment.deleted`). Allowed for whoever attached it, a project supervisor, or full project access; another member `403`; outside the project / organization `404` |
 | `POST /requests/{id}/tasks` | `tasks.create` + `requests.view` | `201 { data: task }` pre-filled from the request; moves an approved request to `in_progress` |
 
 ```json
@@ -183,9 +184,12 @@ Task: `{ id, code, title, description, status, priority, department, type, assig
 | `GET /files?folder_id&search&page&per_page` | `files.view` | File `{ id, name, size, mime, folder_id, created_at }`, newest first |
 | `POST /files` *(multipart `file`, `folder_id`)* | `files.upload` | any type → `201 { data: file }`; unknown/foreign folder → `422` on `folder_id` |
 | `GET /files/{id}/download` | `files.view` | |
+| `DELETE /files/{id}` | `files.upload` | `204`; removes the row and the stored file, audit `file.deleted`. Same who-may-delete rule as attachments (uploader, supervisor, full access; other members `403`; outsiders `404`) |
+| `DELETE /files/folders/{id}` | `files.upload` | `204`; supervisor or full project access only (a plain member `403`). Deletes the folder **and the files inside it** (rows and stored files); reports filed in it are kept, taken out of the folder. Audit `folder.deleted` with the number of files removed |
 | `GET /reports/summary` | `reports.view` | `{ data: { total_reports, monthly_progress, active_sections } }` — stored reports; % change of tasks completed this month vs last; active units |
 | `GET /reports?type&search&page&per_page` | `reports.view` | Report `{ id, name, type, period, size, created_at }` |
 | `GET /reports/{id}/download` | `reports.view` | the stored document (name/type as uploaded) |
+| `DELETE /reports/{id}` | `reports.manage` | `204`; removes the row and the stored document, audit `report.deleted`. The author, a supervisor or full project access may delete it; another member `403` |
 
 ## 7. MEAL (26 contract endpoints + 1)
 All need the MEAL unit switched on; **reads `meal.view`, writes `meal.manage`**. Details: [backend-rules.md §7](./backend-rules.md).

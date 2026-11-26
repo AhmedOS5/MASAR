@@ -57,6 +57,17 @@ export function filterProject(qb, value, column) {
 /** Throws 404 when a row's project is out of the caller's reach. Returns the caller's role in it. */
 export const assertRowAccess = (db, auth, projectId, opts) => assertProjectAccess(db, auth, projectId, opts);
 
+/**
+ * Deleting what someone put in a project: the person who added it, a supervisor or someone with full project access may.
+ * 404 when the project is out of the caller's reach, 403 when they only see it as a member and the item is not theirs.
+ * `ownerId` = the user who added the item (may be null for old rows: then only supervisors and admins).
+ */
+export async function assertMayRemove(db, auth, projectId, ownerId) {
+  const role = await assertRowAccess(db, auth, projectId);
+  if (role === "member" && (ownerId == null || ownerId !== auth.userId)) throw forbidden();
+  return role;
+}
+
 /** A project is mandatory: it must be given, exist in the caller's organization, and the caller must work in it (422 on `project_id`). */
 export async function resolveProjectField(db, auth, projectId) {
   if (projectId == null) throw new ValidationError({ project_id: ["المشروع مطلوب."] });

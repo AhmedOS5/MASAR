@@ -98,11 +98,10 @@ Done: the AI assistant was removed (issue 12), volunteers removed everywhere (is
 8. Token refresh / "log out everywhere"; shared store for the per-identity rate limits when running several backend instances.
 9. Security headers (CSP, frame-ancestors, referrer-policy) in `next.config.mjs`.
 10. ~~Decide on separation of duties for request approval~~ — **done** (issue 33): nobody decides a request they submitted.
-11. MEAL report as a real **PDF** (today an HTML document); delete endpoints for files/reports/attachments/folders (the screens for
-    `PUT /options/{kind}`, `POST /files/folders` and `POST /reports` exist: settings and project pages).
+11. MEAL report as a real **PDF** (today an HTML document). ~~Delete endpoints for files/reports/attachments/folders~~ — **done** on the `design/ui-completion` branch (`DELETE /files/{id}`, `/files/folders/{id}`, `/reports/{id}`, `/requests|tasks/{id}/attachments/{aid}`; confirmation dialog in the UI; audited) — pending the CI run.
 12. Accessibility audit (labels are fixed on new forms; landing page and some icon buttons not audited); keyboard/focus handling in modals.
 13. Cross-browser (Firefox/Safari) and mobile QA; performance budget (Lighthouse) — not measured.
-14. Remove unused dependency `react-icons`; consider TypeScript + zod schemas mirroring the API.
+14. ~~Remove unused dependency `react-icons`~~ — done on `design/ui-completion`; consider TypeScript + zod schemas mirroring the API.
 
 **Nice to have**
 15. i18n layer, server components for read-only pages, Sentry, Dependabot, Husky/lint-staged; database backups/retention policy.

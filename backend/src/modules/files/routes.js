@@ -7,7 +7,8 @@ import { iso, nowIso } from "../../lib/time.js";
 import { paramId, parse, requiredId, text, z } from "../../lib/validate.js";
 import { receiveUploads } from "../../lib/uploads.js";
 import { sendStored } from "../../lib/http-files.js";
-import { filterProject, projectRoleOf, resolveProjectField, scopeIds, visibleProjectIds } from "../projects/access.js";
+import { writeAudit } from "../../lib/audit.js";
+import { assertMayRemove, assertRowAccess, filterProject, projectRoleOf, resolveProjectField, scopeIds, visibleProjectIds } from "../projects/access.js";
 
 const folderSchema = z.object({ name: text(100), project_id: requiredId() });
 
@@ -101,5 +102,45 @@ export default async function fileRoutes(app) {
     const folder = await db("folders").where({ id: f.folder_id }).first("project_id");
     if (!folder || !(await projectRoleOf(db, auth, folder.project_id))) throw notFound("الملف غير موجود.");
     return sendStored(reply, storage, f);
+  });
+
+  // Deleting a file removes the row, the bytes on disk and leaves an audit entry. Whoever uploaded it may delete it;
+  // so may the project's supervisors and people with full project access. Anyone else in the project gets 403.
+  app.delete("/files/:id", upload, async (request, reply) => {
+    const auth = request.auth;
+    const f = await db("files").where({ id: paramId(request.params.id), organization_id: auth.organizationId }).first();
+    const folder = f && (await db("folders").where({ id: f.folder_id }).first("project_id"));
+    if (!f || !folder) throw notFound("الملف غير موجود.");
+    await assertMayRemove(db, auth, folder.project_id, f.uploaded_by);
+    await db.transaction(async (trx) => {
+      await trx("files").where({ id: f.id }).del();
+      await writeAudit(trx, {
+        organizationId: auth.organizationId, actorId: auth.userId, action: "file.deleted", entityType: "file", entityId: f.id,
+        meta: { name: f.name, folder_id: f.folder_id, project_id: folder.project_id },
+      });
+    });
+    await storage.remove(f.storage_key);
+    return reply.status(204).send();
+  });
+
+  // Deleting a folder deletes the files inside it (rows and bytes). Reports filed in it are kept, just taken out of the
+  // folder. Only supervisors and people with full project access may do this.
+  app.delete("/files/folders/:id", upload, async (request, reply) => {
+    const auth = request.auth;
+    const folder = await db("folders").where({ id: paramId(request.params.id), organization_id: auth.organizationId }).first();
+    if (!folder) throw notFound("المجلد غير موجود.");
+    await assertRowAccess(db, auth, folder.project_id, { supervisor: true });
+    const files = await db("files").where({ folder_id: folder.id }).select("id", "storage_key");
+    await db.transaction(async (trx) => {
+      await trx("reports").where({ folder_id: folder.id }).update({ folder_id: null });
+      await trx("files").where({ folder_id: folder.id }).del();
+      await trx("folders").where({ id: folder.id }).del();
+      await writeAudit(trx, {
+        organizationId: auth.organizationId, actorId: auth.userId, action: "folder.deleted", entityType: "folder", entityId: folder.id,
+        meta: { name: folder.name, project_id: folder.project_id, files_deleted: files.length },
+      });
+    });
+    for (const f of files) await storage.remove(f.storage_key);
+    return reply.status(204).send();
   });
 }

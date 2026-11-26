@@ -320,6 +320,34 @@ describe("request attachments", () => {
     expect(dl.headers["x-content-type-options"]).toBe("nosniff");
   });
 
+  it("DELETE removes the attachment and its file: its author, a supervisor or an admin may; other members get 403", async () => {
+    app = await testApp();
+    const { admin, requester, approver, viewer } = await team();
+    const b = await otherOrg();
+    const r1 = await create(requester);
+    const r2 = await create(requester);
+    const mine = (await upload(`/requests/${r1.id}/attachments`, requester.headers, [file("أ.txt")])).json().data;
+    const url = `/requests/${r1.id}/attachments/${mine.id}`;
+    expect(filesOnDisk(app)).toHaveLength(1);
+
+    expect((await send("DELETE", url, undefined, viewer.headers)).statusCode).toBe(403); // sees it, did not attach it
+    expect((await send("DELETE", url, undefined, b.headers)).statusCode).toBe(404); // another organization
+    expect((await send("DELETE", `/requests/${r2.id}/attachments/${mine.id}`, undefined, requester.headers)).statusCode).toBe(404); // wrong request
+    expect(filesOnDisk(app)).toHaveLength(1);
+
+    expect((await send("DELETE", url, undefined, requester.headers)).statusCode).toBe(204);
+    expect(filesOnDisk(app)).toHaveLength(0);
+    expect((await get(`/requests/${r1.id}`, requester.headers)).json().data.attachments).toEqual([]);
+    expect((await send("DELETE", url, undefined, requester.headers)).statusCode).toBe(404);
+    expect(await app.db("audit_logs").where({ action: "attachment.deleted", entity_id: mine.id, actor_id: requester.userId })).toHaveLength(1);
+
+    const again = (await upload(`/requests/${r1.id}/attachments`, requester.headers, [file("ب.txt")])).json().data;
+    expect((await send("DELETE", `/requests/${r1.id}/attachments/${again.id}`, undefined, approver.headers)).statusCode).toBe(204); // supervisor
+    const last = (await upload(`/requests/${r1.id}/attachments`, requester.headers, [file("ج.txt")])).json().data;
+    expect((await send("DELETE", `/requests/${r1.id}/attachments/${last.id}`, undefined, admin.headers)).statusCode).toBe(204); // full access
+    expect(filesOnDisk(app)).toHaveLength(0);
+  });
+
   it("accepts any file type but decides html/text as non-previewable downloads", async () => {
     app = await testApp();
     const { requester } = await team();

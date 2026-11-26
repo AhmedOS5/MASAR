@@ -149,3 +149,14 @@ input:checked + .slider:before {
   color: var(--ds-ink-3);
   border: 1px solid var(--ds-line);
 }
+
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.unitIcon {
+  flex-shrink: 0;
+}

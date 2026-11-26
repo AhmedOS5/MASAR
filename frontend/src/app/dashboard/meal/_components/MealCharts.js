@@ -66,7 +66,7 @@ export default function MealCharts() {
       {/* 1. المؤشرات: المستهدف مقابل الفعلي */}
       <div className={styles.barCard}>
         <div className={styles.cardHeader}>
-          <div className={styles.quarterTabs} style={{ display: "flex", gap: 8 }}>
+          <div className={styles.quarterTabs}>
             {quarters.map((q) => (
               <button
                 key={q}

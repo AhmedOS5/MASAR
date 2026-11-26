@@ -5,7 +5,8 @@ import { iso, nowIso } from "../../lib/time.js";
 import { paramId, parse, optId, optText, nullableId, nullableText, requiredId, z } from "../../lib/validate.js";
 import { receiveUploads } from "../../lib/uploads.js";
 import { sendStored } from "../../lib/http-files.js";
-import { assertRowAccess, filterProject, projectRoleOf, resolveProjectField, scopeIds, visibleProjectIds } from "../projects/access.js";
+import { writeAudit } from "../../lib/audit.js";
+import { assertMayRemove, assertRowAccess, filterProject, projectRoleOf, resolveProjectField, scopeIds, visibleProjectIds } from "../projects/access.js";
 import { unitsFor, unitStatus } from "../units/routes.js";
 
 // A report always belongs to a project and may also be filed in one of its folders. When a folder is given it decides the
@@ -135,6 +136,23 @@ export default async function reportRoutes(app) {
     }
     if (Object.keys(patch).length) await db("reports").where({ id }).update(patch);
     return { data: toReport(await db("reports").where({ id }).first()) };
+  });
+
+  // The report's row and its stored document go; the person who added it, a supervisor or full project access may delete it.
+  app.delete("/reports/:id", { preHandler: app.guard({ permission: "reports.manage" }) }, async (request, reply) => {
+    const auth = request.auth;
+    const r = await db("reports").where({ id: paramId(request.params.id), organization_id: auth.organizationId }).first();
+    if (!r) throw notFound("التقرير غير موجود.");
+    await assertMayRemove(db, auth, r.project_id, r.created_by);
+    await db.transaction(async (trx) => {
+      await trx("reports").where({ id: r.id }).del();
+      await writeAudit(trx, {
+        organizationId: auth.organizationId, actorId: auth.userId, action: "report.deleted", entityType: "report", entityId: r.id,
+        meta: { name: r.name, project_id: r.project_id },
+      });
+    });
+    if (r.storage_key) await storage.remove(r.storage_key);
+    return reply.status(204).send();
   });
 
   app.get("/reports/:id/download", view, async (request, reply) => {

@@ -25,6 +25,7 @@ export default function useRequestMutations(id) {
   };
 
   return {
+    refresh,
     approve: useMutation({
       mutationFn: () => approveRequest(id),
       onSuccess: () => { refresh(); toast.success("تمت الموافقة على الطلب."); },

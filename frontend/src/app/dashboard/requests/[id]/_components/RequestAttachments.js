@@ -2,8 +2,9 @@
 
 import React, { useRef } from "react";
 import { FileSpreadsheet, FileText, Paperclip } from "lucide-react";
+import DeleteButton from "@/components/ui/DeleteButton";
 import useRequestMutations from "@/features/requests/useRequestMutations";
-import { requestAttachmentUrl } from "@/services/requests.service";
+import { deleteRequestAttachment, requestAttachmentUrl } from "@/services/requests.service";
 import { fileKind, formatBytes } from "@/lib/format";
 import styles from "../requestDetail.module.css";
 
@@ -47,6 +48,14 @@ export function RequestAttachments({ request }) {
               >
                 تنزيل
               </a>
+              <DeleteButton
+                label={`حذف المرفق ${file.name}`}
+                title="حذف مرفق"
+                message={`هل أنت متأكد من حذف "${file.name}"؟ لا يمكن التراجع عن هذا الإجراء.`}
+                successText="تم حذف المرفق."
+                mutationFn={() => deleteRequestAttachment(request.id, file.id)}
+                onDone={m.refresh}
+              />
               <div className={styles.fileDetails}>
                 <span className={styles.fileName}>{file.name}</span>
                 <span className={styles.fileSize}>{formatBytes(file.size)}</span>

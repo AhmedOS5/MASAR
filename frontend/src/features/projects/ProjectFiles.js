@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { FolderPlus, ImagePlus, UploadCloud } from "lucide-react";
 import QueryState from "@/components/ui/QueryState";
+import DeleteButton from "@/components/ui/DeleteButton";
 import ui from "@/components/ui/ui.module.css";
 import usePermissions from "@/hooks/usePermissions";
 import {
@@ -15,7 +16,7 @@ import {
   uploadFileTo,
   uploadReport,
 } from "@/services/projects.service";
-import { fileDownloadUrl, reportDownloadUrl } from "@/services/workspace.service";
+import { deleteFile, deleteFolder, deleteReport, fileDownloadUrl, reportDownloadUrl } from "@/services/workspace.service";
 import { formatBytes, formatDate } from "@/lib/format";
 import { useToast } from "@/components/Toast/ToastProvider";
 import styles from "@/app/dashboard/projects/projects.module.css";
@@ -86,6 +87,7 @@ export default function ProjectFiles({ project }) {
     e.target.value = "";
   };
   const folderName = (id) => (folders.data ?? []).find((f) => f.id === id)?.name;
+  const selectedFolder = folderId ? (folders.data ?? []).find((f) => f.id === folderId) : null;
 
   return (
     <div className={styles.panel}>
@@ -127,6 +129,20 @@ export default function ProjectFiles({ project }) {
           </div>
         )}
       </QueryState>
+      {selectedFolder && can("files.upload") && ["admin", "supervisor"].includes(project.my_role) && (
+        <DeleteButton
+          label={`حذف المجلد ${selectedFolder.name}`}
+          text="حذف المجلد المحدد"
+          title="حذف مجلد"
+          message={`سيُحذف المجلد "${selectedFolder.name}" مع ${selectedFolder.items_count} ملف بداخله نهائياً. التقارير المحفوظة فيه تبقى لكن بلا مجلد. لا يمكن التراجع عن هذا الإجراء.`}
+          successText="تم حذف المجلد."
+          mutationFn={() => deleteFolder(selectedFolder.id)}
+          onDone={() => {
+            setFolderId(null);
+            refresh();
+          }}
+        />
+      )}
 
       <div className={styles.panelHead}>
         <h2 className={styles.panelTitle}>الملفات والصور</h2>
@@ -153,6 +169,16 @@ export default function ProjectFiles({ project }) {
                   <span className={styles.rowSub}>{formatBytes(f.size)} · {formatDate(f.created_at)}</span>
                 </a>
                 {f.folder_id && <span className={styles.rowSub}>{folderName(f.folder_id)}</span>}
+                {can("files.upload") && (
+                  <DeleteButton
+                    label={`حذف الملف ${f.name}`}
+                    title="حذف ملف"
+                    message={`هل أنت متأكد من حذف "${f.name}"؟ لا يمكن التراجع عن هذا الإجراء.`}
+                    successText="تم حذف الملف."
+                    mutationFn={() => deleteFile(f.id)}
+                    onDone={refresh}
+                  />
+                )}
               </li>
             ))}
           </ul>
@@ -194,6 +220,16 @@ export default function ProjectFiles({ project }) {
                           <option key={f.id} value={f.id}>{f.name}</option>
                         ))}
                       </select>
+                    )}
+                    {can("reports.manage") && (
+                      <DeleteButton
+                        label={`حذف التقرير ${r.name}`}
+                        title="حذف تقرير"
+                        message={`هل أنت متأكد من حذف التقرير "${r.name}"؟ لا يمكن التراجع عن هذا الإجراء.`}
+                        successText="تم حذف التقرير."
+                        mutationFn={() => deleteReport(r.id)}
+                        onDone={refresh}
+                      />
                     )}
                   </li>
                 ))}

@@ -1,4 +1,4 @@
-import { get, post, patch, put, listOf, unwrap, metaOf } from "@/lib/http";
+import { get, post, patch, put, del, listOf, unwrap, metaOf } from "@/lib/http";
 
 const enc = encodeURIComponent;
 
@@ -27,6 +27,9 @@ export function uploadFile(file, folderId) {
   return post("/files", fd);
 }
 export const fileDownloadUrl = (id) => `/api/files/${enc(id)}/download`;
+export const deleteFile = (id) => del(`/files/${enc(id)}`);
+/** Deletes the folder with the files inside it (reports filed in it are kept, without a folder). */
+export const deleteFolder = (id) => del(`/files/folders/${enc(id)}`);
 
 // ---- general reports ----
 export const getReportsSummary = async () => unwrap(await get("/reports/summary"));
@@ -35,6 +38,7 @@ export async function listReports(params) {
   return { items: listOf(res), meta: metaOf(res) };
 }
 export const reportDownloadUrl = (id) => `/api/reports/${enc(id)}/download`;
+export const deleteReport = (id) => del(`/reports/${enc(id)}`);
 
 // ---- notifications ----
 export async function listNotifications(params) {

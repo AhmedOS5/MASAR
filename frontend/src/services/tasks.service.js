@@ -1,4 +1,4 @@
-import { get, post, patch, listOf, unwrap, metaOf } from "@/lib/http";
+import { get, post, patch, del, listOf, unwrap, metaOf } from "@/lib/http";
 
 const enc = encodeURIComponent;
 
@@ -17,3 +17,4 @@ export function uploadTaskAttachment(id, file) {
 }
 export const taskAttachmentUrl = (id, attId) =>
   `/api/tasks/${enc(id)}/attachments/${enc(attId)}/download`;
+export const deleteTaskAttachment = (id, attId) => del(`/tasks/${enc(id)}/attachments/${enc(attId)}`);

@@ -1,4 +1,4 @@
-import { get, post, listOf, unwrap, metaOf } from "@/lib/http";
+import { get, post, del, listOf, unwrap, metaOf } from "@/lib/http";
 
 const enc = encodeURIComponent;
 
@@ -19,3 +19,4 @@ export function uploadRequestAttachment(id, file) {
 }
 export const requestAttachmentUrl = (id, attId) =>
   `/api/requests/${enc(id)}/attachments/${enc(attId)}/download`;
+export const deleteRequestAttachment = (id, attId) => del(`/requests/${enc(id)}/attachments/${enc(attId)}`);

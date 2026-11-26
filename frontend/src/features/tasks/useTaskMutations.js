@@ -16,6 +16,7 @@ export default function useTaskMutations(id) {
   };
 
   return {
+    refresh,
     update: useMutation({
       mutationFn: (body) => updateTask(id, body),
       onSuccess: () => { refresh(); toast.success("تم تحديث المهمة."); },

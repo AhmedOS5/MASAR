@@ -351,6 +351,26 @@ describe("Request detail page", () => {
     expect(body.get("file").name).toBe("doc.pdf");
   });
 
+  it("deleting an attachment asks first, then sends DELETE and refetches", async () => {
+    let attachments = [{ id: 5, name: "عرض.pdf", size: 2048, mime: "application/pdf" }];
+    const m = base({
+      "GET /api/requests/R-9": () => REQ_DETAIL({ attachments }),
+      "DELETE /api/requests/R-9/attachments/5": () => {
+        attachments = [];
+        return new Response(null, { status: 204 });
+      },
+    });
+    renderDetail();
+    await screen.findByText("تفاصيل طلب من السيرفر");
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("button", { name: "حذف المرفق عرض.pdf" }));
+    expect(calls(m, "DELETE", "/api/requests/R-9/attachments/5")).toHaveLength(0); // nothing is sent before the confirmation
+    const dialog = await screen.findByRole("dialog");
+    await user.click(within(dialog).getByRole("button", { name: "حذف" }));
+    await waitFor(() => expect(calls(m, "DELETE", "/api/requests/R-9/attachments/5")).toHaveLength(1));
+    await waitFor(() => expect(screen.queryByText("عرض.pdf")).not.toBeInTheDocument());
+  });
+
   it("a failing action raises an error toast and keeps the page usable", async () => {
     base({
       "GET /api/requests/R-9": REQ_DETAIL(),

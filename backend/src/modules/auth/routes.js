@@ -63,6 +63,12 @@ export default async function authRoutes(app) {
     auth.changePassword(request.auth, parse(changePasswordSchema, request.body)),
   );
 
+  // "Sign out of all devices": every session of the user ends, this one too.
+  app.post("/auth/logout-all", { ...ipLimit(app, 20, 10), preHandler: app.guard({ allowUnapproved: true }) }, async (request) => ({
+    ok: true,
+    sessions_ended: await auth.logoutAll(request.auth),
+  }));
+
   app.post("/logout", { preHandler: app.guard({ allowUnapproved: true }) }, async (request) => {
     await auth.logout(request.auth.tokenId);
     return { ok: true };

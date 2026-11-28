@@ -3,6 +3,7 @@ import { conflict, forbidden, notFound } from "../../lib/errors.js";
 import { applySearch, hasFilter, pageParams, paginate } from "../../lib/pagination.js";
 import { nextCode } from "../../lib/sequence.js";
 import { iso, nowIso } from "../../lib/time.js";
+import { writeAudit } from "../../lib/audit.js";
 import { usersWithPermission } from "../auth/members.js";
 import { notifyUsers } from "../notifications/service.js";
 import { assertRowAccess, filterProject, resolveProjectField, scopeIds, visibleProjectIds } from "../projects/access.js";
@@ -150,6 +151,10 @@ export function createRequestService({ db }) {
         .update({ status, decided_by: auth.userId, decided_at: now, rejection_reason: reason, updated_at: now });
       if (!moved) throw conflict("تم البت في هذا الطلب مسبقاً.");
       await trx("request_activities").insert({ request_id: id, actor_id: auth.userId, kind: activityKind, text: activityText, created_at: now });
+      await writeAudit(trx, {
+        organizationId: auth.organizationId, actorId: auth.userId, action: `request.${status}`, entityType: "request", entityId: id,
+        meta: { project_id: current.project_id, requester_id: current.requester_id, ...(reason ? { reason } : {}) },
+      });
     });
     return id;
   }

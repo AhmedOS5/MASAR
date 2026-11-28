@@ -405,6 +405,21 @@ export function createAuthService(app) {
   const logout = (tokenId) => db("auth_tokens").where({ id: tokenId }).del();
 
   /**
+   * "Sign out everywhere": ends EVERY session of the user, the one making the request included, and leaves an audit row.
+   * Returns how many sessions were ended.
+   */
+  async function logoutAll(auth) {
+    return db.transaction(async (trx) => {
+      const ended = await trx("auth_tokens").where({ user_id: auth.userId }).del();
+      // platform operators belong to no organization: there is no tenant to write the audit row under
+      if (auth.organizationId) {
+        await writeAudit(trx, { organizationId: auth.organizationId, actorId: auth.userId, action: "auth.logout_all", entityType: "user", entityId: auth.userId, meta: { sessions_ended: ended } });
+      }
+      return ended;
+    });
+  }
+
+  /**
    * A signed-in user changes their own password. The current password must be right (wrong guesses are throttled per user:
    * MAX_FAILED_LOGINS per 15 minutes, so a stolen session cannot be used to guess it). One transaction: new hash, every OTHER
    * session of the user ended (the one making the request stays), an audit row. The owner is told by e-mail.
@@ -433,5 +448,5 @@ export function createAuthService(app) {
     return { changed: true, message: "تم تغيير كلمة المرور وإنهاء جلساتك الأخرى." };
   }
 
-  return { register, resend, verifyEmail, setPassword, forgotPassword, resetPassword, changePassword, login, logout, sendVerificationCode, sendInvite };
+  return { register, resend, verifyEmail, setPassword, forgotPassword, resetPassword, changePassword, login, logout, logoutAll, sendVerificationCode, sendInvite };
 }

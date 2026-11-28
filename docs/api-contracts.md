@@ -90,6 +90,7 @@ is correct; for a blocked organization the body also has `organization_status: "
 |---|---|
 | `GET /auth/me` | `{ user: { id, name, email, role, onboarding_status, is_system_admin, is_platform_admin, permissions[] }, organization: { id, name, type, email, phone } \| null }` (organization is `null` for platform operators) |
 | `POST /logout` | `200 { ok: true }`; revokes only the presented token (works with a JSON content-type and an empty body) |
+| `POST /auth/logout-all` | `200 { ok: true, sessions_ended }`; revokes **every** session of the user, the presenting one included (any signed-in account, platform operators too); audit `auth.logout_all`; 20 per IP per 10 minutes |
 | `POST /organization/o` | System admin of an `incomplete` organization only. Required: `registration_number, country, phone (≥ 8), email (not free-mail), contact_person_name`. Optional: `organization_name`/`organization_type` (**ignored** – locked), `address, sectors[] (strings, ≤ 30), organization_size, years_of_experience, notes` (the former `volunteers_count` is **no longer stored or returned** — volunteer management is out of scope; an older client that still sends it is not rejected, the value is ignored). → `201 { ok, onboarding_status: "pending_approval", message }`; second submit `409` |
 | `POST /organization/documents` *(multipart `documents[]`)* | PDF/PNG/JPEG (checked by content), ≤ 5 MB each → `201 { stored: n }`. Allowed while `incomplete`/`pending_approval` |
 

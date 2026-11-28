@@ -95,11 +95,11 @@ Done: the AI assistant was removed (issue 12), volunteers removed everywhere (is
 
 **Should do**
 7. CI: run `npm test` (in `frontend/`), `cd backend && npm test` (Node 22+) and the e2e jobs in `.github/workflows/*.yml` (they currently run lint + build of `frontend/` on Node 20). **Vercel:** set the project's *Root Directory* to `frontend` (the staging workflow runs the Vercel CLI from the repo root).
-8. Token refresh / "log out everywhere"; shared store for the per-identity rate limits when running several backend instances.
+8. ~~"Log out everywhere"~~ — done on `design/ui-completion` (`POST /auth/logout-all`, a panel on «حسابي»). Token refresh is still open (tokens are server-side and revocable, so it is optional); shared store for the per-identity rate limits when running several backend instances.
 9. Security headers (CSP, frame-ancestors, referrer-policy) in `next.config.mjs`.
 10. ~~Decide on separation of duties for request approval~~ — **done** (issue 33): nobody decides a request they submitted.
 11. MEAL report as a real **PDF** (today an HTML document). ~~Delete endpoints for files/reports/attachments/folders~~ — **done** on the `design/ui-completion` branch (`DELETE /files/{id}`, `/files/folders/{id}`, `/reports/{id}`, `/requests|tasks/{id}/attachments/{aid}`; confirmation dialog in the UI; audited) — pending the CI run.
-12. Accessibility audit (labels are fixed on new forms; landing page and some icon buttons not audited); keyboard/focus handling in modals.
+12. Audit trail now also covers file/folder/report/attachment deletion, request decisions, role changes and sign-out-everywhere (tasks and the rest still open). Accessibility audit (labels are fixed on new forms; landing page and some icon buttons not audited); keyboard/focus handling in modals.
 13. Cross-browser (Firefox/Safari) and mobile QA; performance budget (Lighthouse) — not measured.
 14. ~~Remove unused dependency `react-icons`~~ — done on `design/ui-completion`; consider TypeScript + zod schemas mirroring the API.
 

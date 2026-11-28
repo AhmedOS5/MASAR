@@ -276,6 +276,20 @@ describe("roles and permissions", () => {
     expect(data[0].permissions[0]).toEqual({ key: "requests.view", label: expect.any(String) });
   });
 
+  it("role changes are audited (who, which role, which permissions)", async () => {
+    app = await testApp();
+    const admin = await signedInAdmin(app);
+    const id = (await send("POST", "/roles", { title: "مدقق", permissions: ["tasks.view"] }, admin.headers)).json().data.id;
+    expect((await send("PUT", `/roles/${id}`, { title: "مدقق أول", permissions: ["tasks.view", "reports.view"] }, admin.headers)).statusCode).toBe(200);
+    const rows = await app.db("audit_logs").where({ entity_type: "role", entity_id: id }).orderBy("id");
+    expect(rows.map((r) => r.action)).toEqual(["role.created", "role.updated"]);
+    expect(rows.every((r) => r.actor_id === admin.userId && r.organization_id === admin.organizationId)).toBe(true);
+    const meta = rows.map((r) => (typeof r.meta === "string" ? JSON.parse(r.meta) : r.meta));
+    expect(meta[0]).toMatchObject({ title: "مدقق", permissions: ["tasks.view"] });
+    expect(meta[1].title).toBe("مدقق أول");
+    expect([...meta[1].permissions].sort()).toEqual(["reports.view", "tasks.view"]);
+  });
+
   it("creates a role (permissions de-duplicated, ordered by the catalog) and counts its users", async () => {
     app = await testApp();
     const admin = await signedInAdmin(app);

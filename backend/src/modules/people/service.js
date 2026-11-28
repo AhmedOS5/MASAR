@@ -8,6 +8,7 @@
 import { ValidationError, conflict, forbidden, notFound } from "../../lib/errors.js";
 import { applySearch, hasFilter, listOf, pageParams, paginate } from "../../lib/pagination.js";
 import { bool, iso, nowIso } from "../../lib/time.js";
+import { writeAudit } from "../../lib/audit.js";
 import { PERMISSIONS, PERMISSION_KEYS } from "../auth/permissions.js";
 import { categoryForTitle, defaultRoleFor, publicCatalog } from "./job-roles.js";
 
@@ -86,6 +87,10 @@ export function createPeopleService({ db, authService, limiter, config }) {
       id = await db.transaction(async (trx) => {
         const [{ id: roleId }] = await trx("roles").insert({ organization_id: auth.organizationId, title: input.title, is_system_admin: false }, ["id"]);
         if (set.size) await trx("role_permissions").insert([...set].map((permission_key) => ({ role_id: roleId, permission_key })));
+        await writeAudit(trx, {
+          organizationId: auth.organizationId, actorId: auth.userId, action: "role.created", entityType: "role", entityId: roleId,
+          meta: { title: input.title, permissions: [...set] },
+        });
         return roleId;
       });
     } catch (err) {
@@ -114,6 +119,10 @@ export function createPeopleService({ db, authService, limiter, config }) {
           await trx("role_permissions").where({ role_id: id }).del();
           if (newSet.size) await trx("role_permissions").insert([...newSet].map((permission_key) => ({ role_id: id, permission_key })));
         }
+        await writeAudit(trx, {
+          organizationId: auth.organizationId, actorId: auth.userId, action: "role.updated", entityType: "role", entityId: id,
+          meta: { title: title ?? role.title, ...(newSet ? { permissions: [...newSet] } : {}) },
+        });
       });
     } catch (err) {
       if (isUnique(err)) throw duplicateTitle();

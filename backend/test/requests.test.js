@@ -187,6 +187,24 @@ describe("GET /requests/:id", () => {
 });
 
 describe("approve / reject", () => {
+  it("each decision leaves an audit row (who decided, on which request, with the rejection reason)", async () => {
+    app = await testApp();
+    const { requester, approver } = await team();
+    const a = await create(requester);
+    const b = await create(requester);
+    expect((await send("POST", `/requests/${a.id}/approve`, {}, approver.headers)).statusCode).toBe(200);
+    expect((await send("POST", `/requests/${b.id}/reject`, { reason: "ميزانية غير كافية" }, approver.headers)).statusCode).toBe(200);
+    expect((await send("POST", `/requests/${a.id}/approve`, {}, approver.headers)).statusCode).toBe(409); // a refused decision writes nothing
+    const rows = await app.db("audit_logs").where({ entity_type: "request" }).orderBy("id");
+    expect(rows.map((r) => [r.action, r.entity_id, r.actor_id])).toEqual([
+      ["request.approved", a.id, approver.userId],
+      ["request.rejected", b.id, approver.userId],
+    ]);
+    const meta = rows.map((r) => (typeof r.meta === "string" ? JSON.parse(r.meta) : r.meta));
+    expect(meta[0]).toMatchObject({ project_id: pid, requester_id: requester.userId });
+    expect(meta[1]).toMatchObject({ reason: "ميزانية غير كافية" });
+  });
+
   it("approve: status, activity, requester notified; a second decision is 409", async () => {
     app = await testApp();
     const { requester, approver } = await team();

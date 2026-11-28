@@ -2,12 +2,14 @@
 
 import React, { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { KeyRound, UserCircle } from "lucide-react";
+import { KeyRound, LogOut, UserCircle } from "lucide-react";
 import { Field, Input } from "@/components/ui/Form";
 import { PasswordChecklist, checkPassword } from "@/components/auth/fields";
 import ui from "@/components/ui/ui.module.css";
 import useSession from "@/hooks/useSession";
-import { changePassword } from "@/services/auth.service";
+import ConfirmDialog from "@/components/ui/ConfirmDialog";
+import useLogout from "@/hooks/useLogout";
+import { changePassword, logoutEverywhere } from "@/services/auth.service";
 import { useToast } from "@/components/Toast/ToastProvider";
 import dashboardStyles from "../dashboard.module.css";
 import PageHeader from "@/components/ui/PageHeader";
@@ -89,6 +91,43 @@ function PasswordForm() {
   );
 }
 
+/** "Sign out of all devices": ends every session of this account (a lost phone, a shared computer), then signs this one out too. */
+function SessionsPanel() {
+  const [open, setOpen] = useState(false);
+  const signOut = useLogout();
+  const end = useMutation({
+    mutationFn: logoutEverywhere,
+    onSuccess: () => signOut(),
+    onSettled: () => setOpen(false),
+  });
+
+  return (
+    <section className={styles.panel}>
+      <h2 className={styles.panelTitle}>
+        <LogOut size={18} aria-hidden="true" /> الجلسات
+      </h2>
+      <p className={styles.note}>
+        إن فقدت جهازاً أو استخدمت حاسوباً مشتركاً، أنهِ كل جلساتك المفتوحة. ستحتاج إلى تسجيل الدخول من جديد على كل جهاز، ومنها هذا الجهاز.
+      </p>
+      <div className={ui.actions}>
+        <button type="button" className={ui.secondaryBtn} onClick={() => setOpen(true)}>
+          تسجيل الخروج من كل الأجهزة
+        </button>
+      </div>
+      <ConfirmDialog
+        open={open}
+        title="تسجيل الخروج من كل الأجهزة"
+        message="ستنتهي جلساتك على كل الأجهزة، بما فيها هذا الجهاز، وتحتاج إلى تسجيل الدخول من جديد."
+        confirmLabel="تسجيل الخروج من الكل"
+        tone="primary"
+        busy={end.isPending}
+        onConfirm={() => end.mutate()}
+        onClose={() => setOpen(false)}
+      />
+    </section>
+  );
+}
+
 export default function AccountPage() {
   const { user, organizationName } = useSession();
 
@@ -105,6 +144,7 @@ export default function AccountPage() {
         }
       />
       <PasswordForm />
+      <SessionsPanel />
     </main>
   );
 }

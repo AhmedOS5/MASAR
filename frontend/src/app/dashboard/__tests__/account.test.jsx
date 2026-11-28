@@ -2,7 +2,7 @@
 // "My account": every signed-in user can change their own password (no permission needed).
 import React from "react";
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { screen, waitFor } from "@testing-library/react";
+import { screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { json, mockFetch } from "@/test/helpers";
 import { renderWithProviders } from "@/test/render";
@@ -82,5 +82,21 @@ describe("account page", () => {
     await fill(user);
     await user.click(submit());
     expect(await screen.findByText("محاولات كثيرة، حاول لاحقاً.")).toBeInTheDocument();
+  });
+
+  it("signs out of every device only after confirmation, then clears this browser's cookie", async () => {
+    const m = mockFetch({
+      "GET /api/auth/session": SESSION,
+      "POST /api/auth/logout-all": { ok: true, sessions_ended: 3 },
+      "POST /api/auth/logout": { ok: true },
+    });
+    renderWithProviders(<AccountPage />);
+    const user = userEvent.setup();
+    await user.click(await screen.findByRole("button", { name: "تسجيل الخروج من كل الأجهزة" }));
+    expect(m.calls.some((c) => c.path === "/api/auth/logout-all")).toBe(false); // nothing is sent before the confirmation
+    const dialog = await screen.findByRole("dialog");
+    await user.click(within(dialog).getByRole("button", { name: "تسجيل الخروج من الكل" }));
+    await waitFor(() => expect(m.calls.filter((c) => c.path === "/api/auth/logout-all")).toHaveLength(1));
+    await waitFor(() => expect(m.calls.filter((c) => c.path === "/api/auth/logout")).toHaveLength(1));
   });
 });

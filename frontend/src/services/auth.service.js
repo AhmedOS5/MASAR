@@ -6,6 +6,9 @@ export const loginAdmin = ({ email, password, remember = false }) =>
 
 export const logout = () => post("/auth/logout", undefined, { auth: false });
 
+/** Ends EVERY session of the signed-in user, this one included -> { ok: true, sessions_ended }. The caller then clears the local cookie (useLogout). */
+export const logoutEverywhere = () => post("/auth/logout-all", {});
+
 /** { user, organization, onboarding_status } */
 export const getSession = () => get("/auth/session");
 
